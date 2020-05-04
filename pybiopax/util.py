@@ -31,6 +31,8 @@ class Provenance(UtilityClass):
 
 
 class EntityFeature(UtilityClass):
+    list_types = ['evidence']
+
     def __init__(self,
                  evidence=None,
                  owner_entity_reference=None,
@@ -69,14 +71,14 @@ class BindingFeature(EntityFeature):
                  binds_to=None,
                  intramolecular=None,
                  **kwargs):
-        super().__int__(**kwargs)
+        super().__init__(**kwargs)
         self.binds_to = binds_to
         self.intramolecular = intramolecular
 
 
 class KPrime(UtilityClass):
     def __init__(self, k_prime, **kwargs):
-        super().__int__(**kwargs)
+        super().__init__(**kwargs)
         self.k_prime = k_prime
 
 
@@ -102,7 +104,7 @@ class ExperimentalForm(UtilityClass):
                  experimental_form_description=None,
                  experimental_feature=None,
                  **kwargs):
-        super().__int__(**kwargs)
+        super().__init__(**kwargs)
         self.experimental_form_entity = experimental_form_entity
         self.experimental_form_description = experimental_form_description
         self.experimental_form_feature = experimental_feature
@@ -112,7 +114,7 @@ class SequenceLocation(UtilityClass):
     def __init__(self,
                  region_type=None,
                  **kwargs):
-        super().__int__(**kwargs)
+        super().__init__(**kwargs)
         self.region_type = region_type
 
 
@@ -137,6 +139,8 @@ class SequenceSite(SequenceLocation):
 
 
 class PathwayStep(UtilityClass):
+    list_types = ['evidence']
+
     def __init__(self,
                  step_process=None,
                  next_step=None,
@@ -201,6 +205,8 @@ class Score(UtilityClass):
 
 
 class EntityReference(UtilityClass):
+    list_types = ['evidence', 'entity_feature']
+
     def __init__(self,
                  entity_feature=None,
                  entity_reference_of=None,

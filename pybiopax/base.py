@@ -21,7 +21,9 @@ def get_datatype(attrib):
 
 
 def get_resource(attrib):
-    return attrib.get(nselem('rdf', 'resource'))
+    res = attrib.get(nselem('rdf', 'resource'))
+    if res and res.startswith('#'):
+        return res[1:]
 
 
 def is_datatype(attrib, datatype):
@@ -60,6 +62,8 @@ class Unresolved():
 
 
 class BioPaxObject:
+    list_types = ['xref']
+
     def __init__(self, name=None, comment=None, xref=None):
         # TODO: is name in the right place here?
         self.name = name
@@ -70,17 +74,25 @@ class BioPaxObject:
     @classmethod
     def from_xml(cls, element):
         kwargs = {}
+        for key in cls.list_types:
+            kwargs[key] = []
         for child in element.getchildren():
             key = get_attr_tag(child)
             if is_datatype(child.attrib, nssuffix('xsd', 'string')):
-                kwargs[key] = child.text
+                val_to_add = child.text
             else:
                 res = get_resource(child.attrib)
-                kwargs[key] = Unresolved(res)
+                val_to_add = Unresolved(res)
+            if key in cls.list_types:
+                kwargs[key].append(val_to_add)
+            else:
+                kwargs[key] = val_to_add
         return cls(**kwargs)
 
 
 class Entity(BioPaxObject):
+    list_types = ['evidence']
+
     def __init__(self,
                  standard_name=None,
                  display_name=None,
@@ -107,3 +119,19 @@ class Gene(Entity):
 
 class Pathway(Entity):
     pass
+
+
+
+"""
+Counter({#'participant_stoichiometry': 609,
+         #'component_stoichiometry': 1176,
+         #'component': 1226,
+         #'entity_feature': 4952,
+         #'xref': 45216,
+         #'left': 358,
+         'member_entity_reference': 136,
+         #'right': 136,
+         #'feature': 1553,
+         #'member_physical_entity': 739,
+         'evidence': 1262})
+"""

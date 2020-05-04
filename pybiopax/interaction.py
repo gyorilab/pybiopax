@@ -38,6 +38,8 @@ class Control(Interaction):
 
 
 class Conversion(Interaction):
+    list_types = ['left', 'right', 'participant_stoichiometry']
+
     def __init__(self,
                  left=None,
                  right=None,
@@ -68,10 +70,6 @@ class TemplateReactionRegulation(Control):
 
 
 class Modulation(Control):
-    pass
-
-
-class Conversion(Interaction):
     pass
 
 

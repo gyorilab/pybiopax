@@ -2,6 +2,8 @@ from .base import Entity
 
 
 class PhysicalEntity(Entity):
+    list_types = ['feature', 'not_feature', 'member_physical_entity']
+
     def __init__(self,
                  feature=None,
                  not_feature=None,
@@ -32,6 +34,8 @@ class Rna(PhysicalEntity):
 
 
 class Complex(PhysicalEntity):
+    list_types = ['component', 'component_stoichiometry']
+
     def __init__(self,
                  component=None,
                  component_stoichiometry=None,
