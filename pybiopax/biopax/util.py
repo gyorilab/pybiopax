@@ -1,3 +1,19 @@
+__all__ = ['UtilityClass', 'Evidence', 'Provenance',
+           'EntityFeature', 'ModificationFeature', 'FragmentFeature',
+           'BindingFeature', 'KPrime', 'BioSource',
+           'ExperimentalForm', 'SequenceLocation', 'SequenceInterval',
+           'SequenceSite', 'PathwayStep', 'Xref', 'PublicationXref',
+           'UnificationXref', 'RelationshipXref', 'EntityReference',
+           'ProteinReference', 'RnaReference', 'DnaReference',
+           'SmallMoleculeReference', 'RnaRegionReference',
+           'DnaRegionReference', 'SequenceEntityReference',
+           'ChemicalStructure', 'Stoichiometry', 'ControlledVocabulary',
+           'CellularLocationVocabulary', 'EntityReferenceTypeVocabulary',
+           'EvidenceCodeVocabulary', 'ExperimentalFormVocabulary',
+           'InteractionVocabulary', 'PhenotypeVocabulary',
+           'RelationshipTypeVocabulary', 'SequenceModificationVocabulary',
+           'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary']
+
 from .base import BioPaxObject
 
 

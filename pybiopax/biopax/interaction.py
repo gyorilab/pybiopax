@@ -1,3 +1,10 @@
+__all__ = ['Process', 'Interaction', 'GeneticInteraction',
+           'MolecularInteraction', 'TemplateReaction',
+           'Control', 'Conversion', 'Catalysis',
+           'TemplateReactionRegulation', 'Modulation',
+           'ComplexAssembly', 'BiochemicalReaction',
+           'Degradation', 'Transport', 'TransportWithBiochemicalReaction']
+
 from .base import Entity
 
 

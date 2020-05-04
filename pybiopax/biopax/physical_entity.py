@@ -1,3 +1,6 @@
+__all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
+           'SmallMolecule', 'Rna', 'Complex', 'Dna']
+
 from .base import Entity
 
 

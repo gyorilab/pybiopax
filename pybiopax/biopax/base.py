@@ -1,3 +1,4 @@
+__all__ = ['BioPaxObject', 'Entity', 'Pathway', 'Gene']
 import re
 
 namespaces = {

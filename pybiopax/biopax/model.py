@@ -1,8 +1,6 @@
-import re
-from .base import *
-from .interaction import *
-from .physical_entity import *
-from .util import *
+__all__ = ['Model']
+
+from . import *
 
 
 class Model:

@@ -18,7 +18,6 @@ with open(path.join(here, 'pybiopax', '__init__.py'), 'r') as fh:
         raise ValueError('Could not get version from pybiopax/__init__.py')
 
 
-
 setup(name='pybiopax',
       version=version,
       description=('A Python implementation of the BioPAX object model, '
