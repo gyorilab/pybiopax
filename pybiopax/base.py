@@ -64,7 +64,8 @@ class Unresolved():
 class BioPaxObject:
     list_types = ['xref']
 
-    def __init__(self, name=None, comment=None, xref=None):
+    def __init__(self, uid, name=None, comment=None, xref=None):
+        self.uid = uid
         # TODO: is name in the right place here?
         self.name = name
         self.comment = comment
@@ -73,7 +74,8 @@ class BioPaxObject:
 
     @classmethod
     def from_xml(cls, element):
-        kwargs = {}
+        uid = get_id_or_about(element)
+        kwargs = {'uid': uid}
         for key in cls.list_types:
             kwargs[key] = []
         for child in element.getchildren():
@@ -102,6 +104,7 @@ class Entity(BioPaxObject):
                  data_source=None,
                  evidence=None,
                  **kwargs):
+        super().__init__(**kwargs)
         self.standard_name = standard_name
         self.display_name = display_name
         self.all_names = all_names

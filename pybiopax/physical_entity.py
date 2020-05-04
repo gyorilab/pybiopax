@@ -11,6 +11,7 @@ class PhysicalEntity(Entity):
                  component_of=None,
                  member_physical_entity_of=None,
                  member_physical_entity=None,
+                 cellular_location=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.feature = feature
@@ -19,17 +20,26 @@ class PhysicalEntity(Entity):
         self.component_of = component_of
         self.member_physical_entity_of = member_physical_entity_of
         self.member_physical_entity = member_physical_entity
+        self.cellular_location = cellular_location
 
 
-class Protein(PhysicalEntity):
+class SimplePhysicalEntity(PhysicalEntity):
+    def __init__(self,
+                 entity_reference=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.entity_reference = entity_reference
+
+
+class Protein(SimplePhysicalEntity):
     pass
 
 
-class SmallMolecule(PhysicalEntity):
+class SmallMolecule(SimplePhysicalEntity):
     pass
 
 
-class Rna(PhysicalEntity):
+class Rna(SimplePhysicalEntity):
     pass
 
 
@@ -45,5 +55,5 @@ class Complex(PhysicalEntity):
         self.component_stoichiometry = component_stoichiometry
 
 
-class Dna(PhysicalEntity):
+class Dna(SimplePhysicalEntity):
     pass
