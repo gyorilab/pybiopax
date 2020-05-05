@@ -1,6 +1,7 @@
 __all__ = ['Model']
 
-from . import *
+from .base import *
+from ..xml_util import has_ns, get_id_or_about, get_tag
 
 
 class Model:
