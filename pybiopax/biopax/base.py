@@ -40,8 +40,6 @@ class BioPaxObject:
 
     def to_xml(self):
         emaker(self.__class__.__name__)
-        return etree.tostring(self.sbgn, pretty_print=True,
-                              encoding='utf-8', xml_declaration=True)
 
 
 class Entity(BioPaxObject):
