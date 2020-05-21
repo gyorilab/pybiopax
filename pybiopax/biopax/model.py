@@ -1,7 +1,7 @@
 __all__ = ['BioPaxModel']
 
-from .base import *
-from ..xml_util import has_ns, get_id_or_about, get_tag
+from . import *
+from ..xml_util import has_ns, get_id_or_about, get_tag, wrap_xml_elements
 
 
 class BioPaxModel:
@@ -35,6 +35,10 @@ class BioPaxModel:
                 setattr(obj, attr, resolved_val)
 
         return cls(objects)
+
+    def to_xml(self):
+        elements = [obj.to_xml() for obj in self.objects.values()]
+        return wrap_xml_elements(elements)
 
 
 def resolve_value(objects, val):

@@ -3,6 +3,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file']
 
 from xml.etree import ElementTree as ET
 from .biopax.model import BioPaxModel
+from .xml_util import xml_to_str, xml_to_file
 
 
 def model_from_owl_str(owl_str):
@@ -36,4 +37,12 @@ def model_from_owl_file(fname):
     """
     with open(fname, 'r') as fh:
         owl_str = fh.read()
-        return model_from_owl_file(owl_str)
+        return model_from_owl_str(owl_str)
+
+
+def model_to_owl_str(model):
+    return xml_to_str(model.to_xml())
+
+
+def model_to_owl_file(model, fname):
+    xml_to_file(model.to_xml(), fname)

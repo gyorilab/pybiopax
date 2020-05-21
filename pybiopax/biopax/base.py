@@ -39,7 +39,9 @@ class BioPaxObject:
         return cls(**kwargs)
 
     def to_xml(self):
-        emaker(self.__class__.__name__)
+        element = makers['bp'](self.__class__.__name__,
+                               **{nselem('rdf', 'ID'): self.uid})
+        return element
 
 
 class Entity(BioPaxObject):
