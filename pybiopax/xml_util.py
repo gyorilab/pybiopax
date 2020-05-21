@@ -1,4 +1,6 @@
 import re
+import lxml.builder
+
 
 namespaces = {
     'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
@@ -6,6 +8,8 @@ namespaces = {
     'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'bp': 'http://www.biopax.org/release/biopax-level3.owl#'
 }
+
+emaker = lxml.builder.ElementMaker(nsmap=namespaces)
 
 
 def nselem(ns, elem):

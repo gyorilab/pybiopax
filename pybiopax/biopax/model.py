@@ -1,10 +1,10 @@
-__all__ = ['Model']
+__all__ = ['BioPaxModel']
 
 from .base import *
 from ..xml_util import has_ns, get_id_or_about, get_tag
 
 
-class Model:
+class BioPaxModel:
     def __init__(self, objects):
         self.objects = objects
 

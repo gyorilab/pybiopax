@@ -2,7 +2,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file']
 
 
 from xml.etree import ElementTree as ET
-from .biopax import Model
+from .biopax.model import BioPaxModel
 
 
 def model_from_owl_str(owl_str):
@@ -15,10 +15,10 @@ def model_from_owl_str(owl_str):
 
     Returns
     -------
-    pybiopax.biopax.Model
+    pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL string.
     """
-    return Model.from_xml(ET.fromstring(owl_str))
+    return BioPaxModel.from_xml(ET.fromstring(owl_str))
 
 
 def model_from_owl_file(fname):
@@ -31,7 +31,7 @@ def model_from_owl_file(fname):
 
     Returns
     -------
-    pybiopax.biopax.Model
+    pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL file.
     """
     with open(fname, 'r') as fh:
