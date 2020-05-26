@@ -47,7 +47,7 @@ class Provenance(UtilityClass):
 
 
 class EntityFeature(UtilityClass):
-    list_types = ['evidence']
+    list_types = UtilityClass.list_types + ['evidence']
 
     def __init__(self,
                  evidence=None,
@@ -157,7 +157,7 @@ class SequenceSite(SequenceLocation):
 
 
 class PathwayStep(UtilityClass):
-    list_types = ['evidence']
+    list_types = UtilityClass.list_types + ['evidence']
 
     def __init__(self,
                  step_process=None,
@@ -225,7 +225,7 @@ class Score(UtilityClass):
 
 
 class EntityReference(UtilityClass):
-    list_types = ['evidence', 'entity_feature']
+    list_types = UtilityClass.list_types + ['evidence', 'entity_feature']
 
     def __init__(self,
                  entity_feature=None,

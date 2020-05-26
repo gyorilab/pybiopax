@@ -5,7 +5,8 @@ from .base import Entity
 
 
 class PhysicalEntity(Entity):
-    list_types = ['feature', 'not_feature', 'member_physical_entity']
+    list_types = Entity.list_types + \
+        ['feature', 'not_feature', 'member_physical_entity']
 
     def __init__(self,
                  feature=None,
@@ -47,7 +48,8 @@ class Rna(SimplePhysicalEntity):
 
 
 class Complex(PhysicalEntity):
-    list_types = ['component', 'component_stoichiometry']
+    list_types = PhysicalEntity.list_types + \
+        ['component', 'component_stoichiometry']
 
     def __init__(self,
                  component=None,

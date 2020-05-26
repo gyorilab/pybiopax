@@ -43,7 +43,7 @@ class TemplateReaction(Interaction):
 
 
 class Control(Interaction):
-    list_types = ['controller']
+    list_types = Interaction.list_types + ['controller']
 
     def __init__(self,
                  control_type=None,
@@ -65,7 +65,8 @@ class Control(Interaction):
 
 
 class Conversion(Interaction):
-    list_types = ['left', 'right', 'participant_stoichiometry']
+    list_types = Interaction.list_types + \
+        ['left', 'right', 'participant_stoichiometry']
 
     def __init__(self,
                  left=None,

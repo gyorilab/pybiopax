@@ -45,30 +45,44 @@ class BioPaxObject:
         id_type = 'about' if self.uid.startswith('http://') else 'ID'
         element = makers['bp'](self.__class__.__name__,
                                **{nselem('rdf', id_type): self.uid})
-        for attr in [a for a in dir(self) if not a.startswith('__')]:
-            if attr == 'uid':
-                continue
+        for attr in [a for a in dir(self)
+                     if not a.startswith('_')
+                     and a not in {'list_types', 'xml_types',
+                                   'to_xml', 'from_xml', 'uid'}]:
             val = getattr(self, attr)
-            if isinstance(val, BioPaxObject):
-                child_elem = makers['bp'](
-                    snake_to_camel(attr),
-                    **{nselem('rdf', 'resource'): ('#%s' % val.uid)}
-                )
-                element.append(child_elem)
-            elif isinstance(val, str):
-                xml_type = self.xml_types.get(attr, 'string')
-                child_elem = makers['bp'](
-                    snake_to_camel(attr),
-                    val,
-                    **{nselem('rdf', 'resource'): nssuffix('xsd', xml_type)}
-                )
-                element.append(child_elem)
-
+            if val is None:
+                continue
+            if isinstance(val, list):
+                for v in val:
+                    child_elem = self._simple_to_xml(attr, v)
+                    if child_elem is not None:
+                        element.append(child_elem)
+            else:
+                child_elem = self._simple_to_xml(attr, val)
+                if child_elem is not None:
+                    element.append(child_elem)
         return element
+
+    def _simple_to_xml(self, attr, val):
+        if isinstance(val, BioPaxObject):
+            child_elem = makers['bp'](
+                snake_to_camel(attr),
+                **{nselem('rdf', 'resource'): ('#%s' % val.uid)}
+            )
+            return child_elem
+        elif isinstance(val, str):
+            xml_type = self.xml_types.get(attr, 'string')
+            child_elem = makers['bp'](
+                snake_to_camel(attr),
+                val,
+                **{nselem('rdf', 'datatype'): nssuffix('xsd', xml_type)}
+            )
+            return child_elem
+        return None
 
 
 class Entity(BioPaxObject):
-    list_types = ['evidence']
+    list_types = BioPaxObject.list_types + ['evidence']
 
     def __init__(self,
                  standard_name=None,
