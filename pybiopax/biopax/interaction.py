@@ -51,16 +51,8 @@ class Control(Interaction):
                  controlled=None,
                  **kwargs):
         super().__init__(**kwargs)
-        from .physical_entity import PhysicalEntity
-        from .base import Pathway
         self.control_type = control_type
-        self.pathway_controller = []
-        self.pe_controller = []
-        for contr in controller if controller else []:
-            if isinstance(contr, Pathway):
-                self.pathway_controller.append(contr)
-            elif isinstance(contr, PhysicalEntity):
-                self.pe_controller.append(contr)
+        self.controller = controller
         self.controlled = controlled
 
 
