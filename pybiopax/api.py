@@ -1,4 +1,5 @@
-__all__ = ['model_from_owl_str', 'model_from_owl_file']
+__all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
+           'model_to_owl_file']
 
 
 from xml.etree import ElementTree as ET
