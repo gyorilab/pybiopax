@@ -316,6 +316,8 @@ class Stoichiometry(UtilityClass):
 
 
 class ControlledVocabulary(UtilityClass):
+    list_types = UtilityClass.list_types + ['term']
+
     def __init__(self, term=None, **kwargs):
         super().__init__(**kwargs)
         self.term = term

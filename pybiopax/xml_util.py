@@ -39,7 +39,11 @@ def wrap_xml_elements(elements):
 def xml_to_str(xml):
     xmlb = etree.tostring(xml, pretty_print=True,
                           encoding='utf-8', xml_declaration=True)
-    return xmlb.decode('utf-8')
+    xmls = xmlb.decode('utf-8')
+    xmls = '\n'.join([re.sub(r'^  <bp', '\n<bp', x) for x in xmls.split('\n')])
+    xmls = '\n'.join([re.sub(r'^  </bp', '</bp', x) for x in xmls.split('\n')])
+    xmls = '\n'.join([re.sub(r'^    <', ' <', x) for x in xmls.split('\n')])
+    return xmls
 
 
 def xml_to_file(xml, fname):
@@ -61,8 +65,15 @@ def get_datatype(attrib):
 
 def get_resource(attrib):
     res = attrib.get(nselem('rdf', 'resource'))
-    if res and res.startswith('#'):
-        return res[1:]
+    if res:
+        if res.startswith('#'):
+            return res[1:]
+        else:
+            return res
+
+
+def is_url(txt):
+    return txt.startswith('http')
 
 
 def is_datatype(attrib, datatype):

@@ -9,7 +9,7 @@ class Unresolved:
 
 
 class BioPaxObject:
-    list_types = ['xref']
+    list_types = ['xref', 'comment']
     xml_types = {}
 
     def __init__(self, uid, name=None, comment=None, xref=None):
@@ -42,7 +42,7 @@ class BioPaxObject:
         return cls(**kwargs)
 
     def to_xml(self):
-        id_type = 'about' if self.uid.startswith('http://') else 'ID'
+        id_type = 'about' if is_url(self.uid) else 'ID'
         element = makers['bp'](self.__class__.__name__,
                                **{nselem('rdf', id_type): self.uid})
         for attr in [a for a in dir(self)
@@ -67,7 +67,8 @@ class BioPaxObject:
         if isinstance(val, BioPaxObject):
             child_elem = makers['bp'](
                 snake_to_camel(attr),
-                **{nselem('rdf', 'resource'): ('#%s' % val.uid)}
+                **{nselem('rdf', 'resource'):
+                    ('#%s' % val.uid) if not is_url(val.uid) else val.uid}
             )
             return child_elem
         elif isinstance(val, str):
