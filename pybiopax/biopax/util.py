@@ -145,6 +145,8 @@ class SequenceInterval(SequenceLocation):
 
 
 class SequenceSite(SequenceLocation):
+    xml_types = {'sequence_position': 'int'}
+
     def __init__(self,
                  position_status=None,
                  sequence_position=None,
@@ -189,6 +191,8 @@ class Xref(UtilityClass):
 
 
 class PublicationXref(Xref):
+    xml_types = {'year': 'int'}
+
     def __init__(self,
                  title=None,
                  url=None,
@@ -300,6 +304,8 @@ class ChemicalStructure(UtilityClass):
 
 
 class Stoichiometry(UtilityClass):
+    xml_types = {'stoichiometric_coefficient': 'float'}
+
     def __init__(self,
                  stoichiometric_coefficient=None,
                  physical_entity=None,

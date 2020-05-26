@@ -10,6 +10,7 @@ class Unresolved:
 
 class BioPaxObject:
     list_types = ['xref']
+    xml_types = {}
 
     def __init__(self, uid, name=None, comment=None, xref=None):
         self.uid = uid
@@ -27,7 +28,9 @@ class BioPaxObject:
             kwargs[key] = []
         for child in element.getchildren():
             key = get_attr_tag(child)
-            if is_datatype(child.attrib, nssuffix('xsd', 'string')):
+            if is_datatype(child.attrib, nssuffix('xsd', 'string')) \
+                    or is_datatype(child.attrib, nssuffix('xsd', 'int')) \
+                    or is_datatype(child.attrib, nssuffix('xsd', 'float')):
                 val_to_add = child.text
             else:
                 res = get_resource(child.attrib)
@@ -53,10 +56,11 @@ class BioPaxObject:
                 )
                 element.append(child_elem)
             elif isinstance(val, str):
+                xml_type = self.xml_types.get(attr, 'string')
                 child_elem = makers['bp'](
                     snake_to_camel(attr),
                     val,
-                    **{nselem('rdf', 'resource'): nssuffix('xsd', 'string')}
+                    **{nselem('rdf', 'resource'): nssuffix('xsd', xml_type)}
                 )
                 element.append(child_elem)
 
