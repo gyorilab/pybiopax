@@ -12,10 +12,6 @@ namespaces = {
 }
 
 
-emaker = ElementMaker(nsmap=namespaces)
-bpelem = ElementMaker(namespace=namespaces['bp'],
-                                   nsmap={'bp': namespaces['bp']})
-
 makers = {
     ns: ElementMaker(namespace=prefix)
     for ns, prefix in namespaces.items()
@@ -97,3 +93,8 @@ def has_ns(element, ns):
 
 def camel_to_snake(txt):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', txt).lower()
+
+
+def snake_to_camel(txt):
+    parts = txt.split('_')
+    return parts[0] + ''.join([p.capitalize() for p in parts[1:]])

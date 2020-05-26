@@ -39,8 +39,27 @@ class BioPaxObject:
         return cls(**kwargs)
 
     def to_xml(self):
+        id_type = 'about' if self.uid.startswith('http://') else 'ID'
         element = makers['bp'](self.__class__.__name__,
-                               **{nselem('rdf', 'ID'): self.uid})
+                               **{nselem('rdf', id_type): self.uid})
+        for attr in [a for a in dir(self) if not a.startswith('__')]:
+            if attr == 'uid':
+                continue
+            val = getattr(self, attr)
+            if isinstance(val, BioPaxObject):
+                child_elem = makers['bp'](
+                    snake_to_camel(attr),
+                    **{nselem('rdf', 'resource'): ('#%s' % val.uid)}
+                )
+                element.append(child_elem)
+            elif isinstance(val, str):
+                child_elem = makers['bp'](
+                    snake_to_camel(attr),
+                    val,
+                    **{nselem('rdf', 'resource'): nssuffix('xsd', 'string')}
+                )
+                element.append(child_elem)
+
         return element
 
 
