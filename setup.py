@@ -21,7 +21,7 @@ with open(path.join(here, 'pybiopax', '__init__.py'), 'r') as fh:
 setup(name='pybiopax',
       version=version,
       description=('A Python implementation of the BioPAX object model, '
-                   'and PaxTools.'),
+                   'and parts of PaxTools.'),
       long_description=long_description,
       long_description_content_type='text/markdown',
       url='https://github.com/indralab/pybiopax',
