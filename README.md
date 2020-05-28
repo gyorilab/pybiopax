@@ -1,5 +1,10 @@
 PyBioPAX: A python implementation of the BioPAX object model
 ------------------------------------------------------------
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![Build](https://travis-ci.org/indralab/pybiopax.svg)](https://travis-ci.org/indralab/pybiopax)
+[![Documentation](https://readthedocs.org/projects/pybiopax/badge/?version=latest)](https://pybiopax.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/pybiopax.svg)](https://badge.fury.io/py/pybiopax)
+[![Python 3](https://img.shields.io/pypi/pyversions/pybiopax.svg)](https://www.python.org/downloads/release/python-357/)
 
 PyBioPAX implements the BioPAX level 3 object model (
 http://www.biopax.org/release/biopax-level3-documentation.pdf) as a set of
