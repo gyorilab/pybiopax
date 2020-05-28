@@ -10,8 +10,7 @@ logger = logging.getLogger(__name__)
 pc2_url = 'http://www.pathwaycommons.org/pc2/'
 
 
-def graph_query(kind, source, target=None, limit=1,
-                **query_params):
+def graph_query(kind, source, target=None, **query_params):
     """Perform a graph query on PathwayCommons.
 
     For more information on these queries, see
