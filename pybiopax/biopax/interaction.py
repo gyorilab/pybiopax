@@ -9,6 +9,7 @@ from .base import Entity
 
 
 class Process(Entity):
+    """BioPAX Process."""
     def __init__(self,
                  controlled_of=None,
                  step_process_of=None,
@@ -21,6 +22,7 @@ class Process(Entity):
 
 
 class Interaction(Process):
+    """BioPAX Interaction."""
     def __init__(self,
                  participant=None,
                  interaction_type=None,
@@ -31,18 +33,22 @@ class Interaction(Process):
 
 
 class GeneticInteraction(Interaction):
+    """BioPAX GeneticInteraction."""
     pass
 
 
 class MolecularInteraction(Interaction):
+    """BioPAX MolecularInteraction."""
     pass
 
 
 class TemplateReaction(Interaction):
+    """BioPAX TemplateReaction."""
     pass
 
 
 class Control(Interaction):
+    """BioPAX Control."""
     list_types = Interaction.list_types + ['controller']
 
     def __init__(self,
@@ -57,6 +63,7 @@ class Control(Interaction):
 
 
 class Conversion(Interaction):
+    """BioPAX Conversion."""
     list_types = Interaction.list_types + \
         ['left', 'right', 'participant_stoichiometry']
 
@@ -76,6 +83,7 @@ class Conversion(Interaction):
 
 
 class Catalysis(Control):
+    """BioPAX Catalysis."""
     def __init__(self,
                  catalysis_direction=None,
                  cofactor=None,
@@ -86,18 +94,22 @@ class Catalysis(Control):
 
 
 class TemplateReactionRegulation(Control):
+    """BioPAX TemplateReactionRegulation."""
     pass
 
 
 class Modulation(Control):
+    """BioPAX Modulation."""
     pass
 
 
 class ComplexAssembly(Conversion):
+    """BioPAX ComplexAssembly."""
     pass
 
 
 class BiochemicalReaction(Conversion):
+    """BioPAX BiochemicalReaction."""
     def __init__(self,
                  delta_s=None,
                  delta_h=None,
@@ -114,14 +126,17 @@ class BiochemicalReaction(Conversion):
 
 
 class Degradation(Conversion):
+    """BioPAX Degradation."""
     pass
 
 
 class Transport(Conversion):
+    """BioPAX Transport."""
     pass
 
 
 class TransportWithBiochemicalReaction(Conversion):
+    """BioPAX TransportWithBiochemicalReaction."""
     pass
 
 

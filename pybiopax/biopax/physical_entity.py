@@ -5,6 +5,7 @@ from .base import Entity
 
 
 class PhysicalEntity(Entity):
+    """BioPAX PhysicalEntity."""
     list_types = Entity.list_types + \
         ['feature', 'not_feature', 'member_physical_entity']
 
@@ -28,6 +29,7 @@ class PhysicalEntity(Entity):
 
 
 class SimplePhysicalEntity(PhysicalEntity):
+    """BioPAX SimplePhysicalEntity."""
     def __init__(self,
                  entity_reference=None,
                  **kwargs):
@@ -36,18 +38,22 @@ class SimplePhysicalEntity(PhysicalEntity):
 
 
 class Protein(SimplePhysicalEntity):
+    """BioPAX Protein."""
     pass
 
 
 class SmallMolecule(SimplePhysicalEntity):
+    """BioPAX SmallMolecule."""
     pass
 
 
 class Rna(SimplePhysicalEntity):
+    """BioPAX Rna."""
     pass
 
 
 class Complex(PhysicalEntity):
+    """BioPAX Complex."""
     list_types = PhysicalEntity.list_types + \
         ['component', 'component_stoichiometry']
 
@@ -61,4 +67,5 @@ class Complex(PhysicalEntity):
 
 
 class Dna(SimplePhysicalEntity):
+    """BioPAX Dna."""
     pass

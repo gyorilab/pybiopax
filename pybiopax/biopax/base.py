@@ -9,6 +9,8 @@ class Unresolved:
 
 
 class BioPaxObject:
+    """Generic BioPAX Object. It is the parent class of all more specific
+    BioPAX classes."""
     list_types = ['xref', 'comment']
     xml_types = {}
 
@@ -83,6 +85,7 @@ class BioPaxObject:
 
 
 class Entity(BioPaxObject):
+    """BioPAX Entity."""
     list_types = BioPaxObject.list_types + \
         ['evidence', 'data_source']
 
@@ -106,26 +109,12 @@ class Entity(BioPaxObject):
 
 
 class Gene(Entity):
+    """BioPAX Gene"""
     def __init__(self, organism, **kwargs):
         super().__init__(**kwargs)
         self.organism = organism
 
 
 class Pathway(Entity):
+    """BioPAX Pathway."""
     pass
-
-
-
-"""
-Counter({#'participant_stoichiometry': 609,
-         #'component_stoichiometry': 1176,
-         #'component': 1226,
-         #'entity_feature': 4952,
-         #'xref': 45216,
-         #'left': 358,
-         'member_entity_reference': 136,
-         #'right': 136,
-         #'feature': 1553,
-         #'member_physical_entity': 739,
-         'evidence': 1262})
-"""

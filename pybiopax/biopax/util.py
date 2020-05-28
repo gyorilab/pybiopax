@@ -18,11 +18,13 @@ from .base import BioPaxObject
 
 
 class UtilityClass(BioPaxObject):
+    """BioPAX UtilityClass."""
     def __int__(self, **kwargs):
         super().__init__(**kwargs)
 
 
 class Evidence(UtilityClass):
+    """BioPAX Evidence."""
     def __init__(self,
                  confidence=None,
                  evidence_code=None,
@@ -35,6 +37,7 @@ class Evidence(UtilityClass):
 
 
 class Provenance(UtilityClass):
+    """BioPAX Provenance."""
     def __init__(self,
                  standard_name=None,
                  display_name=None,
@@ -47,6 +50,7 @@ class Provenance(UtilityClass):
 
 
 class EntityFeature(UtilityClass):
+    """BioPAX UtilityClass."""
     list_types = UtilityClass.list_types + ['evidence']
 
     def __init__(self,
@@ -71,6 +75,7 @@ class EntityFeature(UtilityClass):
 
 
 class ModificationFeature(EntityFeature):
+    """BioPAX ModificationFeature."""
     def __init__(self,
                  modification_type=None,
                  **kwargs):
@@ -79,10 +84,12 @@ class ModificationFeature(EntityFeature):
 
 
 class FragmentFeature(EntityFeature):
+    """BioPAX FragmentFeature."""
     pass
 
 
 class BindingFeature(EntityFeature):
+    """BioPAX BindingFeature."""
     def __init__(self,
                  binds_to=None,
                  intramolecular=None,
@@ -93,12 +100,14 @@ class BindingFeature(EntityFeature):
 
 
 class KPrime(UtilityClass):
+    """BioPAX KPrime."""
     def __init__(self, k_prime, **kwargs):
         super().__init__(**kwargs)
         self.k_prime = k_prime
 
 
 class BioSource(UtilityClass):
+    """BioPAX BioSource."""
     def __init__(self,
                  cell_type=None,
                  tissue=None,
@@ -115,6 +124,7 @@ class BioSource(UtilityClass):
 
 
 class ExperimentalForm(UtilityClass):
+    """BioPAX ExperimentalForm."""
     def __init__(self,
                  experimental_form_entity=None,
                  experimental_form_description=None,
@@ -127,6 +137,7 @@ class ExperimentalForm(UtilityClass):
 
 
 class SequenceLocation(UtilityClass):
+    """BioPAX SequenceLocation."""
     def __init__(self,
                  region_type=None,
                  **kwargs):
@@ -135,6 +146,7 @@ class SequenceLocation(UtilityClass):
 
 
 class SequenceInterval(SequenceLocation):
+    """BioPAX SequenceInterval."""
     def __init__(self,
                  sequence_interval_begin=None,
                  sequence_interval_end=None,
@@ -145,6 +157,7 @@ class SequenceInterval(SequenceLocation):
 
 
 class SequenceSite(SequenceLocation):
+    """BioPAX SequenceSite."""
     xml_types = {'sequence_position': 'int'}
 
     def __init__(self,
@@ -157,6 +170,7 @@ class SequenceSite(SequenceLocation):
 
 
 class PathwayStep(UtilityClass):
+    """BioPAX PathwayStep."""
     list_types = UtilityClass.list_types + ['evidence']
 
     def __init__(self,
@@ -175,6 +189,7 @@ class PathwayStep(UtilityClass):
 
 
 class Xref(UtilityClass):
+    """BioPAX Xref."""
     def __init__(self,
                  db=None,
                  id=None,
@@ -191,6 +206,7 @@ class Xref(UtilityClass):
 
 
 class PublicationXref(Xref):
+    """BioPAX PublicationXref."""
     xml_types = {'year': 'int'}
 
     def __init__(self,
@@ -209,10 +225,12 @@ class PublicationXref(Xref):
 
 
 class UnificationXref(Xref):
+    """BioPAX UnificationXref."""
     pass
 
 
 class RelationshipXref(Xref):
+    """BioPAX RelationshipXref."""
     def __init__(self,
                  relationship_type=None,
                  **kwargs):
@@ -221,10 +239,12 @@ class RelationshipXref(Xref):
 
 
 class Score(UtilityClass):
+    """BioPAX Score."""
     pass
 
 
 class EntityReference(UtilityClass):
+    """BioPAX EntityReference."""
     list_types = UtilityClass.list_types + \
         ['evidence', 'entity_feature', 'member_entity_reference']
 
@@ -255,6 +275,7 @@ class EntityReference(UtilityClass):
 
 
 class SequenceEntityReference(EntityReference):
+    """BioPAX SequenceEntityReference."""
     def __init__(self,
                  organism=None,
                  sequence=None,
@@ -265,18 +286,22 @@ class SequenceEntityReference(EntityReference):
 
 
 class RnaReference(EntityReference):
+    """BioPAX RnaReference."""
     pass
 
 
 class RnaRegionReference(EntityReference):
+    """BioPAX RnaRegionReference."""
     pass
 
 
 class ProteinReference(SequenceEntityReference):
+    """BioPAX ProteinReference."""
     pass
 
 
 class SmallMoleculeReference(EntityReference):
+    """BioPAX SmallMoleculeReference."""
     def __init__(self,
                  structure=None,
                  chemical_formula=None,
@@ -287,14 +312,17 @@ class SmallMoleculeReference(EntityReference):
 
 
 class DnaReference(EntityReference):
+    """BioPAX DnaReference."""
     pass
 
 
 class DnaRegionReference(EntityReference):
+    """BioPAX DnaRegionReference."""
     pass
 
 
 class ChemicalStructure(UtilityClass):
+    """BioPAX ChemicalStructure."""
     def __init__(self,
                  structure_format=None,
                  structure_data=None,
@@ -305,6 +333,7 @@ class ChemicalStructure(UtilityClass):
 
 
 class Stoichiometry(UtilityClass):
+    """BioPAX Stoichiometry."""
     xml_types = {'stoichiometric_coefficient': 'float'}
 
     def __init__(self,
@@ -317,6 +346,7 @@ class Stoichiometry(UtilityClass):
 
 
 class ControlledVocabulary(UtilityClass):
+    """BioPAX ControlledVocabulary."""
     list_types = UtilityClass.list_types + ['term']
 
     def __init__(self, term=None, **kwargs):
@@ -325,44 +355,55 @@ class ControlledVocabulary(UtilityClass):
 
 
 class ExperimentalFormVocabulary(ControlledVocabulary):
+    """BioPAX ExperimentalFormVocabulary."""
     pass
 
 
 class RelationshipTypeVocabulary(ControlledVocabulary):
+    """BioPAX RelationshipTypeVocabulary."""
     pass
 
 
 class CellularLocationVocabulary(ControlledVocabulary):
+    """BioPAX CellularLocationVocabulary."""
     pass
 
 
 class EntityReferenceTypeVocabulary(ControlledVocabulary):
+    """BioPAX EntityReferenceTypeVocabulary."""
     pass
 
 
 class PhenotypeVocabulary(ControlledVocabulary):
+    """BioPAX PhenotypeVocabulary."""
     pass
 
 
 class TissueVocabulary(ControlledVocabulary):
+    """BioPAX TissueVocabulary."""
     pass
 
 
 class EvidenceCodeVocabulary(ControlledVocabulary):
+    """BioPAX EvidenceCodeVocabulary."""
     pass
 
 
 class SequenceModificationVocabulary(ControlledVocabulary):
+    """BioPAX SequenceModificationVocabulary."""
     pass
 
 
 class SequenceRegionVocabulary(ControlledVocabulary):
+    """BioPAX SequenceRegionVocabulary."""
     pass
 
 
 class InteractionVocabulary(ControlledVocabulary):
+    """BioPAX InteractionVocabulary."""
     pass
 
 
 class CellVocabulary(ControlledVocabulary):
+    """BioPAX CellVocabulary."""
     pass
