@@ -225,7 +225,8 @@ class Score(UtilityClass):
 
 
 class EntityReference(UtilityClass):
-    list_types = UtilityClass.list_types + ['evidence', 'entity_feature']
+    list_types = UtilityClass.list_types + \
+        ['evidence', 'entity_feature', 'member_entity_reference']
 
     def __init__(self,
                  entity_feature=None,

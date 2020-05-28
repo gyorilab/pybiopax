@@ -83,7 +83,8 @@ class BioPaxObject:
 
 
 class Entity(BioPaxObject):
-    list_types = BioPaxObject.list_types + ['evidence']
+    list_types = BioPaxObject.list_types + \
+        ['evidence', 'data_source']
 
     def __init__(self,
                  standard_name=None,
