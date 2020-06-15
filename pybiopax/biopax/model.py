@@ -1,5 +1,6 @@
 __all__ = ['BioPaxModel']
 
+import tqdm
 from . import *
 from ..xml_util import has_ns, get_id_or_about, get_tag, wrap_xml_elements
 
@@ -25,7 +26,8 @@ class BioPaxModel:
     def from_xml(cls, tree):
         """Return a BioPAX Model from an OWL/XML element tree."""
         objects = {}
-        for element in tree.getchildren():
+        for element in tqdm.tqdm(tree.getchildren(),
+                                 desc='Processing OWL elements'):
             if not has_ns(element, 'bp'):
                 continue
             id = get_id_or_about(element)
@@ -45,6 +47,11 @@ class BioPaxModel:
         """Return an OWL string from the content of the model."""
         elements = [obj.to_xml() for obj in self.objects.values()]
         return wrap_xml_elements(elements)
+
+    def get_objects_by_type(self, obj_type):
+        for obj in self.objects.values():
+            if isinstance(obj, obj_type):
+                yield obj
 
 
 def resolve_value(objects, val):

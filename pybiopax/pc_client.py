@@ -59,7 +59,8 @@ def graph_query(kind, source, target=None, **query_params):
     except (TypeError, ValueError):
         raise ValueError('Invalid neighborhood limit %s' %
                          query_params.get('limit'))
-    params['target'] = _get_query_entity(target)
+    if kind == 'pathsfromto':
+        params['target'] = _get_query_entity(target)
 
     logger.info('Sending Pathway Commons query with parameters: ')
     for k, v in params.items():

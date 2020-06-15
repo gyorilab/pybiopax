@@ -12,7 +12,8 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'EvidenceCodeVocabulary', 'ExperimentalFormVocabulary',
            'InteractionVocabulary', 'PhenotypeVocabulary',
            'RelationshipTypeVocabulary', 'SequenceModificationVocabulary',
-           'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary']
+           'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
+           'Score']
 
 from .base import BioPaxObject
 
@@ -82,6 +83,16 @@ class ModificationFeature(EntityFeature):
         super().__init__(**kwargs)
         self.modification_type = modification_type
 
+    def __str__(self):
+        kwargs = {'uid': self.uid}
+        if self.modification_type is not None:
+            kwargs['modification_type'] = str(self.modification_type)
+        kwargs_str = ', '.join(['%s=%s' % (k, v) for k, v in kwargs.items()])
+        return '%s(%s)' % (self.__class__.__name__, kwargs_str)
+
+    def __repr__(self):
+        return str(self)
+
 
 class FragmentFeature(EntityFeature):
     """BioPAX FragmentFeature."""
@@ -92,11 +103,11 @@ class BindingFeature(EntityFeature):
     """BioPAX BindingFeature."""
     def __init__(self,
                  binds_to=None,
-                 intramolecular=None,
+                 intra_molecular=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.binds_to = binds_to
-        self.intramolecular = intramolecular
+        self.intra_molecular = intra_molecular
 
 
 class KPrime(UtilityClass):
@@ -133,7 +144,7 @@ class ExperimentalForm(UtilityClass):
         super().__init__(**kwargs)
         self.experimental_form_entity = experimental_form_entity
         self.experimental_form_description = experimental_form_description
-        self.experimental_form_feature = experimental_feature
+        self.experimental_feature = experimental_feature
 
 
 class SequenceLocation(UtilityClass):
@@ -240,7 +251,13 @@ class RelationshipXref(Xref):
 
 class Score(UtilityClass):
     """BioPAX Score."""
-    pass
+    def __init__(self,
+                 score_source=None,
+                 value=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.score_source = score_source
+        self.value = value
 
 
 class EntityReference(UtilityClass):
@@ -285,7 +302,7 @@ class SequenceEntityReference(EntityReference):
         self.sequence = sequence
 
 
-class RnaReference(EntityReference):
+class RnaReference(SequenceEntityReference):
     """BioPAX RnaReference."""
     pass
 
@@ -302,16 +319,20 @@ class ProteinReference(SequenceEntityReference):
 
 class SmallMoleculeReference(EntityReference):
     """BioPAX SmallMoleculeReference."""
+    xml_types = {'molecular_weight': 'float'}
+
     def __init__(self,
                  structure=None,
                  chemical_formula=None,
+                 molecular_weight=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.structure = structure
         self.chemical_formula = chemical_formula
+        self.molecular_weight = molecular_weight
 
 
-class DnaReference(EntityReference):
+class DnaReference(SequenceEntityReference):
     """BioPAX DnaReference."""
     pass
 
@@ -352,6 +373,17 @@ class ControlledVocabulary(UtilityClass):
     def __init__(self, term=None, **kwargs):
         super().__init__(**kwargs)
         self.term = term
+
+    def __str__(self):
+        kwargs = {}
+        if self.term:
+            kwargs = {'term': '[%s]' %
+                      (', '.join(['"%s"' % t for t in self.term]))}
+        kwargs_str = ', '.join(['%s=%s' % (k, v) for k, v in kwargs.items()])
+        return '%s(%s)' % (self.__class__.__name__, kwargs_str)
+
+    def __repr__(self):
+        return str(self)
 
 
 class ExperimentalFormVocabulary(ControlledVocabulary):

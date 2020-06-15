@@ -34,7 +34,7 @@ setup(name='pybiopax',
           'Programming Language :: Python :: 3.7'
       ],
       packages=find_packages(),
-      install_requires=['lxml', 'requests'],
+      install_requires=['lxml', 'requests', 'tqdm'],
       extras_require={'test': ['nose', 'coverage']},
       keywords=['biology', 'pathway']
       )
