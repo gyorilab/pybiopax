@@ -44,6 +44,8 @@ class MolecularInteraction(Interaction):
 
 class TemplateReaction(Interaction):
     """BioPAX TemplateReaction."""
+    list_types = Interaction.list_types + ['product']
+
     def __init__(self,
                  product=None,
                  template_direction=None,

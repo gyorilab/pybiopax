@@ -144,7 +144,7 @@ class ExperimentalForm(UtilityClass):
         super().__init__(**kwargs)
         self.experimental_form_entity = experimental_form_entity
         self.experimental_form_description = experimental_form_description
-        self.experimental_form_feature = experimental_feature
+        self.experimental_feature = experimental_feature
 
 
 class SequenceLocation(UtilityClass):
