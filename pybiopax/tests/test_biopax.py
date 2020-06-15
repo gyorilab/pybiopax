@@ -21,6 +21,7 @@ def test_process_owl():
 
     pub = model.objects['PublicationXref_http___www_phosphosite_org_'
                         'phosphosite_owl_recid_11958410']
-    assert pub.comment.startswith('REPLACED')
+    assert len(pub.comment) == 1
+    assert pub.comment[0].startswith('REPLACED')
     assert pub.url.startswith('http://www.phosphosite')
     assert pub.year == '2010', pub.year
