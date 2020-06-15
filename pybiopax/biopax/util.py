@@ -12,7 +12,8 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'EvidenceCodeVocabulary', 'ExperimentalFormVocabulary',
            'InteractionVocabulary', 'PhenotypeVocabulary',
            'RelationshipTypeVocabulary', 'SequenceModificationVocabulary',
-           'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary']
+           'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
+           'Score']
 
 from .base import BioPaxObject
 
@@ -102,11 +103,11 @@ class BindingFeature(EntityFeature):
     """BioPAX BindingFeature."""
     def __init__(self,
                  binds_to=None,
-                 intramolecular=None,
+                 intra_molecular=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.binds_to = binds_to
-        self.intramolecular = intramolecular
+        self.intra_molecular = intra_molecular
 
 
 class KPrime(UtilityClass):
@@ -250,7 +251,13 @@ class RelationshipXref(Xref):
 
 class Score(UtilityClass):
     """BioPAX Score."""
-    pass
+    def __init__(self,
+                 score_source=None,
+                 value=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.score_source = score_source
+        self.value = value
 
 
 class EntityReference(UtilityClass):
@@ -295,7 +302,7 @@ class SequenceEntityReference(EntityReference):
         self.sequence = sequence
 
 
-class RnaReference(EntityReference):
+class RnaReference(SequenceEntityReference):
     """BioPAX RnaReference."""
     pass
 
@@ -325,13 +332,9 @@ class SmallMoleculeReference(EntityReference):
         self.molecular_weight = molecular_weight
 
 
-class DnaReference(EntityReference):
+class DnaReference(SequenceEntityReference):
     """BioPAX DnaReference."""
-    def __init__(self,
-                 organism=None,
-                 **kwargs):
-        super().__init__(**kwargs)
-        self.organism = organism
+    pass
 
 
 class DnaRegionReference(EntityReference):

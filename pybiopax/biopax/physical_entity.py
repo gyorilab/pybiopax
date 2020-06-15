@@ -1,5 +1,6 @@
 __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
-           'SmallMolecule', 'Rna', 'Complex', 'Dna']
+           'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
+           'RnaRegion']
 
 from .base import Entity
 
@@ -68,4 +69,14 @@ class Complex(PhysicalEntity):
 
 class Dna(SimplePhysicalEntity):
     """BioPAX Dna."""
+    pass
+
+
+class DnaRegion(SimplePhysicalEntity):
+    """BioPAX DnaRegion"""
+    pass
+
+
+class RnaRegion(SimplePhysicalEntity):
+    """BioPAX EnaRegion"""
     pass
