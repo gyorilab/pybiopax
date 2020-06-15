@@ -46,6 +46,11 @@ class BioPaxModel:
         elements = [obj.to_xml() for obj in self.objects.values()]
         return wrap_xml_elements(elements)
 
+    def get_objects_by_type(self, obj_type):
+        for obj in self.objects.values():
+            if isinstance(obj, obj_type):
+                yield obj
+
 
 def resolve_value(objects, val):
     if isinstance(val, Unresolved):

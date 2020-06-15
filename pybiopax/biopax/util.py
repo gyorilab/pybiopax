@@ -82,6 +82,16 @@ class ModificationFeature(EntityFeature):
         super().__init__(**kwargs)
         self.modification_type = modification_type
 
+    def __str__(self):
+        kwargs = {'uid': self.uid}
+        if self.modification_type is not None:
+            kwargs['modification_type'] = str(self.modification_type)
+        kwargs_str = ', '.join(['%s=%s' % (k, v) for k, v in kwargs.items()])
+        return '%s(%s)' % (self.__class__.__name__, kwargs_str)
+
+    def __repr__(self):
+        return str(self)
+
 
 class FragmentFeature(EntityFeature):
     """BioPAX FragmentFeature."""
@@ -302,18 +312,26 @@ class ProteinReference(SequenceEntityReference):
 
 class SmallMoleculeReference(EntityReference):
     """BioPAX SmallMoleculeReference."""
+    xml_types = {'molecular_weight': 'float'}
+
     def __init__(self,
                  structure=None,
                  chemical_formula=None,
+                 molecular_weight=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.structure = structure
         self.chemical_formula = chemical_formula
+        self.molecular_weight = molecular_weight
 
 
 class DnaReference(EntityReference):
     """BioPAX DnaReference."""
-    pass
+    def __init__(self,
+                 organism=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.organism = organism
 
 
 class DnaRegionReference(EntityReference):
@@ -352,6 +370,17 @@ class ControlledVocabulary(UtilityClass):
     def __init__(self, term=None, **kwargs):
         super().__init__(**kwargs)
         self.term = term
+
+    def __str__(self):
+        kwargs = {}
+        if self.term:
+            kwargs = {'term': '[%s]' %
+                      (', '.join(['"%s"' % t for t in self.term]))}
+        kwargs_str = ', '.join(['%s=%s' % (k, v) for k, v in kwargs.items()])
+        return '%s(%s)' % (self.__class__.__name__, kwargs_str)
+
+    def __repr__(self):
+        return str(self)
 
 
 class ExperimentalFormVocabulary(ControlledVocabulary):

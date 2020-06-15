@@ -44,7 +44,13 @@ class MolecularInteraction(Interaction):
 
 class TemplateReaction(Interaction):
     """BioPAX TemplateReaction."""
-    pass
+    def __init__(self,
+                 product=None,
+                 template_direction=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.product = product
+        self.template_direction = template_direction
 
 
 class Control(Interaction):
