@@ -2,7 +2,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query']
 
 import requests
-from xml.etree import ElementTree as ET
+from lxml import etree
 from .biopax.model import BioPaxModel
 from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
@@ -21,7 +21,7 @@ def model_from_owl_str(owl_str):
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL string.
     """
-    return BioPaxModel.from_xml(ET.fromstring(owl_str))
+    return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')))
 
 
 def model_from_owl_file(fname):
