@@ -1,13 +1,15 @@
 __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'EntityFeature', 'ModificationFeature', 'FragmentFeature',
-           'BindingFeature', 'KPrime', 'BioSource',
+           'BindingFeature', 'BioSource',
            'ExperimentalForm', 'SequenceLocation', 'SequenceInterval',
-           'SequenceSite', 'PathwayStep', 'Xref', 'PublicationXref',
+           'SequenceSite', 'PathwayStep', 'BiochemicalPathwayStep',
+           'Xref', 'PublicationXref',
            'UnificationXref', 'RelationshipXref', 'EntityReference',
            'ProteinReference', 'RnaReference', 'DnaReference',
            'SmallMoleculeReference', 'RnaRegionReference',
            'DnaRegionReference', 'SequenceEntityReference',
-           'ChemicalStructure', 'Stoichiometry', 'ControlledVocabulary',
+           'ChemicalStructure', 'ChemicalConstant', 'DeltaG', 'KPrime',
+           'Stoichiometry', 'ControlledVocabulary',
            'CellularLocationVocabulary', 'EntityReferenceTypeVocabulary',
            'EvidenceCodeVocabulary', 'ExperimentalFormVocabulary',
            'InteractionVocabulary', 'PhenotypeVocabulary',
@@ -110,11 +112,50 @@ class BindingFeature(EntityFeature):
         self.intra_molecular = intra_molecular
 
 
-class KPrime(UtilityClass):
+class ChemicalConstant(UtilityClass):
+    xml_types = {'ionic_strength': 'float',
+                 'ph': 'float',
+                 'p_mg': 'float',
+                 'temperature': 'float'}
+
+    def __init__(self,
+                 ionic_strength=None,
+                 ph=None,
+                 p_mg=None,
+                 tempterature=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.ionic_strength = ionic_strength
+        self.ph = ph
+        self.p_mg = p_mg
+        self.temperature = tempterature
+
+
+class DeltaG(ChemicalConstant):
+    xml_types = {'delta_g_prime0': 'float'}
+
+    def __init__(self,
+                 delta_g_prime0=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.delta_g_prime0 = delta_g_prime0
+
+
+class KPrime(ChemicalConstant):
     """BioPAX KPrime."""
     def __init__(self, k_prime, **kwargs):
         super().__init__(**kwargs)
         self.k_prime = k_prime
+
+
+class ChemicalStructure(UtilityClass):
+    def __init__(self,
+                 structure_format=None,
+                 structure_data=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.structure_format = structure_format
+        self.structure_data = structure_data
 
 
 class BioSource(UtilityClass):
@@ -197,6 +238,17 @@ class PathwayStep(UtilityClass):
         self.next_step_of = next_step_of
         self.pathway_order_of = pathway_order_of
         self.evidence = evidence
+
+
+class BiochemicalPathwayStep(PathwayStep):
+    """BioPAX BiochemicalPathwayStep."""
+    def __init__(self,
+                 step_conversion=None,
+                 step_direction=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.step_conversion = step_conversion
+        self.step_direction = step_direction
 
 
 class Xref(UtilityClass):
