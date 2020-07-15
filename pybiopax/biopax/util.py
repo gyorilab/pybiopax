@@ -86,11 +86,11 @@ class ModificationFeature(EntityFeature):
         self.modification_type = modification_type
 
     def __str__(self):
-        kwargs = {'uid': self.uid}
-        if self.modification_type is not None:
-            kwargs['modification_type'] = str(self.modification_type)
-        kwargs_str = ', '.join(['%s=%s' % (k, v) for k, v in kwargs.items()])
-        return '%s(%s)' % (self.__class__.__name__, kwargs_str)
+        return '%s(%s%s)' % (self.__class__.__name__,
+                             self.modification_type if self.modification_type
+                             else '',
+                             '@%s' % self.feature_location
+                             if self.feature_location else '')
 
     def __repr__(self):
         return str(self)
@@ -207,6 +207,14 @@ class SequenceInterval(SequenceLocation):
         self.sequence_interval_begin = sequence_interval_begin
         self.sequence_interval_end = sequence_interval_end
 
+    def __str__(self):
+        return '%s(%s-%s)' % (self.__class__.__name__,
+                              self.sequence_interval_begin,
+                              self.sequence_interval_end)
+
+    def __repr__(self):
+        return str(self)
+
 
 class SequenceSite(SequenceLocation):
     """BioPAX SequenceSite."""
@@ -219,6 +227,13 @@ class SequenceSite(SequenceLocation):
         super().__init__(**kwargs)
         self.position_status = position_status
         self.sequence_position = sequence_position
+
+    def __str__(self):
+        return '%s(%s)' % (self.__class__.__name__,
+                           self.sequence_position)
+
+    def __repr__(self):
+        return str(self)
 
 
 class PathwayStep(UtilityClass):
@@ -427,12 +442,11 @@ class ControlledVocabulary(UtilityClass):
         self.term = term
 
     def __str__(self):
-        kwargs = {}
         if self.term:
-            kwargs = {'term': '[%s]' %
-                      (', '.join(['"%s"' % t for t in self.term]))}
-        kwargs_str = ', '.join(['%s=%s' % (k, v) for k, v in kwargs.items()])
-        return '%s(%s)' % (self.__class__.__name__, kwargs_str)
+            terms_str = ', '.join(['"%s"' % t for t in self.term])
+        else:
+            terms_str = ''
+        return '%s(%s)' % (self.__class__.__name__, terms_str)
 
     def __repr__(self):
         return str(self)
