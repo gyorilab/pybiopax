@@ -47,10 +47,12 @@ class TemplateReaction(Interaction):
     list_types = Interaction.list_types + ['product']
 
     def __init__(self,
+                 template=None,
                  product=None,
                  template_direction=None,
                  **kwargs):
         super().__init__(**kwargs)
+        self.template = template
         self.product = product
         self.template_direction = template_direction
 
@@ -143,8 +145,7 @@ class Transport(Conversion):
     pass
 
 
-class TransportWithBiochemicalReaction(Conversion):
+class TransportWithBiochemicalReaction(BiochemicalReaction):
     """BioPAX TransportWithBiochemicalReaction."""
     pass
-
 

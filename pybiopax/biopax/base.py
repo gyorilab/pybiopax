@@ -117,4 +117,15 @@ class Gene(Entity):
 
 class Pathway(Entity):
     """BioPAX Pathway."""
-    pass
+    list_types = Entity.list_types + ['pathway_component']
+
+    def __init__(self,
+                 pathway_component=None,
+                 pathway_order=None,
+                 organism=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.pathway_component = pathway_component
+        self.pathway_order = pathway_order
+        self.organism = organism
+
