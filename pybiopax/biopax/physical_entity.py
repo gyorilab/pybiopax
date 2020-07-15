@@ -28,6 +28,14 @@ class PhysicalEntity(Entity):
         self.member_physical_entity = member_physical_entity
         self.cellular_location = cellular_location
 
+    def __str__(self):
+        s = '%s(%s)' % (self.__class__.__name__,
+                        self.display_name)
+        return s
+
+    def __repr__(self):
+        return str(self)
+
 
 class SimplePhysicalEntity(PhysicalEntity):
     """BioPAX SimplePhysicalEntity."""
