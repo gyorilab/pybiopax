@@ -30,13 +30,27 @@ class BioPaxObject:
             kwargs[key] = []
         for child in element.getchildren():
             key = get_attr_tag(child)
-            if is_datatype(child.attrib, nssuffix('xsd', 'string')) \
+            # In some OWL formats, the child is directly defined
+            # under this tag, in that case we directly deserialize it.
+            if child.getchildren():
+                gchild = child.getchildren()[0]
+                obj_cls = globals()[get_tag(gchild)]
+                val_to_add = obj_cls.from_xml(gchild)
+            # Otherwise, we check if the element is a simple type that we
+            # can just get as a text value
+            elif (get_datatype(child.attrib) is None
+                  and not get_resource(child.attrib)) \
+                    or is_datatype(child.attrib, nssuffix('xsd', 'string')) \
                     or is_datatype(child.attrib, nssuffix('xsd', 'int')) \
                     or is_datatype(child.attrib, nssuffix('xsd', 'float')):
                 val_to_add = child.text
+            # If neither of the above is the case, then we assume that the
+            # element is a reference that is defined in another block
+            # somewhere so we treat is as Unresolved until later.
             else:
                 res = get_resource(child.attrib)
                 val_to_add = Unresolved(res)
+
             if key in cls.list_types:
                 kwargs[key].append(val_to_add)
             else:
@@ -129,3 +143,9 @@ class Pathway(Entity):
         self.pathway_order = pathway_order
         self.organism = organism
 
+
+# These are necessary to have the objects in the global
+# scope, required for some modes of deserialization
+from .interaction import *
+from .physical_entity import *
+from .util import *

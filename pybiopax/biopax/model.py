@@ -34,6 +34,12 @@ class BioPaxModel:
             obj_cls = globals()[get_tag(element)]
             obj = obj_cls.from_xml(element)
             objects[id] = obj
+            # We now register objects that were recursively
+            # extracted but have not been registered yet
+            sub_objs = get_sub_objects(obj)
+            for sub_obj in sub_objs:
+                if sub_obj.uid not in objects:
+                    objects[sub_obj.uid] = sub_obj
 
         for obj_id, obj in objects.items():
             for attr in [a for a in dir(obj) if not a.startswith('__')]:
@@ -52,6 +58,23 @@ class BioPaxModel:
         for obj in self.objects.values():
             if isinstance(obj, obj_type):
                 yield obj
+
+
+def get_sub_objects(obj):
+    """Get all the children of an object that were extracted and
+    are BioPaxObjects that need to be registered in the model."""
+    sub_objs = []
+    for attr in [a for a in dir(obj) if not a.startswith('__')]:
+        val = getattr(obj, attr)
+        if isinstance(val, BioPaxObject):
+            sub_objs.append(val)
+            sub_objs += get_sub_objects(val)
+        elif isinstance(val, list):
+            for elem in val:
+                if isinstance(elem, BioPaxObject):
+                    sub_objs.append(elem)
+                    sub_objs += get_sub_objects(elem)
+    return sub_objs
 
 
 def resolve_value(objects, val):
