@@ -12,15 +12,20 @@ class BioPaxModel:
     ----------
     objects : dict
         A dict of BioPaxObject instances keyed by their URI string.
+    xml_base : str
+        The XML base namespace for the content being represented.
 
     Attributes
     ----------
     objects : dict
         A dict of BioPaxObject instances keyed by their URI string
         that are part of the model.
+    xml_base : str
+        The XML base namespace for the content being represented.
     """
-    def __init__(self, objects):
+    def __init__(self, objects, xml_base):
         self.objects = objects
+        self.xml_base = xml_base
 
     @classmethod
     def from_xml(cls, tree):
@@ -47,12 +52,12 @@ class BioPaxModel:
                 resolved_val = resolve_value(objects, val)
                 setattr(obj, attr, resolved_val)
 
-        return cls(objects)
+        return cls(objects, tree.base)
 
     def to_xml(self):
         """Return an OWL string from the content of the model."""
         elements = [obj.to_xml() for obj in self.objects.values()]
-        return wrap_xml_elements(elements)
+        return wrap_xml_elements(elements, self.xml_base)
 
     def get_objects_by_type(self, obj_type):
         for obj in self.objects.values():
