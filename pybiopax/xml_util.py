@@ -18,13 +18,13 @@ makers = {
 }
 
 
-def wrap_xml_elements(elements):
+def wrap_xml_elements(elements, xml_base):
     """Return a valid BioPAX OWL wrapping XML-serialized BioPAX objects."""
     # We first make the RDF wrapper and add an Ontology element first
     rdfm = ElementMaker(namespace=namespaces['rdf'],
                         nsmap=namespaces)
     rdf_element = rdfm('RDF',
-                       **{nselem('xml', 'base'): 'http://purl.org/pc2/7/'})
+                       **{nselem('xml', 'base'): xml_base})
     owl_element = makers['owl']('Ontology',
                                 **{nselem('rdf', 'about'): ''})
     imports = makers['owl']('imports',
