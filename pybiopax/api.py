@@ -24,20 +24,22 @@ def model_from_owl_str(owl_str):
     return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')))
 
 
-def model_from_owl_file(fname):
+def model_from_owl_file(fname, encoding=None):
     """Return a BioPAX Model from an OWL string.
 
     Parameters
     ----------
     fname : str
         A OWL file of BioPAX content.
+    encoding : Optional[str]
+        The encoding type to be passed to :func:`open`.
 
     Returns
     -------
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL file.
     """
-    with open(fname, 'r') as fh:
+    with open(fname, 'r', encoding=encoding) as fh:
         owl_str = fh.read()
         return model_from_owl_str(owl_str)
 
