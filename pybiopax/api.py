@@ -31,7 +31,7 @@ def model_from_owl_file(fname, encoding=None):
     ----------
     fname : str
         A OWL file of BioPAX content.
-    encoding : str, optional
+    encoding : Optional[str]
         The encoding type to be passed to :func:`open`.
 
     Returns
