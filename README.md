@@ -2,7 +2,7 @@ PyBioPAX: A python implementation of the BioPAX object model
 ------------------------------------------------------------
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 [![DOI](https://zenodo.org/badge/261255657.svg)](https://zenodo.org/badge/latestdoi/261255657)
-[![Build](https://github.com/indralab/pybiopax/workflows/.github/workflows/tests.yml/badge.svg)](https://github.com/indralab/pybiopax/actions)
+[![Build](https://github.com/indralab/pybiopax/workflows/Tests/badge.svg)](https://github.com/indralab/pybiopax/actions)
 [![Documentation](https://readthedocs.org/projects/pybiopax/badge/?version=latest)](https://pybiopax.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/pybiopax.svg)](https://badge.fury.io/py/pybiopax)
 [![Python 3](https://img.shields.io/pypi/pyversions/pybiopax.svg)](https://www.python.org/downloads/release/python-357/)
