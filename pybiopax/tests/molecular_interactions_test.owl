@@ -1,0 +1,473 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bp="http://www.biopax.org/release/biopax-level3.owl#" xml:base="http://pathwaycommons.org/pc12/">
+  <owl:Ontology rdf:about="">
+ <owl:imports rdf:resource="http://www.biopax.org/release/biopax-level3.owl#"/>
+  </owl:Ontology>
+
+<bp:Protein rdf:ID="Protein_e9c690664ade065e9f185c3268f25020">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Protein_e9c690664ade065e9f185c3268f25020</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG8, alpha-1,3-glucosyltransferase (EC:2.4.1.265)</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG8</bp:displayName>
+ <bp:entityReference rdf:resource="http://identifiers.org/uniprot/Q9BVK2"/>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CDG1H</bp:name>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG8, CDG1H, MGC2840</bp:standardName>
+</bp:Protein>
+
+<bp:BiochemicalReaction rdf:ID="BiochemicalReaction_de8d30c30268f77346bcc19570dc860b">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Equation: G10618 &amp;#043; G00007 &amp;#60;&amp;#061;&amp;#62; G10622 &amp;#043; G10598</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Could not check the atom balance of this reaction.</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Occurs in: N-Glycan biosynthesis,Metabolic pathways</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition of RN:R06262: Dolichyl D-glucosyl phosphate + G00007 &lt;=&gt; Dolichyl phosphate + G10598</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/BiochemicalReaction_de8d30c30268f77346bcc19570dc860b</bp:comment>
+ <bp:conversionDirection rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REVERSIBLE</bp:conversionDirection>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rn:R06262</bp:displayName>
+ <bp:eCNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2.4.1.267</bp:eCNumber>
+ <bp:left rdf:resource="#SmallMolecule_bb1ed52ea7197943e44dd0a8ccda5d44"/>
+ <bp:left rdf:resource="#SmallMolecule_99171a7a91997a3dc15b1180450e2e58"/>
+ <bp:participantStoichiometry rdf:resource="#Stoichiometry_b003f9b253100e99f84e08ee4228c8e0"/>
+ <bp:participantStoichiometry rdf:resource="#Stoichiometry_f569f08bcc6da30670c05a495ae4a26f"/>
+ <bp:participantStoichiometry rdf:resource="#Stoichiometry_4aff4137dd87d3e2840044b839fc560f"/>
+ <bp:participantStoichiometry rdf:resource="#Stoichiometry_b37f3dc9c609096704bd558ff576a524"/>
+ <bp:right rdf:resource="#SmallMolecule_e55b7466763f4ca7e442410fa22963d0"/>
+ <bp:right rdf:resource="#SmallMolecule_4937d045c0309d2813b4842cd3230b9c"/>
+ <bp:xref rdf:resource="#RelationshipXref_808c78f8-23b1-4ce2-b7a6-d7c71a055fa7KEGG_Pathway_rn00510_2"/>
+ <bp:xref rdf:resource="#UnificationXref_kegg_reaction_R06262"/>
+ <bp:xref rdf:resource="#RelationshipXref_ddba0c5d-f470-4729-a1b3-1f65ec10bc88KEGG_Pathway_rn01100_2"/>
+</bp:BiochemicalReaction>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_15926_multiple_parent_reference">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:15926</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0829"/>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_23874_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:23874</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_14200_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:14200</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_uniprot_knowledgebase_Q9BVK2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PRIMARY</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">uniprot knowledgebase</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Q9BVK2</bp:id>
+</bp:UnificationXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_chebi_CHEBI_15812">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:15812</bp:id>
+</bp:UnificationXref>
+
+<bp:SmallMolecule rdf:ID="SmallMolecule_4937d045c0309d2813b4842cd3230b9c">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/SmallMolecule_4937d045c0309d2813b4842cd3230b9c</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichyl phosphate</bp:displayName>
+ <bp:entityReference rdf:resource="http://identifiers.org/chebi/CHEBI:16214"/>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichol phosphate</bp:name>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C00110</bp:standardName>
+</bp:SmallMolecule>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_a5300b3f-3331-4e3e-aa4c-6de144d2ce3bGlycomeDB_10061_2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/RelationshipXref_a5300b3f-3331-4e3e-aa4c-6de144d2ce3bGlycomeDB_10061_2</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">glycomedb</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10061</bp:id>
+</bp:RelationshipXref>
+
+<bp:ProteinReference rdf:about="http://identifiers.org/uniprot/Q9Y672">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://identifiers.org/refseq/NP_037471</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG6_HUMAN Reviewed; 507 AA.</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/ProteinReference_uniprotkb_Q9Y672_identity</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://biocyc.org/biopax/biopax-level3ProteinReference92198</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://identifiers.org/uniprot/A2A2G4</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FUNCTION: Adds the first glucose residue to the lipid-linkedoligosaccharide precursor for N-linked glycosylation. Transfersglucose from dolichyl phosphate glucose (Dol-P-Glc) onto thelipid-linked oligosaccharide Man(9)GlcNAc(2)-PP-Dol.CATALYTIC ACTIVITY:Reaction=alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;6)]-alpha-D-Man-(1-&gt;6)]-beta-D-Man-(1-&gt;4)-beta-D-GlcNAc-(1-&gt;4)-alpha-D-GlcNAc-diphosphodolichol + dolichylbeta-D-glucosyl phosphate = alpha-D-Glc-(1-&gt;3)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;6)]-alpha-D-Man-(1-&gt;6)]-beta-D-Man-(1-&gt;4)-beta-D-GlcNAc-(1-&gt;4)-alpha-D-GlcNAc-diphosphodolichol + dolichyl phosphate +H(+); Xref=Rhea:RHEA:30635, Rhea:RHEA-COMP:9517, Rhea:RHEA-COMP:9528, Rhea:RHEA-COMP:12631, Rhea:RHEA-COMP:12632,ChEBI:CHEBI:15378, ChEBI:CHEBI:57525, ChEBI:CHEBI:57683,ChEBI:CHEBI:132520, ChEBI:CHEBI:132521; EC=2.4.1.267;PATHWAY: Protein modification; protein glycosylation.SUBCELLULAR LOCATION: Endoplasmic reticulum membrane{ECO:0000305}; Multi-pass membrane protein {ECO:0000305}.DISEASE: Congenital disorder of glycosylation 1C (CDG1C)[MIM:603147]: A form of congenital disorder of glycosylation, amultisystem disorder caused by a defect in glycoproteinbiosynthesis and characterized by under-glycosylated serumglycoproteins. Congenital disorders of glycosylation result in awide variety of clinical features, such as defects in the nervoussystem development, psychomotor retardation, dysmorphic features,hypotonia, coagulation disorders, and immunodeficiency. The broadspectrum of features reflects the critical role of N-glycoproteinsduring embryonic development, differentiation, and maintenance ofcell functions. {ECO:0000269|PubMed:10359825,ECO:0000269|PubMed:10914684, ECO:0000269|PubMed:10924277,ECO:0000269|PubMed:11106564, ECO:0000269|PubMed:11134235,ECO:0000269|PubMed:12357336, ECO:0000269|PubMed:14517965}.Note=The disease is caused by mutations affecting the generepresented in this entry.SIMILARITY: Belongs to the ALG6/ALG8 glucosyltransferase family.{ECO:0000305}. COPYRIGHT: UniProt Consortium (www.uniprot.org). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/ProteinReference_uniprotkb_A2A2G4_identity</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG6_HUMAN</bp:displayName>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichyl-P-Glc:Man9GlcNAc2-PP-dolichyl glucosyltransferase</bp:name>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606"/>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichyl pyrophosphate Man9GlcNAc2 alpha-1,3-glucosyltransferase</bp:standardName>
+ <bp:xref rdf:resource="#UnificationXref_uniprot_knowledgebase_Q9Y672"/>
+ <bp:xref rdf:resource="#RelationshipXref_hgnc_symbol_ALG6_identity"/>
+</bp:ProteinReference>
+
+<bp:Protein rdf:ID="Protein_762c0bfca374b26813da3c81cd7f9134">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG6, alpha-1,3-glucosyltransferase (EC:2.4.1.267)</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Protein_762c0bfca374b26813da3c81cd7f9134</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG6</bp:displayName>
+ <bp:entityReference rdf:resource="http://identifiers.org/uniprot/Q9Y672"/>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CDG1C</bp:name>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG6, CDG1C</bp:standardName>
+</bp:Protein>
+
+<bp:UnificationXref rdf:ID="UnificationXref_chebi_CHEBI_16214">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:16214</bp:id>
+</bp:UnificationXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_molecular_interactions_ontology_MI_0361">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MI:0361</bp:id>
+</bp:UnificationXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_molecular_interactions_ontology_MI_0360">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">molecular interactions ontology</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MI:0360</bp:id>
+</bp:UnificationXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_uniprot_knowledgebase_Q9Y672">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PRIMARY</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">uniprot knowledgebase</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Q9Y672</bp:id>
+</bp:UnificationXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_26185_multiple_parent_reference">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:26185</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0829"/>
+</bp:RelationshipXref>
+
+<bp:BioSource rdf:about="http://identifiers.org/taxonomy/9606">
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:displayName>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">human</bp:name>
+ <bp:xref rdf:resource="#UnificationXref_taxonomy_9606"/>
+</bp:BioSource>
+
+<bp:UnificationXref rdf:ID="UnificationXref_chebi_CHEBI_37637">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:37637</bp:id>
+</bp:UnificationXref>
+
+<bp:MolecularInteraction rdf:ID="MolecularInteraction_1e82d9951c7d71c02ee6e7bdc7cb8e47">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/MolecularInteraction_1e82d9951c7d71c02ee6e7bdc7cb8e47</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">null of ALG6</bp:displayName>
+ <bp:participant rdf:resource="#Protein_e9c690664ade065e9f185c3268f25020"/>
+ <bp:participant rdf:resource="#Protein_762c0bfca374b26813da3c81cd7f9134"/>
+</bp:MolecularInteraction>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_75771_see-also">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:75771</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0361"/>
+</bp:RelationshipXref>
+
+<bp:Catalysis rdf:ID="Catalysis_ee03343895a59ab84aa04945b96ada99">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Catalysis_ee03343895a59ab84aa04945b96ada99</bp:comment>
+ <bp:controlled rdf:resource="#BiochemicalReaction_de8d30c30268f77346bcc19570dc860b"/>
+ <bp:controller rdf:resource="#Protein_762c0bfca374b26813da3c81cd7f9134"/>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rn:R06262_Catalysis</bp:displayName>
+</bp:Catalysis>
+
+<bp:UnificationXref rdf:ID="UnificationXref_molecular_interactions_ontology_MI_0356">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MI:0356</bp:id>
+</bp:UnificationXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_23880_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:23880</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_kegg_glycan_G10598">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kegg glycan</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G10598</bp:id>
+</bp:UnificationXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_77746_see-also">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:77746</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0361"/>
+</bp:RelationshipXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_molecular_interactions_ontology_MI_0829">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">molecular interactions ontology</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MI:0829</bp:id>
+</bp:UnificationXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_18832_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:18832</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:Stoichiometry rdf:ID="Stoichiometry_4aff4137dd87d3e2840044b839fc560f">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Stoichiometry_4aff4137dd87d3e2840044b839fc560f</bp:comment>
+ <bp:physicalEntity rdf:resource="#SmallMolecule_4937d045c0309d2813b4842cd3230b9c"/>
+ <bp:stoichiometricCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:ID="Stoichiometry_f569f08bcc6da30670c05a495ae4a26f">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Stoichiometry_f569f08bcc6da30670c05a495ae4a26f</bp:comment>
+ <bp:physicalEntity rdf:resource="#SmallMolecule_bb1ed52ea7197943e44dd0a8ccda5d44"/>
+ <bp:stoichiometricCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_hgnc_symbol_ALG8_identity">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hgnc symbol</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG8</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0356"/>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_14191_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:14191</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_2ca5272f-38fd-4ad2-87ee-e9f63ffd0ec8KEGG_Reaction_R06262_2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/RelationshipXref_2ca5272f-38fd-4ad2-87ee-e9f63ffd0ec8KEGG_Reaction_R06262_2</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kegg reaction</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">R06262</bp:id>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_466_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:466</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:Stoichiometry rdf:ID="Stoichiometry_b37f3dc9c609096704bd558ff576a524">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Stoichiometry_b37f3dc9c609096704bd558ff576a524</bp:comment>
+ <bp:physicalEntity rdf:resource="#SmallMolecule_99171a7a91997a3dc15b1180450e2e58"/>
+ <bp:stoichiometricCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:UnificationXref rdf:ID="UnificationXref_taxonomy_9606">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">taxonomy</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9606</bp:id>
+</bp:UnificationXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_59093_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:59093</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:SmallMolecule rdf:ID="SmallMolecule_bb1ed52ea7197943e44dd0a8ccda5d44">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/SmallMolecule_bb1ed52ea7197943e44dd0a8ccda5d44</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G00007</bp:displayName>
+ <bp:entityReference rdf:resource="http://identifiers.org/chebi/CHEBI:37637"/>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G00007</bp:standardName>
+</bp:SmallMolecule>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_16091_see-also">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:16091</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0361"/>
+</bp:RelationshipXref>
+
+<bp:UnificationXref rdf:ID="UnificationXref_kegg_reaction_R06262">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kegg reaction</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">R06262</bp:id>
+</bp:UnificationXref>
+
+<bp:RelationshipTypeVocabulary rdf:about="http://identifiers.org/psimi/MI:0361">
+ <bp:term rdf:datatype="http://www.w3.org/2001/XMLSchema#string">see-also</bp:term>
+ <bp:xref rdf:resource="#UnificationXref_molecular_interactions_ontology_MI_0361"/>
+</bp:RelationshipTypeVocabulary>
+
+<bp:RelationshipTypeVocabulary rdf:about="http://identifiers.org/psimi/MI:0360">
+ <bp:term rdf:datatype="http://www.w3.org/2001/XMLSchema#string">secondary-ac</bp:term>
+ <bp:xref rdf:resource="#UnificationXref_molecular_interactions_ontology_MI_0360"/>
+</bp:RelationshipTypeVocabulary>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_4693_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:4693</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_23875_multiple_parent_reference">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:23875</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0829"/>
+</bp:RelationshipXref>
+
+<bp:SmallMoleculeReference rdf:about="http://identifiers.org/chebi/CHEBI:15812">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_role CHEBI:75771</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is_a CHEBI:23875</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is_a CHEBI:26185</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_role CHEBI:77746</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is_conjugate_acid_of CHEBI:57525</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://www.ra.cs.uni-tuebingen.de/software/KEGGtranslator/cpdC01246.eref</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://biocyc.org/biopax/biopax-level3SmallMoleculeReference92144</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A polyprenyl glycosyl phosphate having dolichyl as the polyprenyl component and beta-D-glucose as the glycosyl component.</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dolichyl beta-D-glucosyl phosphate</bp:displayName>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichyl beta-D-glucosyl phosphate</bp:name>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">alpha-(3-methylbut-2-en-1-yl)-omega-{4-[(beta-D-glucopyranosyloxy)(hydroxy)phosphoryloxy]-2-methylbutyl}poly[(2E)-2-methylbut-2-ene-1,4-diyl]</bp:standardName>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_57525_see-also"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_14191_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_23880_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_77746_see-also"/>
+ <bp:xref rdf:resource="#UnificationXref_chebi_CHEBI_15812"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_23875_multiple_parent_reference"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_75771_see-also"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_4689_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_26185_multiple_parent_reference"/>
+</bp:SmallMoleculeReference>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_hgnc_symbol_ALG6_identity">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hgnc symbol</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG6</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0356"/>
+</bp:RelationshipXref>
+
+<bp:SmallMoleculeReference rdf:about="http://identifiers.org/chebi/CHEBI:16214">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://www.ra.cs.uni-tuebingen.de/software/KEGGtranslator/cpdC00110.eref</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://biocyc.org/biopax/biopax-level3SmallMoleculeReference92160</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_role CHEBI:75772</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_role CHEBI:75771</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is_a CHEBI:23875</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://www.ra.cs.uni-tuebingen.de/software/KEGGtranslator/glG10622.eref</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is_conjugate_acid_of CHEBI:57683</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_functional_parent CHEBI:16091</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dolichyl phosphate</bp:displayName>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichyl monophosphate</bp:name>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">alpha-[2-methyl-4-(phosphonooxy)butyl]-omega-[(2E,6E)-3,7,11-trimethyldodeca-2,6,10-trien-1-yl]poly[(2Z)-2-methylbut-2-ene-1,4-diyl]</bp:standardName>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_75772_see-also"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_16091_see-also"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_14200_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_4693_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_23875_multiple_parent_reference"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_75771_see-also"/>
+ <bp:xref rdf:resource="#UnificationXref_chebi_CHEBI_16214"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_23874_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_57683_see-also"/>
+</bp:SmallMoleculeReference>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_75772_see-also">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:75772</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0361"/>
+</bp:RelationshipXref>
+
+<bp:SmallMolecule rdf:ID="SmallMolecule_e55b7466763f4ca7e442410fa22963d0">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/SmallMolecule_e55b7466763f4ca7e442410fa22963d0</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G10598</bp:displayName>
+ <bp:entityReference rdf:resource="#SmallMoleculeReference_e51137f8926f234650ce4224c4e3f4a3"/>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G10598</bp:standardName>
+</bp:SmallMolecule>
+
+<bp:SmallMolecule rdf:ID="SmallMolecule_99171a7a91997a3dc15b1180450e2e58">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/SmallMolecule_99171a7a91997a3dc15b1180450e2e58</bp:comment>
+ <bp:dataSource rdf:resource="#Provenance_7f56dcb833d61e9a798ef3c386d927b7"/>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C01246</bp:displayName>
+ <bp:entityReference rdf:resource="http://identifiers.org/chebi/CHEBI:15812"/>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dolichyl beta-D-gluc...</bp:name>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C01246</bp:standardName>
+</bp:SmallMolecule>
+
+<bp:RelationshipTypeVocabulary rdf:about="http://identifiers.org/psimi/MI:0356">
+ <bp:term rdf:datatype="http://www.w3.org/2001/XMLSchema#string">identity</bp:term>
+ <bp:xref rdf:resource="#UnificationXref_molecular_interactions_ontology_MI_0356"/>
+</bp:RelationshipTypeVocabulary>
+
+<bp:SmallMoleculeReference rdf:ID="SmallMoleculeReference_e51137f8926f234650ce4224c4e3f4a3">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/SmallMoleculeReference_e51137f8926f234650ce4224c4e3f4a3</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G10598</bp:displayName>
+ <bp:molecularWeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.8</bp:molecularWeight>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">G10598</bp:standardName>
+ <bp:xref rdf:resource="#UnificationXref_kegg_glycan_G10598"/>
+ <bp:xref rdf:resource="#RelationshipXref_2ca5272f-38fd-4ad2-87ee-e9f63ffd0ec8KEGG_Reaction_R06262_2"/>
+ <bp:xref rdf:resource="#RelationshipXref_a91f0cf7-75fb-47fb-8a26-44a2b2fb2336KEGG_Reaction_R06263_2"/>
+ <bp:xref rdf:resource="#RelationshipXref_a5300b3f-3331-4e3e-aa4c-6de144d2ce3bGlycomeDB_10061_2"/>
+</bp:SmallMoleculeReference>
+
+<bp:SmallMoleculeReference rdf:about="http://identifiers.org/chebi/CHEBI:37637">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is_a CHEBI:15926</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A dolichyl diphosphooligosaccharide intermediate involved in post-translational modification of proteins.</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://identifiers.org/chebi/CHEBI:59093</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_role CHEBI:77746</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://www.ra.cs.uni-tuebingen.de/software/KEGGtranslator/glG00007.eref</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">alpha-Man-(1-&gt;2)-alpha-Man-(1-&gt;2)-alpha-Man-(1-&gt;3)-[alpha-Man-(1-&gt;2)-alpha-Man-(1-&gt;3)-[alpha-Man-(1-&gt;2)-alpha-Man-(1-&gt;6)]-alpha-Man-(1-&gt;6)]-beta-Man-(1-&gt;4)-beta-GlcNAc-(1-&gt;4)-alpha-GlcNAc(PP-Dol)</bp:displayName>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(alpha-D-Mannosyl)8-beta-D-mannosyl-diacetylchitobiosyldiphosphodolichol</bp:name>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_18832_secondary-ac"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_59093_secondary-ac"/>
+ <bp:xref rdf:resource="#UnificationXref_chebi_CHEBI_37637"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_77746_see-also"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_15926_multiple_parent_reference"/>
+ <bp:xref rdf:resource="#RelationshipXref_chebi_CHEBI_466_secondary-ac"/>
+</bp:SmallMoleculeReference>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_57683_see-also">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:57683</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0361"/>
+</bp:RelationshipXref>
+
+<bp:ProteinReference rdf:about="http://identifiers.org/uniprot/Q9BVK2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/ProteinReference_uniprotkb_Q9BVK2_identity</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://mirtarbase.mbc.nctu.edu.tw/#ref_79053</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://www.ctdbase.org/#ref_protein_gene_79053</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG8_HUMAN Reviewed; 526 AA.</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://biocyc.org/biopax/biopax-level3ProteinReference92180</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FUNCTION: Adds the second glucose residue to the lipid-linkedoligosaccharide precursor for N-linked glycosylation. Transfersglucose from dolichyl phosphate glucose (Dol-P-Glc) onto thelipid-linked oligosaccharide Glc(1)Man(9)GlcNAc(2)-PP-Dol beforeit is transferred to the nascent peptide (By similarity). Requiredfor PKD1/Polycystin-1 maturation and localization to the plasmamembrane of the primary cilia (By similarity).{ECO:0000250|UniProtKB:P40351, ECO:0000250|UniProtKB:Q6P8H8}.CATALYTIC ACTIVITY:Reaction=alpha-D-Glc-(1-&gt;3)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;6)]-alpha-D-Man-(1-&gt;6)]-beta-D-Man-(1-&gt;4)-beta-D-GlcNAc-(1-&gt;4)-alpha-D-GlcNAc-diphosphodolichol + dolichyl beta-D-glucosyl phosphate = alpha-D-Glc-(1-&gt;3)-alpha-D-Glc-(1-&gt;3)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;3)-[alpha-D-Man-(1-&gt;2)-alpha-D-Man-(1-&gt;6)]-alpha-D-Man-(1-&gt;6)]-beta-D-Man-(1-&gt;4)-beta-D-GlcNAc-(1-&gt;4)-alpha-D-GlcNAc-diphosphodolichol + dolichyl phosphate + H(+);Xref=Rhea:RHEA:31307, Rhea:RHEA-COMP:9517, Rhea:RHEA-COMP:9528,Rhea:RHEA-COMP:12632, Rhea:RHEA-COMP:12633, ChEBI:CHEBI:15378,ChEBI:CHEBI:57525, ChEBI:CHEBI:57683, ChEBI:CHEBI:132521,ChEBI:CHEBI:132522; EC=2.4.1.265;Evidence={ECO:0000250|UniProtKB:P40351};PATHWAY: Protein modification; protein glycosylation.SUBCELLULAR LOCATION: Endoplasmic reticulum membrane{ECO:0000250}; Multi-pass membrane protein {ECO:0000250}.ALTERNATIVE PRODUCTS:Event=Alternative splicing; Named isoforms=2;Name=1;IsoId=Q9BVK2-1; Sequence=Displayed;Name=2;IsoId=Q9BVK2-2; Sequence=VSP_046291;Note=No experimental confirmation available.;DISEASE: Congenital disorder of glycosylation 1H (CDG1H)[MIM:608104]: A form of congenital disorder of glycosylation, amultisystem disorder caused by a defect in glycoproteinbiosynthesis and characterized by under-glycosylated serumglycoproteins. Congenital disorders of glycosylation result in awide variety of clinical features, such as defects in the nervoussystem development, psychomotor retardation, dysmorphic features,hypotonia, coagulation disorders, and immunodeficiency. The broadspectrum of features reflects the critical role of N-glycoproteinsduring embryonic development, differentiation, and maintenance ofcell functions. {ECO:0000269|PubMed:15235028}. Note=The disease iscaused by mutations affecting the gene represented in this entry.DISEASE: Polycystic liver disease 3 with or without kidney cysts(PCLD3) [MIM:617874]: A form of polycystic liver disease, anautosomal dominant hepatobiliary disease characterized byovergrowth of biliary epithelium and supportive connective tissue,resulting in multiple liver cysts. PCLD3 patients may also developkidney cysts that usually do not result in clinically significantrenal disease. {ECO:0000269|PubMed:28375157}. Note=The disease iscaused by mutations affecting the gene represented in this entry.SIMILARITY: Belongs to the ALG6/ALG8 glucosyltransferase family.{ECO:0000305}.SEQUENCE CAUTION:Sequence=CAA12176.1; Type=Erroneous initiation; Note=Translation N-terminally shortened.; Evidence={ECO:0000305}; COPYRIGHT: UniProt Consortium (www.uniprot.org). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ALG8_HUMAN</bp:displayName>
+ <bp:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dol-P-Glc:Glc(1)Man(9)GlcNAc(2)-PP-dolichyl alpha-1,3-glucosyltransferase</bp:name>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606"/>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Probable dolichyl pyrophosphate Glc1Man9GlcNAc2 alpha-1,3-glucosyltransferase</bp:standardName>
+ <bp:xref rdf:resource="#UnificationXref_uniprot_knowledgebase_Q9BVK2"/>
+ <bp:xref rdf:resource="#RelationshipXref_hgnc_symbol_ALG8_identity"/>
+</bp:ProteinReference>
+
+<bp:Provenance rdf:ID="Provenance_7f56dcb833d61e9a798ef3c386d927b7">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Provenance_7f56dcb833d61e9a798ef3c386d927b7</bp:comment>
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Source http://www.cogsys.cs.uni-tuebingen.de/mitarb/draeger/BioPAX.zip type: BIOPAX, KEGG 07/2011 (only human, hsa* files), converted to BioPAX by BioModels (http://www.ebi.ac.uk/biomodels-main/) team</bp:comment>
+ <bp:displayName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">KEGG</bp:displayName>
+ <bp:standardName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">KEGG Pathway</bp:standardName>
+</bp:Provenance>
+
+<bp:Stoichiometry rdf:ID="Stoichiometry_b003f9b253100e99f84e08ee4228c8e0">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/Stoichiometry_b003f9b253100e99f84e08ee4228c8e0</bp:comment>
+ <bp:physicalEntity rdf:resource="#SmallMolecule_e55b7466763f4ca7e442410fa22963d0"/>
+ <bp:stoichiometricCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:RelationshipTypeVocabulary rdf:about="http://identifiers.org/psimi/MI:0829">
+ <bp:term rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multiple parent reference</bp:term>
+ <bp:term rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multiple parent</bp:term>
+ <bp:xref rdf:resource="#UnificationXref_molecular_interactions_ontology_MI_0829"/>
+</bp:RelationshipTypeVocabulary>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_a91f0cf7-75fb-47fb-8a26-44a2b2fb2336KEGG_Reaction_R06263_2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/RelationshipXref_a91f0cf7-75fb-47fb-8a26-44a2b2fb2336KEGG_Reaction_R06263_2</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kegg reaction</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">R06263</bp:id>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_808c78f8-23b1-4ce2-b7a6-d7c71a055fa7KEGG_Pathway_rn00510_2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/RelationshipXref_808c78f8-23b1-4ce2-b7a6-d7c71a055fa7KEGG_Pathway_rn00510_2</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kegg pathway</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rn00510</bp:id>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_57525_see-also">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:57525</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0361"/>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_ddba0c5d-f470-4729-a1b3-1f65ec10bc88KEGG_Pathway_rn01100_2">
+ <bp:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">REPLACED http://pathwaycommons.org/pc12/RelationshipXref_ddba0c5d-f470-4729-a1b3-1f65ec10bc88KEGG_Pathway_rn01100_2</bp:comment>
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kegg pathway</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rn01100</bp:id>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:ID="RelationshipXref_chebi_CHEBI_4689_secondary-ac">
+ <bp:db rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chebi</bp:db>
+ <bp:id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHEBI:4689</bp:id>
+ <bp:relationshipType rdf:resource="http://identifiers.org/psimi/MI:0360"/>
+</bp:RelationshipXref>
+</rdf:RDF>

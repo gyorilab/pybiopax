@@ -23,6 +23,8 @@ class Process(Entity):
 
 class Interaction(Process):
     """BioPAX Interaction."""
+    list_types = Process.list_types + ['participant']
+
     def __init__(self,
                  participant=None,
                  interaction_type=None,

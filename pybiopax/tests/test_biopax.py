@@ -3,10 +3,10 @@ from pybiopax.biopax import *
 from pybiopax import model_from_owl_file
 
 here = os.path.dirname(os.path.abspath(__file__))
-test_file = os.path.join(here, 'biopax_test.owl')
 
 
 def test_process_owl():
+    test_file = os.path.join(here, 'biopax_test.owl')
     model = model_from_owl_file(test_file)
     assert len(model.objects) == 58027, len(model.objects)
     assert 'BiochemicalReaction_a75d6aaebf5be718d981d95355ced14a' in \
@@ -25,3 +25,14 @@ def test_process_owl():
     assert pub.comment[0].startswith('REPLACED')
     assert pub.url.startswith('http://www.phosphosite')
     assert pub.year == '2010', pub.year
+
+
+def test_process_molecular_interactions():
+    test_file = os.path.join(here, 'molecular_interactions_test.owl')
+    model = model_from_owl_file(test_file)
+    mol_int = \
+        model.objects['MolecularInteraction_1e82d9951c7d71c02ee6e7bdc7cb8e47']
+    assert isinstance(mol_int.participant, list)
+    assert len(mol_int.participant) == 2
+    names = {part.display_name for part in mol_int.participant}
+    assert names == {'ALG6', 'ALG8'}
