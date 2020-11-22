@@ -13,6 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
+from pybiopax import __version__ as pybiopax_version
 
 
 # -- Project information -----------------------------------------------------
@@ -22,9 +23,9 @@ copyright = '2020, Benjamin M. Gyori'
 author = 'Benjamin M. Gyori'
 
 # The short X.Y version
-version = '0.0'
+version = '.'.join(pybiopax_version.split('.')[:2])
 # The full version, including alpha/beta/rc tags
-release = '0.0.5'
+release = pybiopax_version
 
 
 # -- General configuration ---------------------------------------------------
