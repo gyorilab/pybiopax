@@ -5,15 +5,16 @@ __all__ = ['Process', 'Interaction', 'GeneticInteraction',
            'ComplexAssembly', 'BiochemicalReaction',
            'Degradation', 'Transport', 'TransportWithBiochemicalReaction']
 
+from typing import List, Optional
 from .base import Entity
 
 
 class Process(Entity):
     """BioPAX Process."""
     def __init__(self,
-                 controlled_of=None,
-                 step_process_of=None,
-                 pathway_component_of=None,
+                 controlled_of: Optional = None,
+                 step_process_of: Optional = None,
+                 pathway_component_of: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.controlled_of = controlled_of
@@ -23,11 +24,11 @@ class Process(Entity):
 
 class Interaction(Process):
     """BioPAX Interaction."""
-    list_types = Process.list_types + ['participant']
+    list_types: List[str] = Process.list_types + ['participant']
 
     def __init__(self,
-                 participant=None,
-                 interaction_type=None,
+                 participant: Optional = None,
+                 interaction_type: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.participant = participant
@@ -49,9 +50,9 @@ class TemplateReaction(Interaction):
     list_types = Interaction.list_types + ['product']
 
     def __init__(self,
-                 template=None,
-                 product=None,
-                 template_direction=None,
+                 template: Optional = None,
+                 product: Optional = None,
+                 template_direction: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.template = template
@@ -64,9 +65,9 @@ class Control(Interaction):
     list_types = Interaction.list_types + ['controller']
 
     def __init__(self,
-                 control_type=None,
-                 controller=None,
-                 controlled=None,
+                 control_type: Optional = None,
+                 controller: Optional = None,
+                 controlled: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.control_type = control_type
@@ -80,11 +81,11 @@ class Conversion(Interaction):
         ['left', 'right', 'participant_stoichiometry']
 
     def __init__(self,
-                 left=None,
-                 right=None,
-                 conversion_direction=None,
-                 participant_stoichiometry=None,
-                 spontaneous=None,
+                 left: Optional = None,
+                 right: Optional = None,
+                 conversion_direction: Optional = None,
+                 participant_stoichiometry: Optional = None,
+                 spontaneous: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.left = left
@@ -97,8 +98,8 @@ class Conversion(Interaction):
 class Catalysis(Control):
     """BioPAX Catalysis."""
     def __init__(self,
-                 catalysis_direction=None,
-                 cofactor=None,
+                 catalysis_direction: Optional = None,
+                 cofactor: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.catalysis_direction = catalysis_direction
@@ -123,11 +124,11 @@ class ComplexAssembly(Conversion):
 class BiochemicalReaction(Conversion):
     """BioPAX BiochemicalReaction."""
     def __init__(self,
-                 delta_s=None,
-                 delta_h=None,
-                 delta_g=None,
-                 k_e_q=None,
-                 e_c_number=None,
+                 delta_s: Optional = None,
+                 delta_h: Optional = None,
+                 delta_g: Optional = None,
+                 k_e_q: Optional = None,
+                 e_c_number: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.delta_s = delta_s

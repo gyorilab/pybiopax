@@ -1,8 +1,14 @@
 __all__ = ['BioPaxModel']
 
+from typing import Iterable, List, Mapping, Type, TypeVar
+
 import tqdm
+from lxml.etree import Element
+
 from . import *
-from ..xml_util import has_ns, get_id_or_about, get_tag, wrap_xml_elements
+from ..xml_util import get_id_or_about, get_tag, has_ns, wrap_xml_elements
+
+X = TypeVar('X')
 
 
 class BioPaxModel:
@@ -10,25 +16,26 @@ class BioPaxModel:
 
     Parameters
     ----------
-    objects : dict
+    objects :
         A dict of BioPaxObject instances keyed by their URI string.
-    xml_base : str
+    xml_base :
         The XML base namespace for the content being represented.
 
     Attributes
     ----------
-    objects : dict
+    objects :
         A dict of BioPaxObject instances keyed by their URI string
         that are part of the model.
-    xml_base : str
+    xml_base :
         The XML base namespace for the content being represented.
     """
-    def __init__(self, objects, xml_base):
+
+    def __init__(self, objects: Mapping[str, BioPaxObject], xml_base: str):
         self.objects = objects
         self.xml_base = xml_base
 
     @classmethod
-    def from_xml(cls, tree):
+    def from_xml(cls, tree) -> 'BioPaxModel':
         """Return a BioPAX Model from an OWL/XML element tree."""
         objects = {}
         for element in tqdm.tqdm(tree.getchildren(),
@@ -54,20 +61,20 @@ class BioPaxModel:
 
         return cls(objects, tree.base)
 
-    def to_xml(self):
+    def to_xml(self) -> Element:
         """Return an OWL string from the content of the model."""
         elements = [obj.to_xml() for obj in
                     tqdm.tqdm(self.objects.values(),
                               desc='Serializing OWL elements')]
         return wrap_xml_elements(elements, self.xml_base)
 
-    def get_objects_by_type(self, obj_type):
+    def get_objects_by_type(self, obj_type: Type[X]) -> Iterable[X]:
         for obj in self.objects.values():
             if isinstance(obj, obj_type):
                 yield obj
 
 
-def get_sub_objects(obj):
+def get_sub_objects(obj) -> List:
     """Get all the children of an object that were extracted and
     are BioPaxObjects that need to be registered in the model."""
     sub_objs = []

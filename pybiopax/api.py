@@ -8,7 +8,7 @@ from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
 
 
-def model_from_owl_str(owl_str):
+def model_from_owl_str(owl_str: str):
     """Return a BioPAX Model from an OWL string.
 
     Parameters

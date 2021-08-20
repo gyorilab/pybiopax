@@ -1,5 +1,8 @@
 __all__ = ['BioPaxObject', 'Entity', 'Pathway', 'Gene', 'Unresolved']
 
+from typing import List, Optional
+from lxml.etree import Element
+
 from ..xml_util import *
 
 
@@ -11,10 +14,17 @@ class Unresolved:
 class BioPaxObject:
     """Generic BioPAX Object. It is the parent class of all more specific
     BioPAX classes."""
-    list_types = ['xref', 'comment', 'name']
+
+    list_types: List[str] = ['xref', 'comment', 'name']
     xml_types = {}
 
-    def __init__(self, uid, name=None, comment=None, xref=None):
+    def __init__(
+        self,
+        uid,
+        name=None,
+        comment=None,
+        xref=None,
+    ):
         self.uid = uid
         # TODO: is name in the right place here?
         self.name = name
@@ -23,7 +33,7 @@ class BioPaxObject:
         self.xref = xref
 
     @classmethod
-    def from_xml(cls, element):
+    def from_xml(cls, element: Element) -> "BioPaxObject":
         uid = get_id_or_about(element)
         kwargs = {'uid': uid}
         for key in cls.list_types:
@@ -57,7 +67,7 @@ class BioPaxObject:
                 kwargs[key] = val_to_add
         return cls(**kwargs)
 
-    def to_xml(self):
+    def to_xml(self) -> Element:
         id_type = 'about' if is_url(self.uid) else 'ID'
         element = makers['bp'](self.__class__.__name__,
                                **{nselem('rdf', id_type): self.uid})
@@ -79,7 +89,7 @@ class BioPaxObject:
                     element.append(child_elem)
         return element
 
-    def _simple_to_xml(self, attr, val):
+    def _simple_to_xml(self, attr: str, val) -> Optional[Element]:
         if isinstance(val, BioPaxObject):
             child_elem = makers['bp'](
                 snake_to_camel(attr),
@@ -131,7 +141,7 @@ class Gene(Entity):
 
 class Pathway(Entity):
     """BioPAX Pathway."""
-    list_types = Entity.list_types + ['pathway_component']
+    list_types: List[str] = Entity.list_types + ['pathway_component']
 
     def __init__(self,
                  pathway_component=None,

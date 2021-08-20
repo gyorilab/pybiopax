@@ -1,6 +1,8 @@
 import re
 from lxml import etree
+from lxml.etree import Element
 from lxml.builder import ElementMaker
+from typing import Mapping
 
 
 namespaces = {
@@ -12,23 +14,27 @@ namespaces = {
 }
 
 
-makers = {
+makers: Mapping[str, ElementMaker] = {
     ns: ElementMaker(namespace=prefix)
     for ns, prefix in namespaces.items()
 }
 
+rdfm = ElementMaker(
+    namespace=namespaces['rdf'],
+    nsmap=namespaces,
+)
 
-def wrap_xml_elements(elements, xml_base):
+
+def wrap_xml_elements(elements, xml_base: str) -> Element:
     """Return a valid BioPAX OWL wrapping XML-serialized BioPAX objects."""
     # We first make the RDF wrapper and add an Ontology element first
-    rdfm = ElementMaker(namespace=namespaces['rdf'],
-                        nsmap=namespaces)
     rdf_element = rdfm('RDF',
                        **{nselem('xml', 'base'): xml_base})
-    owl_element = makers['owl']('Ontology',
-                                **{nselem('rdf', 'about'): ''})
-    imports = makers['owl']('imports',
-                            **{nselem('rdf', 'resource'): namespaces['bp']})
+    owl_maker: ElementMaker = makers['owl']
+    owl_element = owl_maker('Ontology',
+                            **{nselem('rdf', 'about'): ''})
+    imports = owl_maker('imports',
+                        **{nselem('rdf', 'resource'): namespaces['bp']})
     owl_element.append(imports)
     rdf_element.append(owl_element)
 
@@ -48,18 +54,18 @@ def xml_to_str(xml):
     return xmls
 
 
-def xml_to_file(xml, fname):
+def xml_to_file(xml, fname: str) -> None:
     """Write an XML element tree to a given file."""
     with open(fname, 'w') as fh:
         fh.write(xml_to_str(xml))
 
 
-def nselem(ns, elem):
+def nselem(ns, elem) -> str:
     """Return a full namespaced string with curly brackets with a suffix."""
     return '{%s}%s' % (namespaces[ns], elem)
 
 
-def nssuffix(ns, suffix):
+def nssuffix(ns, suffix) -> str:
     """Return a full namespaced string with a suffix."""
     return '%s%s' % (namespaces[ns], suffix)
 

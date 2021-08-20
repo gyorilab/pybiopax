@@ -3,13 +3,20 @@ the service, see the documentation at https://www.pathwaycommons.org/pc2/."""
 __all__ = ['graph_query']
 
 import logging
+from typing import List, Optional, Tuple, Union
+
 import requests
 
 logger = logging.getLogger(__name__)
 pc2_url = 'http://www.pathwaycommons.org/pc2/'
 
 
-def graph_query(kind, source, target=None, **query_params):
+def graph_query(
+    kind: str,
+    source: List[str],
+    target: Optional[str] = None,
+    **query_params
+) -> Optional[str]:
     """Perform a graph query on PathwayCommons.
 
     For more information on these queries, see
@@ -17,10 +24,10 @@ def graph_query(kind, source, target=None, **query_params):
 
     Parameters
     ----------
-    kind : str
+    kind :
         The kind of graph query to perform. Currently 3 options are
         implemented, 'neighborhood', 'pathsbetween' and 'pathsfromto'.
-    source : list[str]
+    source :
         A single gene name or a list of gene names which are the source set for
         the graph query.
     target : Optional[list[str]]
@@ -38,10 +45,9 @@ def graph_query(kind, source, target=None, **query_params):
 
     Returns
     -------
-    str
+    :
         A BioPAX OWL string that can then be deserialized into a BioPaxModel.
     """
-
     params = {}
     params['format'] = 'BIOPAX'
     params['organism'] = query_params.get('organism', '9606')
@@ -75,7 +81,7 @@ def graph_query(kind, source, target=None, **query_params):
     return res.text
 
 
-def _get_query_entity(ent):
+def _get_query_entity(ent: Union[str, List, Tuple]) -> str:
     if isinstance(ent, str):
         return ent
     elif isinstance(ent, (list, tuple)):

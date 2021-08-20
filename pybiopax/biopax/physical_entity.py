@@ -2,22 +2,23 @@ __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
            'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
            'RnaRegion']
 
+from typing import List, Optional
 from .base import Entity
 
 
 class PhysicalEntity(Entity):
     """BioPAX PhysicalEntity."""
-    list_types = Entity.list_types + \
+    list_types: List[str] = Entity.list_types + \
         ['feature', 'not_feature', 'member_physical_entity']
 
     def __init__(self,
-                 feature=None,
-                 not_feature=None,
-                 controller_of=None,
-                 component_of=None,
-                 member_physical_entity_of=None,
-                 member_physical_entity=None,
-                 cellular_location=None,
+                 feature: Optional = None,
+                 not_feature: Optional = None,
+                 controller_of: Optional = None,
+                 component_of: Optional = None,
+                 member_physical_entity_of: Optional = None,
+                 member_physical_entity: Optional = None,
+                 cellular_location: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.feature = feature
@@ -28,19 +29,19 @@ class PhysicalEntity(Entity):
         self.member_physical_entity = member_physical_entity
         self.cellular_location = cellular_location
 
-    def __str__(self):
+    def __str__(self) -> str:
         s = '%s(%s)' % (self.__class__.__name__,
                         self.display_name)
         return s
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self)
 
 
 class SimplePhysicalEntity(PhysicalEntity):
     """BioPAX SimplePhysicalEntity."""
     def __init__(self,
-                 entity_reference=None,
+                 entity_reference: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.entity_reference = entity_reference
@@ -67,8 +68,8 @@ class Complex(PhysicalEntity):
         ['component', 'component_stoichiometry']
 
     def __init__(self,
-                 component=None,
-                 component_stoichiometry=None,
+                 component: Optional = None,
+                 component_stoichiometry: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.component = component
