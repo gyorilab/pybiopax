@@ -1,12 +1,11 @@
 """A client to the PathwayCommons REST API. For more details about
 the service, see the documentation at https://www.pathwaycommons.org/pc2/."""
+__all__ = ['graph_query']
+
 import logging
 import requests
 
-
 logger = logging.getLogger(__name__)
-
-
 pc2_url = 'http://www.pathwaycommons.org/pc2/'
 
 
