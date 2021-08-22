@@ -1,5 +1,6 @@
 __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
-           'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query']
+           'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
+           'model_from_reactome']
 
 import requests
 from lxml import etree
@@ -96,6 +97,29 @@ def model_from_pc_query(kind, source, target=None, **query_params):
     """
     owl_str = graph_query(kind, source, target=target, **query_params)
     return model_from_owl_str(owl_str)
+
+
+def model_from_reactome(identifier: str) -> BioPaxModel:
+    """Return a BioPAX Model from a Reactome entry (pathway, event, etc.).
+
+    Parameters
+    ----------
+    identifier :
+        The Reactome identifier for a pathway (e.g., https://reactome.org/content/detail/R-HSA-177929)
+        or reaction (e.g., https://reactome.org/content/detail/R-HSA-177946)
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the Reactome resource.
+    """
+    if identifier.startswith("R-"):
+        # If you give something like R-XXX-YYYYY, just get the YYYYY part back for download.
+        identifier = identifier.split("-")[-1]
+    url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/Level3/{identifier}"
+    res = requests.get(url)
+    res.raise_for_status()
+    return model_from_owl_str(res.text)
 
 
 def model_to_owl_str(model):
