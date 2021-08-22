@@ -5,7 +5,7 @@ __all__ = ['Process', 'Interaction', 'GeneticInteraction',
            'ComplexAssembly', 'BiochemicalReaction',
            'Degradation', 'Transport', 'TransportWithBiochemicalReaction']
 
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from .base import Entity
 
 
@@ -24,7 +24,7 @@ class Process(Entity):
 
 class Interaction(Process):
     """BioPAX Interaction."""
-    list_types: List[str] = Process.list_types + ['participant']
+    list_types: ClassVar[List[str]] = Process.list_types + ['participant']
 
     def __init__(self,
                  participant: Optional = None,
@@ -47,7 +47,7 @@ class MolecularInteraction(Interaction):
 
 class TemplateReaction(Interaction):
     """BioPAX TemplateReaction."""
-    list_types = Interaction.list_types + ['product']
+    list_types: ClassVar[List[str]] = Interaction.list_types + ['product']
 
     def __init__(self,
                  template: Optional = None,
@@ -62,7 +62,7 @@ class TemplateReaction(Interaction):
 
 class Control(Interaction):
     """BioPAX Control."""
-    list_types = Interaction.list_types + ['controller']
+    list_types: ClassVar[List[str]] = Interaction.list_types + ['controller']
 
     def __init__(self,
                  control_type: Optional = None,
@@ -77,7 +77,7 @@ class Control(Interaction):
 
 class Conversion(Interaction):
     """BioPAX Conversion."""
-    list_types = Interaction.list_types + \
+    list_types: ClassVar[List[str]] = Interaction.list_types + \
         ['left', 'right', 'participant_stoichiometry']
 
     def __init__(self,

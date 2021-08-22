@@ -2,13 +2,14 @@ __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
            'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
            'RnaRegion']
 
-from typing import List, Optional
+from typing import ClassVar, List, Optional
+
 from .base import Entity
 
 
 class PhysicalEntity(Entity):
     """BioPAX PhysicalEntity."""
-    list_types: List[str] = Entity.list_types + \
+    list_types: ClassVar[List[str]] = Entity.list_types + \
         ['feature', 'not_feature', 'member_physical_entity']
 
     def __init__(self,
@@ -64,7 +65,7 @@ class Rna(SimplePhysicalEntity):
 
 class Complex(PhysicalEntity):
     """BioPAX Complex."""
-    list_types = PhysicalEntity.list_types + \
+    list_types: ClassVar[List[str]] = PhysicalEntity.list_types + \
         ['component', 'component_stoichiometry']
 
     def __init__(self,

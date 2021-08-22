@@ -17,7 +17,7 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
            'Score']
 
-from typing import Optional
+from typing import ClassVar, List, Mapping, Optional
 
 from .base import BioPaxObject
 
@@ -70,7 +70,7 @@ class Provenance(UtilityClass):
 
 class EntityFeature(UtilityClass):
     """BioPAX UtilityClass."""
-    list_types = UtilityClass.list_types + ['evidence']
+    list_types: ClassVar[List[str]] = UtilityClass.list_types + ['evidence']
 
     def __init__(self,
                  evidence=None,
@@ -129,10 +129,12 @@ class BindingFeature(EntityFeature):
 
 
 class ChemicalConstant(UtilityClass):
-    xml_types = {'ionic_strength': 'float',
-                 'ph': 'float',
-                 'p_mg': 'float',
-                 'temperature': 'float'}
+    xml_types: ClassVar[Mapping[str, str]] = {
+        'ionic_strength': 'float',
+        'ph': 'float',
+        'p_mg': 'float',
+        'temperature': 'float',
+    }
 
     def __init__(self,
                  ionic_strength=None,
@@ -148,7 +150,7 @@ class ChemicalConstant(UtilityClass):
 
 
 class DeltaG(ChemicalConstant):
-    xml_types = {'delta_g_prime0': 'float'}
+    xml_types: ClassVar[Mapping[str, str]] = {'delta_g_prime0': 'float'}
 
     def __init__(self,
                  delta_g_prime0=None,
@@ -234,7 +236,7 @@ class SequenceInterval(SequenceLocation):
 
 class SequenceSite(SequenceLocation):
     """BioPAX SequenceSite."""
-    xml_types = {'sequence_position': 'int'}
+    xml_types: ClassVar[Mapping[str, str]] = {'sequence_position': 'int'}
 
     def __init__(self,
                  position_status=None,
@@ -254,7 +256,7 @@ class SequenceSite(SequenceLocation):
 
 class PathwayStep(UtilityClass):
     """BioPAX PathwayStep."""
-    list_types = UtilityClass.list_types + ['evidence']
+    list_types: ClassVar[List[str]] = UtilityClass.list_types + ['evidence']
 
     def __init__(self,
                  step_process=None,
@@ -301,7 +303,7 @@ class Xref(UtilityClass):
 
 class PublicationXref(Xref):
     """BioPAX PublicationXref."""
-    xml_types = {'year': 'int'}
+    xml_types: ClassVar[Mapping[str, str]] = {'year': 'int'}
 
     def __init__(self,
                  title: Optional[str] = None,
@@ -345,7 +347,7 @@ class Score(UtilityClass):
 
 class EntityReference(UtilityClass):
     """BioPAX EntityReference."""
-    list_types = UtilityClass.list_types + \
+    list_types: ClassVar[List[str]] = UtilityClass.list_types + \
         ['evidence', 'entity_feature', 'member_entity_reference']
 
     def __init__(self,
@@ -402,7 +404,7 @@ class ProteinReference(SequenceEntityReference):
 
 class SmallMoleculeReference(EntityReference):
     """BioPAX SmallMoleculeReference."""
-    xml_types = {'molecular_weight': 'float'}
+    xml_types: ClassVar[Mapping[str, str]] = {'molecular_weight': 'float'}
 
     def __init__(self,
                  structure=None,
@@ -427,7 +429,7 @@ class DnaRegionReference(EntityReference):
 
 class Stoichiometry(UtilityClass):
     """BioPAX Stoichiometry."""
-    xml_types = {'stoichiometric_coefficient': 'float'}
+    xml_types: ClassVar[Mapping[str, str]] = {'stoichiometric_coefficient': 'float'}
 
     def __init__(self,
                  stoichiometric_coefficient=None,
@@ -440,7 +442,7 @@ class Stoichiometry(UtilityClass):
 
 class ControlledVocabulary(UtilityClass):
     """BioPAX ControlledVocabulary."""
-    list_types = UtilityClass.list_types + ['term']
+    list_types: ClassVar[List[str]] = UtilityClass.list_types + ['term']
 
     def __init__(self, term=None, **kwargs):
         super().__init__(**kwargs)
