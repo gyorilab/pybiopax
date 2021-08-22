@@ -69,10 +69,10 @@ of the given module (for instance helper functions that a user wouldn't
 directly call) should be prefixed with an underscore. These then won't show
 up and clutter the auto-generated API documentation.
 
-Python version compatibility and unicode
-----------------------------------------
+Python version compatibility
+----------------------------
 PyBioPAX is compatible with Python versions 3.6 and later. Therefore, features
-only available Python versions later than 3.6 should not be used.
+only available in Python versions later than 3.6 should not be used.
 
 Documentation
 -------------
