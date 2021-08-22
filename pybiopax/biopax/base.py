@@ -11,7 +11,7 @@ class Unresolved:
 class BioPaxObject:
     """Generic BioPAX Object. It is the parent class of all more specific
     BioPAX classes."""
-    list_types = ['xref', 'comment']
+    list_types = ['xref', 'comment', 'name']
     xml_types = {}
 
     def __init__(self, uid, name=None, comment=None, xref=None):
