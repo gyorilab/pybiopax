@@ -86,5 +86,5 @@ class DnaRegion(SimplePhysicalEntity):
 
 
 class RnaRegion(SimplePhysicalEntity):
-    """BioPAX EnaRegion"""
+    """BioPAX RnaRegion"""
     pass
