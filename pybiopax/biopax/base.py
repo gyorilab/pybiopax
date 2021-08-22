@@ -15,15 +15,15 @@ class BioPaxObject:
     """Generic BioPAX Object. It is the parent class of all more specific
     BioPAX classes."""
 
-    list_types: List[str] = ['xref', 'comment', 'name']
-    xml_types = {}
+    list_types: ClassVar[List[str]] = ['xref', 'comment', 'name']
+    xml_types: ClassVar[Mapping[str, str]] = {}
 
     def __init__(
         self,
-        uid,
-        name=None,
-        comment=None,
-        xref=None,
+        uid: str,
+        name: Optional[str] = None,
+        comment: Optional[List[str]] = None,
+        xref: Optional[List[str]] = None,
     ):
         self.uid = uid
         # TODO: is name in the right place here?
@@ -110,7 +110,7 @@ class BioPaxObject:
 
 class Entity(BioPaxObject):
     """BioPAX Entity."""
-    list_types = BioPaxObject.list_types + \
+    list_types: ClassVar[List[str]] = BioPaxObject.list_types + \
         ['evidence', 'data_source']
 
     def __init__(self,
@@ -141,7 +141,7 @@ class Gene(Entity):
 
 class Pathway(Entity):
     """BioPAX Pathway."""
-    list_types: List[str] = Entity.list_types + ['pathway_component']
+    list_types: ClassVar[List[str]] = Entity.list_types + ['pathway_component']
 
     def __init__(self,
                  pathway_component=None,
