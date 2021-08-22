@@ -14,7 +14,7 @@ pc2_url = 'http://www.pathwaycommons.org/pc2/'
 def graph_query(
     kind: str,
     source: List[str],
-    target: Optional[str] = None,
+    target: Optional[List[str]] = None,
     **query_params
 ) -> Optional[str]:
     """Perform a graph query on PathwayCommons.
@@ -30,7 +30,7 @@ def graph_query(
     source :
         A single gene name or a list of gene names which are the source set for
         the graph query.
-    target : Optional[list[str]]
+    target :
         A single gene name or a list of gene names which are the target set for
         the graph query. Only needed for 'pathsfromto' queries.
     limit : Optional[int]

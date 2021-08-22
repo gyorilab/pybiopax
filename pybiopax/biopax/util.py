@@ -17,26 +17,34 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
            'Score']
 
+from typing import Optional
+
 from .base import BioPaxObject
 
 
 class UtilityClass(BioPaxObject):
     """BioPAX UtilityClass."""
-    def __int__(self, **kwargs):
-        super().__init__(**kwargs)
 
 
 class Evidence(UtilityClass):
     """BioPAX Evidence."""
     def __init__(self,
                  confidence=None,
-                 evidence_code=None,
-                 experimental_form=None,
+                 evidence_code: Optional["EvidenceCodeVocabulary"] = None,
+                 experimental_form: Optional["ExperimentalForm"] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.confidence = confidence
         self.evidence_code = evidence_code
         self.experimental_form = experimental_form
+
+    def __repr__(self) -> str:
+        return (
+            f"Evidence(uid={self.uid}, name={self.name}, "
+            f"comment={self.comment}, xref={self.xref}, "
+            f"confidence={self.confidence}, evidence_code={self.evidence_code}, "
+            f"experimental_form={self.experimental_form})"
+        )
 
 
 class Provenance(UtilityClass):
@@ -51,6 +59,14 @@ class Provenance(UtilityClass):
         self.display_name = display_name
         self.all_names = all_names
 
+    def __repr__(self) -> str:
+        return (
+            f"Provenance(uid={self.uid}, name={self.name}, "
+            f"comment={self.comment}, xref={self.xref}, "
+            f"standard_name={self.standard_name}, display_name={self.display_name}, "
+            f"all_names={self.all_names})"
+        )
+
 
 class EntityFeature(UtilityClass):
     """BioPAX UtilityClass."""
@@ -61,7 +77,7 @@ class EntityFeature(UtilityClass):
                  owner_entity_reference=None,
                  feature_of=None,
                  not_feature_of=None,
-                 feature_location=None,
+                 feature_location: Optional["SequenceSite"] = None,
                  member_feature=None,
                  feature_location_type=None,
                  member_feature_of=None,
@@ -80,7 +96,7 @@ class EntityFeature(UtilityClass):
 class ModificationFeature(EntityFeature):
     """BioPAX ModificationFeature."""
     def __init__(self,
-                 modification_type=None,
+                 modification_type: Optional["SequenceModificationVocabulary"] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.modification_type = modification_type
@@ -200,8 +216,8 @@ class SequenceLocation(UtilityClass):
 class SequenceInterval(SequenceLocation):
     """BioPAX SequenceInterval."""
     def __init__(self,
-                 sequence_interval_begin=None,
-                 sequence_interval_end=None,
+                 sequence_interval_begin: Optional["SequenceSite"] = None,
+                 sequence_interval_end: Optional["SequenceSite"] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.sequence_interval_begin = sequence_interval_begin
@@ -288,11 +304,11 @@ class PublicationXref(Xref):
     xml_types = {'year': 'int'}
 
     def __init__(self,
-                 title=None,
-                 url=None,
-                 source=None,
-                 author=None,
-                 year=None,
+                 title: Optional[str] = None,
+                 url: Optional[str] = None,
+                 source: Optional[str] = None,
+                 author: Optional[str] = None,
+                 year: Optional[int] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.title = title
@@ -407,17 +423,6 @@ class DnaReference(SequenceEntityReference):
 class DnaRegionReference(EntityReference):
     """BioPAX DnaRegionReference."""
     pass
-
-
-class ChemicalStructure(UtilityClass):
-    """BioPAX ChemicalStructure."""
-    def __init__(self,
-                 structure_format=None,
-                 structure_data=None,
-                 **kwargs):
-        super().__init__(**kwargs)
-        self.structure_format = structure_format
-        self.structure_data = structure_data
 
 
 class Stoichiometry(UtilityClass):
