@@ -12,6 +12,7 @@ def test_process_owl():
     assert 'BiochemicalReaction_a75d6aaebf5be718d981d95355ced14a' in \
         model.objects
     bcr = model.objects['BiochemicalReaction_a75d6aaebf5be718d981d95355ced14a']
+    assert isinstance(bcr, BiochemicalReaction)
     assert bcr.display_name == \
         'STATE_TRANSITION_LEFT__Raf-RIGHT__Raf-_r21'
     assert isinstance(bcr.left, list)
@@ -21,6 +22,7 @@ def test_process_owl():
 
     pub = model.objects['PublicationXref_http___www_phosphosite_org_'
                         'phosphosite_owl_recid_11958410']
+    assert isinstance(pub, PublicationXref)
     assert len(pub.comment) == 1
     assert pub.comment[0].startswith('REPLACED')
     assert pub.url.startswith('http://www.phosphosite')

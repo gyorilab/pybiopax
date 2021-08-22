@@ -81,10 +81,10 @@ class Conversion(Interaction):
         ['left', 'right', 'participant_stoichiometry']
 
     def __init__(self,
-                 left: Optional = None,
-                 right: Optional = None,
+                 left: Optional[List] = None,
+                 right: Optional[List] = None,
                  conversion_direction: Optional = None,
-                 participant_stoichiometry: Optional = None,
+                 participant_stoichiometry: Optional[List] = None,
                  spontaneous: Optional = None,
                  **kwargs):
         super().__init__(**kwargs)
