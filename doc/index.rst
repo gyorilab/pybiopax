@@ -9,9 +9,11 @@ PyBioPAX documentation
 .. toctree::
    :maxdepth: 3
 
-   modules/index
+   modules/api
+   modules/biopax
+   modules/pc_client
+   modules/xml_util
 
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
