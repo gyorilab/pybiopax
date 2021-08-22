@@ -56,7 +56,9 @@ class BioPaxModel:
 
     def to_xml(self):
         """Return an OWL string from the content of the model."""
-        elements = [obj.to_xml() for obj in self.objects.values()]
+        elements = [obj.to_xml() for obj in
+                    tqdm.tqdm(self.objects.values(),
+                              desc='Serializing OWL elements')]
         return wrap_xml_elements(elements, self.xml_base)
 
     def get_objects_by_type(self, obj_type):
