@@ -1,7 +1,6 @@
 __all__ = ['BioPaxObject', 'Entity', 'Pathway', 'Gene', 'Unresolved']
 
-from typing import List, Optional
-from lxml.etree import Element
+from typing import List, ClassVar, Mapping
 
 from ..xml_util import *
 
@@ -114,13 +113,13 @@ class Entity(BioPaxObject):
         ['evidence', 'data_source']
 
     def __init__(self,
-                 standard_name=None,
-                 display_name=None,
                  all_names=None,
                  participant_of=None,
                  availability=None,
                  data_source=None,
                  evidence=None,
+                 standard_name: Optional[str] = None,
+                 display_name: Optional[str] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.standard_name = standard_name
