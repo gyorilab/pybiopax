@@ -76,6 +76,12 @@ assert right.display_name == 'ERK1-2-active'
 Each BioPaxObject has attributes that are consistent with the
 BioPAX level 3 specification.
 
+Contribution and support
+------------------------
+To contribute to the code, please submit a pull request after
+reading the [contribution guidelines](https://github.com/indralab/pybiopax/blob/master/CONTRIBUTING.md).
+To report bugs and issues, or ask questions related to PyBioPAX, please
+submit an [issue](https://github.com/indralab/pybiopax/issues).
 
 Funding
 -------
