@@ -7,6 +7,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
 
 import requests
 from lxml import etree
+from typing import Any, Mapping
 from .biopax.model import BioPaxModel
 from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
@@ -48,13 +49,15 @@ def model_from_owl_file(fname, encoding=None):
         return model_from_owl_str(owl_str)
 
 
-def model_from_owl_url(url, **kwargs):
+def model_from_owl_url(url, **kwargs: Mapping[str, Any]):
     """Return a BioPAX Model from an URL pointing to an OWL file.
 
     Parameters
     ----------
     url : str
         A OWL URL with BioPAX content.
+    kwargs :
+        Additional keyword arguments to pass to :func:`requests.get`
 
     Returns
     -------
