@@ -5,8 +5,10 @@ __all__ = ['Process', 'Interaction', 'GeneticInteraction',
            'ComplexAssembly', 'BiochemicalReaction',
            'Degradation', 'Transport', 'TransportWithBiochemicalReaction']
 
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, TYPE_CHECKING
 from .base import Entity
+from .physical_entity import PhysicalEntity
+from .util import Stoichiometry, DeltaG, KPrime
 
 
 class Process(Entity):
@@ -81,11 +83,11 @@ class Conversion(Interaction):
         ['left', 'right', 'participant_stoichiometry']
 
     def __init__(self,
-                 left: Optional[List] = None,
-                 right: Optional[List] = None,
-                 conversion_direction: Optional = None,
-                 participant_stoichiometry: Optional[List] = None,
-                 spontaneous: Optional = None,
+                 left: Optional[List[PhysicalEntity]] = None,
+                 right: Optional[List[PhysicalEntity]] = None,
+                 conversion_direction: Optional[List] = None,
+                 participant_stoichiometry: Optional[List[Stoichiometry]] = None,
+                 spontaneous: Optional[bool] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.left = left
@@ -126,9 +128,9 @@ class BiochemicalReaction(Conversion):
     def __init__(self,
                  delta_s: Optional = None,
                  delta_h: Optional = None,
-                 delta_g: Optional = None,
-                 k_e_q: Optional = None,
-                 e_c_number: Optional = None,
+                 delta_g: Optional[List[DeltaG]] = None,
+                 k_e_q: Optional[List[KPrime]] = None,
+                 e_c_number: Optional[str] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.delta_s = delta_s

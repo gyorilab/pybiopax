@@ -17,9 +17,12 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
            'Score']
 
-from typing import ClassVar, List, Mapping, Optional
+from typing import ClassVar, List, Mapping, Optional, TYPE_CHECKING
 
 from .base import BioPaxObject
+
+if TYPE_CHECKING:
+    from .physical_entity import PhysicalEntity
 
 
 class UtilityClass(BioPaxObject):
