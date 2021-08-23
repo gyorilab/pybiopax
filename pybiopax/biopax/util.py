@@ -50,8 +50,8 @@ class Evidence(UtilityClass):
 class Provenance(UtilityClass):
     """BioPAX Provenance."""
     def __init__(self,
-                 standard_name=None,
-                 display_name=None,
+                 standard_name: Optional[str] = None,
+                 display_name: Optional[str] = None,
                  all_names=None,
                  **kwargs):
         super().__init__(**kwargs)
@@ -181,7 +181,7 @@ class BioSource(UtilityClass):
     def __init__(self,
                  cell_type=None,
                  tissue=None,
-                 standard_name=None,
+                 standard_name: Optional[str] = None,
                  display_name=None,
                  all_names=None,
                  **kwargs):
@@ -444,7 +444,7 @@ class ControlledVocabulary(UtilityClass):
     """BioPAX ControlledVocabulary."""
     list_types: ClassVar[List[str]] = UtilityClass.list_types + ['term']
 
-    def __init__(self, term=None, **kwargs):
+    def __init__(self, term: Optional[List[str]] = None, **kwargs):
         super().__init__(**kwargs)
         self.term = term
 

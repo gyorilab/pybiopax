@@ -22,7 +22,7 @@ class BioPaxObject:
         uid: str,
         name: Optional[str] = None,
         comment: Optional[List[str]] = None,
-        xref: Optional[List[str]] = None,
+        xref: Optional[List["Xref"]] = None,
     ):
         self.uid = uid
         # TODO: is name in the right place here?
@@ -30,6 +30,17 @@ class BioPaxObject:
         self.comment = comment
         # TODO: is xref in the right place here?
         self.xref = xref
+
+    def __repr__(self) -> str:
+        s = f"{self.__class__.__name__}(uid={self.uid}"
+        if self.name is not None:
+            s += f", name={self.name}"
+        #if self.comment:
+        #    s += f", comment={self.comment}"
+        if self.xref:
+            s += f", xref={self.xref}"
+        s += ")"
+        return s
 
     @classmethod
     def from_xml(cls, element: Element) -> "BioPaxObject":
@@ -113,13 +124,13 @@ class Entity(BioPaxObject):
         ['evidence', 'data_source']
 
     def __init__(self,
-                 all_names=None,
-                 participant_of=None,
-                 availability=None,
-                 data_source=None,
-                 evidence=None,
                  standard_name: Optional[str] = None,
                  display_name: Optional[str] = None,
+                 all_names: Optional[str] = None,
+                 participant_of: Optional[str] = None,
+                 availability: Optional[str] = None,
+                 data_source: Optional[List[str]] = None,
+                 evidence: Optional[List[str]] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.standard_name = standard_name
@@ -130,6 +141,14 @@ class Entity(BioPaxObject):
         self.data_source = data_source
         self.evidence = evidence
 
+    def __repr__(self) -> str:
+        return (
+            f"Entity(standard_name={self.standard_name}, display_name={self.display_name}, "
+            f"all_names={self.all_names}, participant_of={self.participant_of}, "
+            f"availability={self.availability}, data_source={self.data_source},"
+            f"evidence={self.evidence})"
+        )
+
 
 class Gene(Entity):
     """BioPAX Gene"""
@@ -137,20 +156,37 @@ class Gene(Entity):
         super().__init__(**kwargs)
         self.organism = organism
 
+    def __repr__(self) -> str:
+        return (
+            f"{self.__class__.__name__}(standard_name={self.standard_name}, display_name={self.display_name}, "
+            f"all_names={self.all_names}, participant_of={self.participant_of}, "
+            f"availability={self.availability}, data_source={self.data_source}, "
+            f"evidence={self.evidence}, organism={self.organism})"
+        )
+
 
 class Pathway(Entity):
     """BioPAX Pathway."""
     list_types: ClassVar[List[str]] = Entity.list_types + ['pathway_component']
 
     def __init__(self,
-                 pathway_component=None,
-                 pathway_order=None,
-                 organism=None,
+                 pathway_component: Optional[List[str]] = None,
+                 pathway_order: Optional[str] = None,
+                 organism: Optional[str] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.pathway_component = pathway_component
         self.pathway_order = pathway_order
         self.organism = organism
+
+    def __repr__(self) -> str:
+        return (
+            f"{self.__class__.__name__}(standard_name={self.standard_name}, display_name={self.display_name}, "
+            f"all_names={self.all_names}, participant_of={self.participant_of}, "
+            f"availability={self.availability}, data_source={self.data_source}, "
+            f"evidence={self.evidence}, pathway_component={self.pathway_component}, "
+            f"pathway_order={self.pathway_order}, organism={self.organism})"
+        )
 
 
 # These are necessary to have the objects in the global
