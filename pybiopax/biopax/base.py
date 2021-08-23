@@ -1,8 +1,16 @@
 __all__ = ['BioPaxObject', 'Entity', 'Pathway', 'Gene', 'Unresolved']
 
-from typing import List, ClassVar, Mapping
+from lxml.etree import Element
+from typing import List, ClassVar, Mapping, Optional, Union, TYPE_CHECKING
 
-from ..xml_util import *
+from ..xml_util import (
+    get_datatype, get_attr_tag,get_resource, is_datatype, get_tag,
+    get_id_or_about, nssuffix, is_url, makers, nselem, snake_to_camel,
+)
+
+if TYPE_CHECKING:
+    from .util import PathwayStep, BioSource
+    from .interaction import Interaction
 
 
 class Unresolved:
@@ -152,7 +160,7 @@ class Entity(BioPaxObject):
 
 class Gene(Entity):
     """BioPAX Gene"""
-    def __init__(self, organism, **kwargs):
+    def __init__(self, organism: Optional["BioSource"] = None, **kwargs):
         super().__init__(**kwargs)
         self.organism = organism
 
@@ -170,9 +178,9 @@ class Pathway(Entity):
     list_types: ClassVar[List[str]] = Entity.list_types + ['pathway_component']
 
     def __init__(self,
-                 pathway_component: Optional[List[str]] = None,
-                 pathway_order: Optional[str] = None,
-                 organism: Optional[str] = None,
+                 pathway_component: Optional[List[Union["Interaction", "Pathway"]]] = None,
+                 pathway_order: Optional[List["PathwayStep"]] = None,
+                 organism: Optional["BioSource"] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.pathway_component = pathway_component

@@ -5,8 +5,9 @@ __all__ = ['Process', 'Interaction', 'GeneticInteraction',
            'ComplexAssembly', 'BiochemicalReaction',
            'Degradation', 'Transport', 'TransportWithBiochemicalReaction']
 
-from typing import ClassVar, List, Optional, TYPE_CHECKING
-from .base import Entity
+from enum import Enum
+from typing import ClassVar, List, Optional, TYPE_CHECKING, Union
+from .base import Entity, Pathway
 from .physical_entity import PhysicalEntity
 from .util import Stoichiometry, DeltaG, KPrime
 
@@ -67,9 +68,9 @@ class Control(Interaction):
     list_types: ClassVar[List[str]] = Interaction.list_types + ['controller']
 
     def __init__(self,
-                 control_type: Optional = None,
-                 controller: Optional = None,
-                 controlled: Optional = None,
+                 control_type: Optional[str] = None,
+                 controller: Optional[List[Union[PhysicalEntity, Pathway]]] = None,
+                 controlled: Union[None, Pathway, Interaction] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.control_type = control_type

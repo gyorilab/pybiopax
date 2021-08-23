@@ -382,7 +382,7 @@ class EntityReference(UtilityClass):
 class SequenceEntityReference(EntityReference):
     """BioPAX SequenceEntityReference."""
     def __init__(self,
-                 organism=None,
+                 organism: Optional[BioSource] = None,
                  sequence=None,
                  **kwargs):
         super().__init__(**kwargs)
