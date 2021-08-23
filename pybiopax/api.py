@@ -2,6 +2,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
            'model_from_reactome', 'model_from_ecocyc', 'model_from_metacyc',
            'model_from_biocyc', 'model_from_humancyc', 'model_from_netpath',
+           'model_from_pathbank',
            ]
 
 import requests
@@ -101,9 +102,26 @@ def model_from_pc_query(kind, source, target=None, **query_params):
     return model_from_owl_str(owl_str)
 
 
+def model_from_pathbank(identifier: str) -> BioPaxModel:
+    """Return a BioPAX model from a `PathBank <https://pathbank.org>`_ entry.
 
-def model_from_netpath(identifier):
-    """Return a BioPAX Model from a `NetPath <http://netpath.org>`_ entry.
+    Parameters
+    ----------
+    identifier :
+        The PathBank identifier for a pathway (e.g., ``SMP0000060`` for `Pyruvate
+        Metabolism <https://pathbank.org/view/SMP0000060>`_
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the PathBank resource.
+    """
+    url = f"https://pathbank.org/view/{identifier}/download?type=owl_markup"
+    return model_from_owl_url(url)
+
+
+def model_from_netpath(identifier: str) -> BioPaxModel:
+    """Return a BioPAX model from a `NetPath <http://netpath.org>`_ entry.
 
     Parameters
     ----------
@@ -114,8 +132,7 @@ def model_from_netpath(identifier):
     Returns
     -------
     :
-        A BioPAX Model obtained from the NetPath resource.
-
+        A BioPAX model obtained from the NetPath resource.
     """
     url = f"http://netpath.org/data/biopax/NetPath_{identifier}.owl"
     return model_from_owl_url(url)
