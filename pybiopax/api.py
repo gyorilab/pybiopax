@@ -1,6 +1,8 @@
 __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
-           'model_from_reactome']
+           'model_from_reactome', 'model_from_ecocyc', 'model_from_metacyc',
+           'model_from_biocyc', 'model_from_humancyc',
+           ]
 
 import requests
 from lxml import etree
@@ -118,6 +120,106 @@ def model_from_reactome(identifier: str) -> BioPaxModel:
         identifier = identifier.split("-")[-1]
     url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/Level3/{identifier}"
     res = requests.get(url)
+    res.raise_for_status()
+    return model_from_owl_str(res.text)
+
+
+def model_from_humancyc(identifier: str) -> BioPaxModel:
+    """Return a BioPAX Model from a HumanCyc entry.
+
+    Parameters
+    ----------
+    identifier :
+        The HumanCyc identifier for a pathway (e.g., ``PWY66-398`` for `TCA cycle
+        <https://humancyc.org/HUMAN/NEW-IMAGE?type=PATHWAY&object=PWY66-398>`_)
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the HumanCyc pathway.
+    """
+    return _model_from_xcyc("https://humancyc.org/HUMAN/pathway-biopax", identifier)
+
+
+def model_from_biocyc(identifier: str) -> BioPaxModel:
+    """Return a BioPAX Model from a `BioCyc <https://biocyc.org>`_ entry.
+
+    BioCyc contains pathways for model eukaryotes and microbes.
+
+    Parameters
+    ----------
+    identifier :
+        The BioCyc identifier for a pathway (e.g., P105-PWY for `TCA cycle IV (2-oxoglutarate decarboxylase)
+        <https://biocyc.org/META/NEW-IMAGE?type=PATHWAY&object=P105-PWY>`_)
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the BioCyc pathway.
+    """
+    return _model_from_xcyc("https://biocyc.org/META/pathway-biopax", identifier)
+
+
+def model_from_metacyc(identifier: str) -> BioPaxModel:
+    """Return a BioPAX Model from a` MetaCyc <https://metacyc.org/>`_ entry.
+
+    MetaCyc contains pathways for all organisms
+
+    Parameters
+    ----------
+    identifier :
+        The MetaCyc identifier for a pathway (e.g., TCA for
+        https://metacyc.org/META/NEW-IMAGE?type=PATHWAY&object=TCA)
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the MetaCyc pathway.
+    """
+    return _model_from_xcyc("https://ecocyc.org/ECOLI/pathway-biopax", identifier)
+
+
+def model_from_ecocyc(identifier: str) -> BioPaxModel:
+    """Return a BioPAX Model from a `EcoCyc <https://ecocyc.org/>`_ entry.
+
+    EcoCyc contains pathways for Escherichia coli K-12 MG1655.
+
+    Parameters
+    ----------
+    identifier :
+        The EcoCyc identifier for a pathway (e.g., TCA for
+        https://ecocyc.org/ECOLI/NEW-IMAGE?type=PATHWAY&object=TCA)
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the EcoCyc pathway.
+    """
+    return _model_from_xcyc("https://metacyc.org/META/pathway-biopax", identifier)
+
+
+def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
+    """Return a BioPAX Model from a XXXCyc entry.
+
+    Parameters
+    ----------
+    url :
+        The base url for the XXXCyc BioPax download endpoint. All of them have the form
+        ``https://....../META/pathway-biopax``.
+    identifier :
+        The site-specific identifier for a pathway
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the pathway.
+    """
+    params = {
+        "type": "3",
+        "object": identifier
+    }
+    # Not sure if the SSL issue is temporary. Remove verify=False later
+    res = requests.get(url, params=params, verify=False)
     res.raise_for_status()
     return model_from_owl_str(res.text)
 
