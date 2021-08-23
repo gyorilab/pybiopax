@@ -1,7 +1,7 @@
 __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
            'model_from_reactome', 'model_from_ecocyc', 'model_from_metacyc',
-           'model_from_biocyc', 'model_from_humancyc',
+           'model_from_biocyc', 'model_from_humancyc', 'model_from_netpath',
            ]
 
 import requests
@@ -99,6 +99,26 @@ def model_from_pc_query(kind, source, target=None, **query_params):
     """
     owl_str = graph_query(kind, source, target=target, **query_params)
     return model_from_owl_str(owl_str)
+
+
+
+def model_from_netpath(identifier):
+    """Return a BioPAX Model from a `NetPath <http://netpath.org>`_ entry.
+
+    Parameters
+    ----------
+    identifier :
+        The NetPath identifier for a pathway (e.g., ``22`` for the `leptin
+        signaling pathway <http://netpath.org/pathways?path_id=NetPath_22>`_
+
+    Returns
+    -------
+    :
+        A BioPAX Model obtained from the NetPath resource.
+
+    """
+    url = f"http://netpath.org/data/biopax/NetPath_{identifier}.owl"
+    return model_from_owl_url(url)
 
 
 def model_from_reactome(identifier: str) -> BioPaxModel:
