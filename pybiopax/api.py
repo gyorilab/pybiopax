@@ -129,8 +129,8 @@ def model_from_pathbank(identifier: str) -> BioPaxModel:
     Parameters
     ----------
     identifier :
-        The PathBank identifier for a pathway (e.g., ``SMP0000060`` for `Pyruvate
-        Metabolism <https://pathbank.org/view/SMP0000060>`_
+        The PathBank identifier for a pathway (e.g., ``SMP0000464`` for `Vitamin K
+        Metabolism <https://pathbank.org/view/SMP0000464>`_
 
     Returns
     -------
