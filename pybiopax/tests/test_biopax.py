@@ -1,4 +1,5 @@
 import os
+import pybiopax
 from pybiopax.biopax import *
 from pybiopax import model_from_owl_file
 
@@ -36,3 +37,54 @@ def test_process_molecular_interactions():
     assert len(mol_int.participant) == 2
     names = {part.display_name for part in mol_int.participant}
     assert names == {'ALG6', 'ALG8'}
+
+
+def test_get_smpdb():
+    m = pybiopax.model_from_smpdb("SMP0000060")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base == "http://smpdb.ca/pathways/#"
+
+
+def test_get_pathbank():
+    m = pybiopax.model_from_pathbank("SMP0000464")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base == "http://smpdb.ca/pathways/#"
+
+
+# Currently fails "__init__() got an unexpected keyword argument 'taxon_xref'"
+# def test_get_netpath():
+#     m = pybiopax.model_from_netpath("22")
+#     assert isinstance(m, BioPaxModel)
+#     assert m.xml_base == "http://smpdb.ca/pathways/#"
+
+
+def test_get_reactome():
+    m = pybiopax.model_from_reactome("177929")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base == "http://www.reactome.org/biopax/77/177929#"
+
+
+def test_get_humancyc():
+    m = pybiopax.model_from_humancyc("PWY66-398")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base is not None
+
+
+def test_get_biocyc():
+    m = pybiopax.model_from_biocyc("P105-PWY")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base is not None
+    # This is garbage:
+    # 'http://http://BioCyc.org//META/pathway-biopax?type=3%38object=P105-PWY'
+
+
+def test_get_metacyc():
+    m = pybiopax.model_from_metacyc("TCA")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base is not None
+
+
+def test_get_ecocyc():
+    m = pybiopax.model_from_ecocyc("TCA")
+    assert isinstance(m, BioPaxModel)
+    assert m.xml_base is not None
