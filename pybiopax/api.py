@@ -47,7 +47,7 @@ def model_from_owl_file(fname, encoding=None):
         return model_from_owl_str(owl_str)
 
 
-def model_from_owl_url(url):
+def model_from_owl_url(url, **kwargs):
     """Return a BioPAX Model from an URL pointing to an OWL file.
 
     Parameters
@@ -60,7 +60,7 @@ def model_from_owl_url(url):
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL file.
     """
-    res = requests.get(url)
+    res = requests.get(url, **kwargs)
     res.raise_for_status()
     return model_from_owl_str(res.text)
 
@@ -119,9 +119,7 @@ def model_from_reactome(identifier: str) -> BioPaxModel:
         # If you give something like R-XXX-YYYYY, just get the YYYYY part back for download.
         identifier = identifier.split("-")[-1]
     url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/Level3/{identifier}"
-    res = requests.get(url)
-    res.raise_for_status()
-    return model_from_owl_str(res.text)
+    return model_from_owl_url(url)
 
 
 def model_from_humancyc(identifier: str) -> BioPaxModel:
@@ -219,9 +217,7 @@ def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
         "object": identifier
     }
     # Not sure if the SSL issue is temporary. Remove verify=False later
-    res = requests.get(url, params=params, verify=False)
-    res.raise_for_status()
-    return model_from_owl_str(res.text)
+    return model_from_owl_url(url, params=params, verify=False)
 
 
 def model_to_owl_str(model):
