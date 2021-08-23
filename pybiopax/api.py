@@ -219,7 +219,7 @@ def model_from_biocyc(identifier: str) -> BioPaxModel:
 
 
 def model_from_metacyc(identifier: str) -> BioPaxModel:
-    """Return a BioPAX model from a` MetaCyc <https://metacyc.org/>`_ entry.
+    """Return a BioPAX model from a `MetaCyc <https://metacyc.org/>`_ entry.
 
     MetaCyc contains pathways for all organisms
 
