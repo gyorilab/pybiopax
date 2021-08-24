@@ -40,9 +40,9 @@ class BioPaxObject:
             # can just get as a text value
             elif (get_datatype(child.attrib) is None
                   and not get_resource(child.attrib)) \
-                    or is_datatype(child.attrib, nssuffix('xsd', 'string')) \
-                    or is_datatype(child.attrib, nssuffix('xsd', 'int')) \
-                    or is_datatype(child.attrib, nssuffix('xsd', 'float')):
+                    or is_datatype(child.attrib, 'xsd', 'string') \
+                    or is_datatype(child.attrib, 'xsd', 'int') \
+                    or is_datatype(child.attrib, 'xsd', 'float'):
                 val_to_add = child.text
             # If neither of the above is the case, then we assume that the
             # element is a reference that is defined in another block
