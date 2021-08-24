@@ -166,6 +166,7 @@ class BioSource(UtilityClass):
                  standard_name=None,
                  display_name=None,
                  all_names=None,
+                 taxon_xref=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.cell_type = cell_type
@@ -173,6 +174,7 @@ class BioSource(UtilityClass):
         self.standard_name = standard_name
         self.display_name = display_name
         self.all_names = all_names
+        self.taxon_xref = taxon_xref
 
 
 class ExperimentalForm(UtilityClass):
