@@ -196,7 +196,7 @@ def model_from_humancyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the HumanCyc pathway.
     """
-    return _model_from_xcyc("https://humancyc.org/HUMAN/pathway-biopax", identifier)
+    return _model_from_xcyc("http://humancyc.org/HUMAN/pathway-biopax", identifier)
 
 
 def model_from_biocyc(identifier: str) -> BioPaxModel:
@@ -215,7 +215,7 @@ def model_from_biocyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the BioCyc pathway.
     """
-    return _model_from_xcyc("https://biocyc.org/META/pathway-biopax", identifier)
+    return _model_from_xcyc("http://biocyc.org/META/pathway-biopax", identifier)
 
 
 def model_from_metacyc(identifier: str) -> BioPaxModel:
@@ -234,7 +234,7 @@ def model_from_metacyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the MetaCyc pathway.
     """
-    return _model_from_xcyc("https://ecocyc.org/ECOLI/pathway-biopax", identifier)
+    return _model_from_xcyc("http://ecocyc.org/ECOLI/pathway-biopax", identifier)
 
 
 def model_from_ecocyc(identifier: str) -> BioPaxModel:
@@ -253,7 +253,7 @@ def model_from_ecocyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the EcoCyc pathway.
     """
-    return _model_from_xcyc("https://metacyc.org/META/pathway-biopax", identifier)
+    return _model_from_xcyc("http://metacyc.org/META/pathway-biopax", identifier)
 
 
 def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
