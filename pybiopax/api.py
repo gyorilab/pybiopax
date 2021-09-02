@@ -7,7 +7,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
 
 import requests
 from lxml import etree
-from typing import Any, Mapping
+from typing import Any, Dict
 from .biopax.model import BioPaxModel
 from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
@@ -49,7 +49,7 @@ def model_from_owl_file(fname, encoding=None):
         return model_from_owl_str(owl_str)
 
 
-def model_from_owl_url(url, **kwargs: Mapping[str, Any]):
+def model_from_owl_url(url, **kwargs: Dict[str, Any]):
     """Return a BioPAX Model from an URL pointing to an OWL file.
 
     Parameters
@@ -64,6 +64,8 @@ def model_from_owl_url(url, **kwargs: Mapping[str, Any]):
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL file.
     """
+    headers = kwargs.setdefault("headers", {})
+    headers.setdefault("User-agent", "PyBioPAX")
     res = requests.get(url, **kwargs)
     res.raise_for_status()
     return model_from_owl_str(res.text)
