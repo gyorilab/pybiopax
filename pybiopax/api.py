@@ -121,7 +121,7 @@ def model_from_smpdb(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the SMPDB resource.
     """
-    url = f"http://smpdb.ca/view/{identifier}/download?type=owl_markup"
+    url = f"https://smpdb.ca/view/{identifier}/download?type=owl_markup"
     return model_from_owl_url(url, verify=False)
 
 
@@ -139,7 +139,7 @@ def model_from_pathbank(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the PathBank resource.
     """
-    url = f"http://pathbank.org/view/{identifier}/download?type=owl_markup"
+    url = f"https://pathbank.org/view/{identifier}/download?type=owl_markup"
     return model_from_owl_url(url, verify=False)
 
 
