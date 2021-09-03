@@ -29,8 +29,8 @@ class PhysicalEntity(Entity):
         self.cellular_location = cellular_location
 
     def __str__(self):
-        s = '%s(%s)' % (self.__class__.__name__,
-                        self.display_name)
+        name = self.display_name if self.display_name else self.standard_name
+        s = '%s(%s)' % (self.__class__.__name__, name)
         return s
 
     def __repr__(self):

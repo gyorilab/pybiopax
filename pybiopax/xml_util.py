@@ -84,9 +84,12 @@ def is_url(txt):
     return txt.startswith('http')
 
 
-def is_datatype(attrib, datatype):
+def is_datatype(attrib, prefix, datatype):
     """Return True of the given attribute is of a given type."""
-    return get_datatype(attrib) == datatype
+    possibilities = {nssuffix(prefix, datatype),
+                     f'{prefix}:{datatype}'}
+
+    return get_datatype(attrib) in possibilities
 
 
 def get_tag(element):
