@@ -2,7 +2,6 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
            'model_from_reactome', 'model_from_ecocyc', 'model_from_metacyc',
            'model_from_biocyc', 'model_from_humancyc', 'model_from_netpath',
-           'model_from_pathbank', 'model_from_smpdb',
            ]
 
 import requests
@@ -105,42 +104,6 @@ def model_from_pc_query(kind, source, target=None, **query_params):
     """
     owl_str = graph_query(kind, source, target=target, **query_params)
     return model_from_owl_str(owl_str)
-
-
-def model_from_smpdb(identifier: str) -> BioPaxModel:
-    """Return a BioPAX model from a `SMPDB <ttps://smpdb.ca>`_ entry.
-
-    Parameters
-    ----------
-    identifier :
-        The PathBank identifier for a pathway (e.g., ``SMP0000060`` for `Pyruvate
-        Metabolism <https://smpdb.ca/view/SMP0000060>`_
-
-    Returns
-    -------
-    :
-        A BioPAX model obtained from the SMPDB resource.
-    """
-    url = f"https://smpdb.ca/view/{identifier}/download?type=owl_markup"
-    return model_from_owl_url(url, verify=False)
-
-
-def model_from_pathbank(identifier: str) -> BioPaxModel:
-    """Return a BioPAX model from a `PathBank <https://pathbank.org>`_ entry.
-
-    Parameters
-    ----------
-    identifier :
-        The PathBank identifier for a pathway (e.g., ``SMP0000464`` for `Vitamin K
-        Metabolism <https://pathbank.org/view/SMP0000464>`_
-
-    Returns
-    -------
-    :
-        A BioPAX model obtained from the PathBank resource.
-    """
-    url = f"https://pathbank.org/view/{identifier}/download?type=owl_markup"
-    return model_from_owl_url(url, verify=False)
 
 
 def model_from_netpath(identifier: str) -> BioPaxModel:

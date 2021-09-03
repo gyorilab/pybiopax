@@ -39,20 +39,6 @@ def test_process_molecular_interactions():
     assert names == {'ALG6', 'ALG8'}
 
 
-def test_get_smpdb():
-    m = pybiopax.model_from_smpdb("SMP0000060")
-    assert isinstance(m, BioPaxModel)
-    assert m.xml_base == "http://smpdb.ca/pathways/#"
-    assert 0 < len(m.objects)
-
-
-def test_get_pathbank():
-    m = pybiopax.model_from_pathbank("SMP0000464")
-    assert isinstance(m, BioPaxModel)
-    assert m.xml_base == "http://smpdb.ca/pathways/#"
-    assert 0 < len(m.objects)
-
-
 def test_get_netpath():
     m = pybiopax.model_from_netpath("22")
     assert isinstance(m, BioPaxModel)
