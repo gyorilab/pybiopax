@@ -131,16 +131,18 @@ def model_from_reactome(identifier: str) -> BioPaxModel:
         The Reactome identifier for a pathway (e.g., ``177929`` for `Signaling by
         EGFR <https://reactome.org/content/detail/R-HSA-177929>`_)
         or reaction (e.g., ``177946`` for `Pro-EGF is cleaved to form mature
-        EGF <https://reactome.org/content/detail/R-HSA-177946>`_)
+        EGF <https://reactome.org/content/detail/R-HSA-177946>`_). For human pathways,
+        the identifier for the BioPAX download is the same as the part that comes
+        after ``R-HSA-``. For non-human pathways, this is not so clear.
 
     Returns
     -------
     :
         A BioPAX model obtained from the Reactome resource.
     """
-    if identifier.startswith("R-"):
+    if identifier.startswith("R-HSA-"):
         # If you give something like R-XXX-YYYYY, just get the YYYYY part back for download.
-        identifier = identifier.split("-")[-1]
+        identifier = identifier[len("R-HSA-"):]
     url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/Level3/{identifier}"
     return model_from_owl_url(url)
 
