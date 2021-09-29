@@ -36,7 +36,9 @@ def test_process_molecular_interactions():
         model.objects['MolecularInteraction_1e82d9951c7d71c02ee6e7bdc7cb8e47']
     assert isinstance(mol_int.participant, list)
     assert len(mol_int.participant) == 2
-    names = {part.display_name for part in mol_int.participant}
+    disp_names = {part.display_name for part in mol_int.participant}
+    assert disp_names == {'ALG6', 'ALG8'}
+    names = {part.name for part in mol_int.participants}
     assert names == {'ALG6', 'ALG8'}
 
     # Smoke test serialization

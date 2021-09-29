@@ -14,13 +14,9 @@ class BioPaxObject:
     list_types = ['xref', 'comment', 'name']
     xml_types = {}
 
-    def __init__(self, uid, name=None, comment=None, xref=None):
+    def __init__(self, uid, comment=None):
         self.uid = uid
-        # TODO: is name in the right place here?
-        self.name = name
         self.comment = comment
-        # TODO: is xref in the right place here?
-        self.xref = xref
 
     @classmethod
     def from_xml(cls, element):
@@ -98,28 +94,49 @@ class BioPaxObject:
         return None
 
 
-class Entity(BioPaxObject):
+class XReffable:
+    list_types = ['xref']
+
+    def __init__(self, xref=None):
+        self.xref = xref
+
+
+class Named(XReffable):
+    list_types = XReffable.list_types + ['name']
+
+    def __init__(self, display_name=None, standard_name=None, name=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.display_name = display_name
+        self.standard_name = standard_name
+        self._name = name
+
+    @property
+    def name(self):
+        return [self.standard_name] + [self.display_name] + [self._name]
+
+
+class Observable:
+    list_types = ['evidence']
+
+    def __init__(self, evidence=None):
+        self.evidence = evidence
+
+
+class Entity(BioPaxObject, Observable, Named):
     """BioPAX Entity."""
-    list_types = BioPaxObject.list_types + \
-        ['evidence', 'data_source']
+    list_types = BioPaxObject.list_types + Observable.list_types + \
+        Named.list_types + ['data_source']
 
     def __init__(self,
-                 standard_name=None,
-                 display_name=None,
-                 all_names=None,
                  participant_of=None,
                  availability=None,
                  data_source=None,
-                 evidence=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.standard_name = standard_name
-        self.display_name = display_name
-        self.all_names = all_names
         self.participant_of = participant_of
         self.availability = availability
         self.data_source = data_source
-        self.evidence = evidence
 
 
 class Gene(Entity):
