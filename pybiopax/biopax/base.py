@@ -11,10 +11,12 @@ class Unresolved:
 class BioPaxObject:
     """Generic BioPAX Object. It is the parent class of all more specific
     BioPAX classes."""
-    list_types = ['xref', 'comment', 'name']
+    list_types = ['comment']
     xml_types = {}
 
-    def __init__(self, uid, comment=None):
+    def __init__(self, uid, comment=None, **kwargs):
+        # Pass on for cooperative inheritance
+        super().__init__(**kwargs)
         self.uid = uid
         self.comment = comment
 
@@ -97,7 +99,9 @@ class BioPaxObject:
 class XReffable:
     list_types = ['xref']
 
-    def __init__(self, xref=None):
+    def __init__(self, xref=None, **kwargs):
+        # Pass on for cooperative inheritance
+        super().__init__(**kwargs)
         self.xref = xref
 
 
@@ -119,7 +123,9 @@ class Named(XReffable):
 class Observable:
     list_types = ['evidence']
 
-    def __init__(self, evidence=None):
+    def __init__(self, evidence=None, **kwargs):
+        # Pass on for cooperative inheritance
+        super().__init__(**kwargs)
         self.evidence = evidence
 
 

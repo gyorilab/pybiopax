@@ -41,9 +41,9 @@ class Evidence(UtilityClass, XReffable):
         self.experimental_form = experimental_form
 
 
-class Provenance(UtilityClass, XReffable, Named):
+class Provenance(UtilityClass, Named):
     """BioPAX Provenance."""
-    list_types = XReffable.list_types + Named.list_types
+    list_types = Named.list_types
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
