@@ -76,6 +76,25 @@ class BioPaxModel:
             if isinstance(obj, obj_type):
                 yield obj
 
+    def add_reverse_links(self):
+        for uid, obj in self.objects.items():
+            for attr in [a for a in dir(obj) if not a.startswith('_')
+                         and a not in {'list_types', 'xml_types',
+                                       'to_xml', 'from_xml', 'uid'}]:
+                val = getattr(obj, attr)
+                if isinstance(val, BioPaxObject) or \
+                        (isinstance(val, list) and
+                         all(isinstance(v, BioPaxObject) for v in val)):
+                    if attr in ['left', 'right']:
+                        of_attr = '_participant_of'
+                    else:
+                        of_attr = '_%s_of' % attr
+                    vals = val if isinstance(val, list) else [val]
+                    for v in vals:
+                        if of_attr in dir(v):
+                            of_attr_val = getattr(v, of_attr)
+                            of_attr_val.add(obj)
+
 
 def get_sub_objects(obj):
     """Get all the children of an object that were extracted and

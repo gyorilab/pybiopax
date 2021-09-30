@@ -264,14 +264,17 @@ class Xref(UtilityClass):
                  id=None,
                  db_version=None,
                  id_version=None,
-                 xref_of=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.db = db
         self.db_version = db_version
         self.id_version = id_version
         self.id = id
-        self.xref_of = xref_of
+        self._xref_of = set()
+
+    @property
+    def xref_of(self):
+        return self._xref_of
 
 
 class PublicationXref(Xref):
