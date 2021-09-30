@@ -17,7 +17,7 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
            'Score']
 
-from .base import BioPaxObject, Named, Observable, XReffable
+from .base import BioPaxObject, Named, Observable, XReferrable
 
 
 class UtilityClass(BioPaxObject):
@@ -26,8 +26,8 @@ class UtilityClass(BioPaxObject):
         super().__init__(**kwargs)
 
 
-class Evidence(UtilityClass, XReffable):
-    list_types = UtilityClass.list_types + XReffable.list_types
+class Evidence(UtilityClass, XReferrable):
+    list_types = UtilityClass.list_types + XReferrable.list_types
 
     """BioPAX Evidence."""
     def __init__(self,
@@ -307,8 +307,8 @@ class RelationshipXref(Xref):
         self.relationship_type = relationship_type
 
 
-class Score(UtilityClass, XReffable):
-    list_types = XReffable.list_types
+class Score(UtilityClass, XReferrable):
+    list_types = XReferrable.list_types
 
     """BioPAX Score."""
     def __init__(self,
@@ -415,9 +415,9 @@ class Stoichiometry(UtilityClass):
         self.physical_entity = physical_entity
 
 
-class ControlledVocabulary(UtilityClass, XReffable):
+class ControlledVocabulary(UtilityClass, XReferrable):
     """BioPAX ControlledVocabulary."""
-    list_types = UtilityClass.list_types + XReffable.list_types + ['term']
+    list_types = UtilityClass.list_types + XReferrable.list_types + ['term']
 
     def __init__(self, term=None, **kwargs):
         super().__init__(**kwargs)

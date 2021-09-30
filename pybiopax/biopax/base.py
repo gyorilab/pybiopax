@@ -96,7 +96,7 @@ class BioPaxObject:
         return None
 
 
-class XReffable:
+class XReferrable:
     """A mixin class to add xrefs to a BioPaxObject."""
     list_types = ['xref']
 
@@ -106,9 +106,9 @@ class XReffable:
         self.xref = xref
 
 
-class Named(XReffable):
+class Named(XReferrable):
     """A mixin class to add names to a BioPaxObject."""
-    list_types = XReffable.list_types + ['name']
+    list_types = XReferrable.list_types + ['name']
 
     def __init__(self, display_name=None, standard_name=None, name=None,
                  **kwargs):
