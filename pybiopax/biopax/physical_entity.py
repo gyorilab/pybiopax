@@ -21,6 +21,16 @@ class PhysicalEntity(Entity, Controller):
         self.not_feature = not_feature
         self.member_physical_entity = member_physical_entity
         self.cellular_location = cellular_location
+        self._component_of = set()
+        self._member_physical_entity_of = set()
+
+    @property
+    def component_of(self):
+        return self._component_of
+
+    @property
+    def member_physical_entity_of(self):
+        return self._member_physical_entity_of
 
     def __str__(self):
         name = self.display_name if self.display_name else self.standard_name

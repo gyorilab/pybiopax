@@ -1,4 +1,5 @@
-__all__ = ['BioPaxObject', 'Entity', 'Pathway', 'Gene', 'Unresolved']
+__all__ = ['BioPaxObject','Controller', 'Entity', 'Pathway', 'Gene',
+           'Unresolved']
 
 from ..xml_util import *
 
@@ -149,14 +150,17 @@ class Entity(BioPaxObject, Observable, Named):
         Named.list_types + ['data_source']
 
     def __init__(self,
-                 participant_of=None,
                  availability=None,
                  data_source=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.participant_of = participant_of
         self.availability = availability
         self.data_source = data_source
+        self._participant_of = set()
+
+    @property
+    def participant_of(self):
+        return self._participant_of
 
 
 class Gene(Entity):
