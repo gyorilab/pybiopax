@@ -376,12 +376,22 @@ class SequenceEntityReference(EntityReference):
         self.sequence = sequence
 
 
-class RnaReference(SequenceEntityReference):
+class NucleicAcidReference(SequenceEntityReference):
+    """BioPAX NucleicAcidReference"""
+    pass
+
+
+class NucleicAcidRegionReference(NucleicAcidReference):
+    """BioPAX NucleicAcidRegionReference"""
+    pass
+
+
+class RnaReference(NucleicAcidReference):
     """BioPAX RnaReference."""
     pass
 
 
-class RnaRegionReference(EntityReference):
+class RnaRegionReference(NucleicAcidRegionReference):
     """BioPAX RnaRegionReference."""
     pass
 
@@ -406,12 +416,12 @@ class SmallMoleculeReference(EntityReference):
         self.molecular_weight = molecular_weight
 
 
-class DnaReference(SequenceEntityReference):
+class DnaReference(NucleicAcidReference):
     """BioPAX DnaReference."""
     pass
 
 
-class DnaRegionReference(EntityReference):
+class DnaRegionReference(NucleicAcidRegionReference):
     """BioPAX DnaRegionReference."""
     pass
 
