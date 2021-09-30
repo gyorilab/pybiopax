@@ -166,7 +166,18 @@ class Gene(Entity):
         self.organism = organism
 
 
-class Pathway(Entity):
+class Controller:
+    """BioPAX Controller."""
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._controller_of = set()
+
+    @property
+    def controller_of(self):
+        return self.controller_of
+
+
+class Pathway(Entity, Controller):
     """BioPAX Pathway."""
     list_types = Entity.list_types + ['pathway_component']
 
