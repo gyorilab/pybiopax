@@ -54,7 +54,10 @@ class BioPaxModel:
                     objects[sub_obj.uid] = sub_obj
 
         for obj_id, obj in objects.items():
-            for attr in [a for a in dir(obj) if not a.startswith('__')]:
+            for attr in [a for a in dir(obj) if not a.startswith('_')]:
+                # This is to avoid properties
+                if attr not in obj.__dict__:
+                    continue
                 val = getattr(obj, attr)
                 resolved_val = resolve_value(objects, val)
                 setattr(obj, attr, resolved_val)

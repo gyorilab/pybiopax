@@ -117,7 +117,7 @@ class Named(XReffable):
 
     @property
     def name(self):
-        return [self.standard_name] + [self.display_name] + [self._name]
+        return [self.standard_name] + [self.display_name] + self._name
 
 
 class Observable:
