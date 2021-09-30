@@ -178,7 +178,7 @@ class Controller:
 
     @property
     def controller_of(self):
-        return self.controller_of
+        return self._controller_of
 
 
 class Pathway(Entity, Controller):

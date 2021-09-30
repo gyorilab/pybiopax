@@ -250,14 +250,20 @@ class PathwayStep(UtilityClass, Observable):
     def __init__(self,
                  step_process=None,
                  next_step=None,
-                 next_step_of=None,
-                 pathway_order_of=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.step_process = step_process
         self.next_step = next_step
-        self.next_step_of = next_step_of
-        self.pathway_order_of = pathway_order_of
+        self._next_step_of = set()
+        self._pathway_order_of = set()
+
+    @property
+    def next_step_of(self):
+        return self._next_step_of
+
+    @property
+    def pathway_order_of(self):
+        return self.pathway_order_of
 
 
 class BiochemicalPathwayStep(PathwayStep):
@@ -383,7 +389,13 @@ class NucleicAcidReference(SequenceEntityReference):
 
 class NucleicAcidRegionReference(NucleicAcidReference):
     """BioPAX NucleicAcidRegionReference"""
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._subregion_of = set()
+
+    @property
+    def subregion_of(self):
+        return self._subregion_of
 
 
 class RnaReference(NucleicAcidReference):
