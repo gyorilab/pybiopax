@@ -30,6 +30,7 @@ class BioPaxModel:
     def __init__(self, objects, xml_base):
         self.objects = objects
         self.xml_base = xml_base
+        self.add_reverse_links()
 
     @classmethod
     def from_xml(cls, tree, tqdm_kwargs: Optional[Mapping[str, Any]] = None):
