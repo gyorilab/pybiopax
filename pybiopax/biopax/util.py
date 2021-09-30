@@ -263,7 +263,7 @@ class PathwayStep(UtilityClass, Observable):
 
     @property
     def pathway_order_of(self):
-        return self.pathway_order_of
+        return self._pathway_order_of
 
 
 class BiochemicalPathwayStep(PathwayStep):
