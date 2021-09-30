@@ -97,6 +97,7 @@ class BioPaxObject:
 
 
 class XReffable:
+    """A mixin class to add xrefs to a BioPaxObject."""
     list_types = ['xref']
 
     def __init__(self, xref=None, **kwargs):
@@ -106,6 +107,7 @@ class XReffable:
 
 
 class Named(XReffable):
+    """A mixin class to add names to a BioPaxObject."""
     list_types = XReffable.list_types + ['name']
 
     def __init__(self, display_name=None, standard_name=None, name=None,
@@ -121,6 +123,7 @@ class Named(XReffable):
 
 
 class Observable:
+    """A mixin class to add evidence to a BioPaxObject."""
     list_types = ['evidence']
 
     def __init__(self, evidence=None, **kwargs):
