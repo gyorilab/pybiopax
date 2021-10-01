@@ -36,8 +36,11 @@ def test_process_molecular_interactions():
         model.objects['MolecularInteraction_1e82d9951c7d71c02ee6e7bdc7cb8e47']
     assert isinstance(mol_int.participant, list)
     assert len(mol_int.participant) == 2
-    names = {part.display_name for part in mol_int.participant}
-    assert names == {'ALG6', 'ALG8'}
+    disp_names = {part.display_name for part in mol_int.participant}
+    assert disp_names == {'ALG6', 'ALG8'}
+    names = set.union(*[set(part.name) for part in mol_int.participant])
+    assert names == {'ALG8', 'CDG1H', 'CDG1C', 'ALG6, CDG1C', 'ALG6',
+                     'ALG8, CDG1H, MGC2840'}, names
 
     # Smoke test serialization
     model_to_owl_file(model, 'test_output.owl')

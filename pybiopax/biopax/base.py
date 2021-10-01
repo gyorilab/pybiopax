@@ -11,16 +11,14 @@ class Unresolved:
 class BioPaxObject:
     """Generic BioPAX Object. It is the parent class of all more specific
     BioPAX classes."""
-    list_types = ['xref', 'comment', 'name']
+    list_types = ['comment']
     xml_types = {}
 
-    def __init__(self, uid, name=None, comment=None, xref=None):
+    def __init__(self, uid, comment=None, **kwargs):
+        # Pass on for cooperative inheritance
+        super().__init__(**kwargs)
         self.uid = uid
-        # TODO: is name in the right place here?
-        self.name = name
         self.comment = comment
-        # TODO: is xref in the right place here?
-        self.xref = xref
 
     @classmethod
     def from_xml(cls, element):
@@ -68,6 +66,12 @@ class BioPaxObject:
             val = getattr(self, attr)
             if val is None:
                 continue
+
+            # We have to implement special handling for names to make sure
+            # we don't serialize display/standard names here
+            if attr == 'name' and isinstance(self, Named):
+                val = self.get_plain_names()
+
             if isinstance(val, list):
                 for v in val:
                     child_elem = self._simple_to_xml(attr, v)
@@ -98,28 +102,61 @@ class BioPaxObject:
         return None
 
 
-class Entity(BioPaxObject):
+class XReferrable:
+    """A mixin class to add xrefs to a BioPaxObject."""
+    list_types = ['xref']
+
+    def __init__(self, xref=None, **kwargs):
+        # Pass on for cooperative inheritance
+        super().__init__(**kwargs)
+        self.xref = xref
+
+
+class Named(XReferrable):
+    """A mixin class to add names to a BioPaxObject."""
+    list_types = XReferrable.list_types + ['name']
+
+    def __init__(self, display_name=None, standard_name=None, name=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.display_name = display_name
+        self.standard_name = standard_name
+        self._name = name
+
+    @property
+    def name(self):
+        std_name = [self.standard_name] if self.standard_name else []
+        disp_name = [self.display_name] if self.display_name else []
+        return std_name + disp_name + self._name
+
+    def get_plain_names(self):
+        return self._name
+
+
+class Observable:
+    """A mixin class to add evidence to a BioPaxObject."""
+    list_types = ['evidence']
+
+    def __init__(self, evidence=None, **kwargs):
+        # Pass on for cooperative inheritance
+        super().__init__(**kwargs)
+        self.evidence = evidence
+
+
+class Entity(BioPaxObject, Observable, Named):
     """BioPAX Entity."""
-    list_types = BioPaxObject.list_types + \
-        ['evidence', 'data_source']
+    list_types = BioPaxObject.list_types + Observable.list_types + \
+        Named.list_types + ['data_source']
 
     def __init__(self,
-                 standard_name=None,
-                 display_name=None,
-                 all_names=None,
                  participant_of=None,
                  availability=None,
                  data_source=None,
-                 evidence=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.standard_name = standard_name
-        self.display_name = display_name
-        self.all_names = all_names
         self.participant_of = participant_of
         self.availability = availability
         self.data_source = data_source
-        self.evidence = evidence
 
 
 class Gene(Entity):

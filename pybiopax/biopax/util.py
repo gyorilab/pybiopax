@@ -17,7 +17,7 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
            'Score']
 
-from .base import BioPaxObject
+from .base import BioPaxObject, Named, Observable, XReferrable
 
 
 class UtilityClass(BioPaxObject):
@@ -26,7 +26,9 @@ class UtilityClass(BioPaxObject):
         super().__init__(**kwargs)
 
 
-class Evidence(UtilityClass):
+class Evidence(UtilityClass, XReferrable):
+    list_types = UtilityClass.list_types + XReferrable.list_types
+
     """BioPAX Evidence."""
     def __init__(self,
                  confidence=None,
@@ -39,25 +41,19 @@ class Evidence(UtilityClass):
         self.experimental_form = experimental_form
 
 
-class Provenance(UtilityClass):
+class Provenance(UtilityClass, Named):
     """BioPAX Provenance."""
-    def __init__(self,
-                 standard_name=None,
-                 display_name=None,
-                 all_names=None,
-                 **kwargs):
+    list_types = Named.list_types
+
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.standard_name = standard_name
-        self.display_name = display_name
-        self.all_names = all_names
 
 
-class EntityFeature(UtilityClass):
+class EntityFeature(UtilityClass, Observable):
     """BioPAX UtilityClass."""
-    list_types = UtilityClass.list_types + ['evidence']
+    list_types = UtilityClass.list_types + Observable.list_types
 
     def __init__(self,
-                 evidence=None,
                  owner_entity_reference=None,
                  feature_of=None,
                  not_feature_of=None,
@@ -67,7 +63,6 @@ class EntityFeature(UtilityClass):
                  member_feature_of=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.evidence = evidence
         self.owner_entity_reference = owner_entity_reference
         self.feature_of = feature_of
         self.not_feature_of = not_feature_of
@@ -158,22 +153,18 @@ class ChemicalStructure(UtilityClass):
         self.structure_data = structure_data
 
 
-class BioSource(UtilityClass):
+class BioSource(UtilityClass, Named):
     """BioPAX BioSource."""
+    list_types = Named.list_types
+
     def __init__(self,
                  cell_type=None,
                  tissue=None,
-                 standard_name=None,
-                 display_name=None,
-                 all_names=None,
                  taxon_xref=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.cell_type = cell_type
         self.tissue = tissue
-        self.standard_name = standard_name
-        self.display_name = display_name
-        self.all_names = all_names
         self.taxon_xref = taxon_xref
 
 
@@ -238,23 +229,21 @@ class SequenceSite(SequenceLocation):
         return str(self)
 
 
-class PathwayStep(UtilityClass):
+class PathwayStep(UtilityClass, Observable):
     """BioPAX PathwayStep."""
-    list_types = UtilityClass.list_types + ['evidence']
+    list_types = UtilityClass.list_types + Observable.list_types
 
     def __init__(self,
                  step_process=None,
                  next_step=None,
                  next_step_of=None,
                  pathway_order_of=None,
-                 evidence=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.step_process = step_process
         self.next_step = next_step
         self.next_step_of = next_step_of
         self.pathway_order_of = pathway_order_of
-        self.evidence = evidence
 
 
 class BiochemicalPathwayStep(PathwayStep):
@@ -318,7 +307,9 @@ class RelationshipXref(Xref):
         self.relationship_type = relationship_type
 
 
-class Score(UtilityClass):
+class Score(UtilityClass, XReferrable):
+    list_types = XReferrable.list_types
+
     """BioPAX Score."""
     def __init__(self,
                  score_source=None,
@@ -329,35 +320,24 @@ class Score(UtilityClass):
         self.value = value
 
 
-class EntityReference(UtilityClass):
+class EntityReference(UtilityClass, Named, Observable):
     """BioPAX EntityReference."""
-    list_types = UtilityClass.list_types + \
-        ['evidence', 'entity_feature', 'member_entity_reference']
+    list_types = UtilityClass.list_types + Named.list_types + \
+        Observable.list_types + ['entity_feature', 'member_entity_reference']
 
     def __init__(self,
                  entity_feature=None,
                  entity_reference_of=None,
-                 evidence=None,
                  entity_reference_type=None,
                  member_entity_reference=None,
                  owner_entity_reference=None,
-                 xref=None,
-                 standard_name=None,
-                 display_name=None,
-                 all_names=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.entity_feature = entity_feature
         self.entity_reference_of = entity_reference_of
-        self.evidence = evidence
         self.entity_reference_type = entity_reference_type
         self.member_entity_reference = member_entity_reference
         self.owner_entity_reference = owner_entity_reference
-        # TODO: is xref in the right location here?
-        self.xref = xref
-        self.standard_name = standard_name
-        self.display_name = display_name
-        self.all_names = all_names
 
 
 class SequenceEntityReference(EntityReference):
@@ -435,9 +415,9 @@ class Stoichiometry(UtilityClass):
         self.physical_entity = physical_entity
 
 
-class ControlledVocabulary(UtilityClass):
+class ControlledVocabulary(UtilityClass, XReferrable):
     """BioPAX ControlledVocabulary."""
-    list_types = UtilityClass.list_types + ['term']
+    list_types = UtilityClass.list_types + XReferrable.list_types + ['term']
 
     def __init__(self, term=None, **kwargs):
         super().__init__(**kwargs)
