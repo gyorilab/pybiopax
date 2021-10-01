@@ -55,21 +55,35 @@ class EntityFeature(UtilityClass, Observable):
 
     def __init__(self,
                  owner_entity_reference=None,
-                 feature_of=None,
-                 not_feature_of=None,
                  feature_location=None,
                  member_feature=None,
                  feature_location_type=None,
-                 member_feature_of=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.owner_entity_reference = owner_entity_reference
-        self.feature_of = feature_of
-        self.not_feature_of = not_feature_of
         self.feature_location = feature_location
         self.member_feature = member_feature
         self.feature_location_type = feature_location_type
-        self.member_feature_of = member_feature_of
+        self._feature_of = set()
+        self._not_feature_of = set()
+        self._entity_feature_of = set()
+        self._member_feature_of = set()
+
+    @property
+    def feature_of(self):
+        return self._feature_of
+
+    @property
+    def not_feature_of(self):
+        return self._not_feature_of
+
+    @property
+    def entity_feature_of(self):
+        return self._entity_feature_of
+
+    @property
+    def member_feature_of(self):
+        return self._member_feature_of
 
 
 class ModificationFeature(EntityFeature):
@@ -236,14 +250,20 @@ class PathwayStep(UtilityClass, Observable):
     def __init__(self,
                  step_process=None,
                  next_step=None,
-                 next_step_of=None,
-                 pathway_order_of=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.step_process = step_process
         self.next_step = next_step
-        self.next_step_of = next_step_of
-        self.pathway_order_of = pathway_order_of
+        self._next_step_of = set()
+        self._pathway_order_of = set()
+
+    @property
+    def next_step_of(self):
+        return self._next_step_of
+
+    @property
+    def pathway_order_of(self):
+        return self._pathway_order_of
 
 
 class BiochemicalPathwayStep(PathwayStep):
@@ -264,14 +284,17 @@ class Xref(UtilityClass):
                  id=None,
                  db_version=None,
                  id_version=None,
-                 xref_of=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.db = db
         self.db_version = db_version
         self.id_version = id_version
         self.id = id
-        self.xref_of = xref_of
+        self._xref_of = set()
+
+    @property
+    def xref_of(self):
+        return self._xref_of
 
 
 class PublicationXref(Xref):
@@ -327,17 +350,25 @@ class EntityReference(UtilityClass, Named, Observable):
 
     def __init__(self,
                  entity_feature=None,
-                 entity_reference_of=None,
                  entity_reference_type=None,
                  member_entity_reference=None,
                  owner_entity_reference=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.entity_feature = entity_feature
-        self.entity_reference_of = entity_reference_of
         self.entity_reference_type = entity_reference_type
         self.member_entity_reference = member_entity_reference
         self.owner_entity_reference = owner_entity_reference
+        self._entity_reference_of = set()
+        self._member_entity_reference_of = set()
+
+    @property
+    def entity_reference_of(self):
+        return self._entity_reference_of
+
+    @property
+    def member_entity_reference_of(self):
+        return self._member_entity_reference_of
 
 
 class SequenceEntityReference(EntityReference):
@@ -351,12 +382,28 @@ class SequenceEntityReference(EntityReference):
         self.sequence = sequence
 
 
-class RnaReference(SequenceEntityReference):
+class NucleicAcidReference(SequenceEntityReference):
+    """BioPAX NucleicAcidReference"""
+    pass
+
+
+class NucleicAcidRegionReference(NucleicAcidReference):
+    """BioPAX NucleicAcidRegionReference"""
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._subregion_of = set()
+
+    @property
+    def subregion_of(self):
+        return self._subregion_of
+
+
+class RnaReference(NucleicAcidReference):
     """BioPAX RnaReference."""
     pass
 
 
-class RnaRegionReference(EntityReference):
+class RnaRegionReference(NucleicAcidRegionReference):
     """BioPAX RnaRegionReference."""
     pass
 
@@ -381,12 +428,12 @@ class SmallMoleculeReference(EntityReference):
         self.molecular_weight = molecular_weight
 
 
-class DnaReference(SequenceEntityReference):
+class DnaReference(NucleicAcidReference):
     """BioPAX DnaReference."""
     pass
 
 
-class DnaRegionReference(EntityReference):
+class DnaRegionReference(NucleicAcidRegionReference):
     """BioPAX DnaRegionReference."""
     pass
 

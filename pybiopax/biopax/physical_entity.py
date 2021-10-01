@@ -2,10 +2,10 @@ __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
            'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
            'RnaRegion']
 
-from .base import Entity
+from .base import Entity, Controller
 
 
-class PhysicalEntity(Entity):
+class PhysicalEntity(Entity, Controller):
     """BioPAX PhysicalEntity."""
     list_types = Entity.list_types + \
         ['feature', 'not_feature', 'member_physical_entity']
@@ -13,20 +13,24 @@ class PhysicalEntity(Entity):
     def __init__(self,
                  feature=None,
                  not_feature=None,
-                 controller_of=None,
-                 component_of=None,
-                 member_physical_entity_of=None,
                  member_physical_entity=None,
                  cellular_location=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.feature = feature
         self.not_feature = not_feature
-        self.controller_of = controller_of
-        self.component_of = component_of
-        self.member_physical_entity_of = member_physical_entity_of
         self.member_physical_entity = member_physical_entity
         self.cellular_location = cellular_location
+        self._component_of = set()
+        self._member_physical_entity_of = set()
+
+    @property
+    def component_of(self):
+        return self._component_of
+
+    @property
+    def member_physical_entity_of(self):
+        return self._member_physical_entity_of
 
     def __str__(self):
         name = self.display_name if self.display_name else self.standard_name

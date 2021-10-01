@@ -11,14 +11,23 @@ from .base import Entity
 class Process(Entity):
     """BioPAX Process."""
     def __init__(self,
-                 controlled_of=None,
-                 step_process_of=None,
-                 pathway_component_of=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.controlled_of = controlled_of
-        self.step_process_of = step_process_of
-        self.pathway_component_of = pathway_component_of
+        self._controlled_of = set()
+        self._step_process_of = set()
+        self._pathway_component_of = set()
+
+    @property
+    def controlled_of(self):
+        return self._controlled_of
+
+    @property
+    def step_process_of(self):
+        return self._step_process_of
+
+    @property
+    def pathway_component_of(self):
+        return self._pathway_component_of
 
 
 class Interaction(Process):
