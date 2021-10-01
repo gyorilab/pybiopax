@@ -66,6 +66,12 @@ class BioPaxObject:
             val = getattr(self, attr)
             if val is None:
                 continue
+
+            # We have to implement special handling for names to make sure
+            # we don't serialize display/standard names here
+            if attr == 'name' and isinstance(self, Named):
+                val = self.get_plain_names()
+
             if isinstance(val, list):
                 for v in val:
                     child_elem = self._simple_to_xml(attr, v)
@@ -119,7 +125,12 @@ class Named(XReferrable):
 
     @property
     def name(self):
-        return [self.standard_name] + [self.display_name] + self._name
+        std_name = [self.standard_name] if self.standard_name else []
+        disp_name = [self.display_name] if self.display_name else []
+        return std_name + disp_name + self._name
+
+    def get_plain_names(self):
+        return self._name
 
 
 class Observable:
