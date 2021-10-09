@@ -81,10 +81,10 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
         if cls and not isinstance(v, cls):
             continue
         if rest:
-            results.append(find_objects(v, rest))
+            results += find_objects(v, rest)
         else:
-            results.append([v])
-    return list(itertools.chain(*results))
+            results.append(v)
+    return results
 
 
 def _get_object_list(val):
