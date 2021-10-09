@@ -3,7 +3,6 @@ given object using a path constraint string."""
 __all__ = ['find_objects', 'BiopaxClassConstraintError']
 
 import logging
-import itertools
 from typing import List
 from .biopax import *
 
@@ -42,9 +41,7 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
         try:
             cls = biopax_cls_map[class_constraint_str]
         except KeyError:
-            raise BiopaxClassConstraintError(f'{class_constraint_str} '
-                                             f'is not a valid BioPax class '
-                                             f'name.') from None
+            raise BiopaxClassConstraintError(class_constraint_str) from None
     else:
         attribute, cls = part, None
 
@@ -107,4 +104,8 @@ biopax_cls_map = _make_biopax_cls_map()
 
 
 class BiopaxClassConstraintError(KeyError):
-    pass
+    def __init__(self, cls_str):
+        self.cls_str = cls_str
+
+    def __str__(self):
+        return f'{self.cls_str} is not a valid BioPAX class name.'
