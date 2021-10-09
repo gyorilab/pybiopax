@@ -44,19 +44,45 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
         else:
             attribute, cls = part, None
 
-        val = getattr(start_obj, attribute, None)
-        if val is None:
-            return []
-        elif isinstance(val, BioPaxObject):
+        if attribute.endswith('*'):
+            attribute = attribute[:-1]
+            recursive = True
+        else:
+            recursive = False
+
+        # Get the attribute we are looking for
+        attr_val = getattr(start_obj, attribute, None)
+        val = _get_object_list(attr_val)
+
+        # If this is a recursive part, we run a BFS to get all the downstream
+        # objects that can be reached via one or more of the given type of
+        # attribute links
+        if recursive:
+            queue = val[:]
+            visited = val[:]
+            while queue:
+                obj = queue.pop(0)
+                obj_val = getattr(obj, attribute, None)
+                for child in _get_object_list(obj_val):
+                    if child not in visited:
+                        visited.append(child)
+                        queue.append(child)
+            val = visited
+
+        # If it's a single object
+        if isinstance(val, BioPaxObject):
             if cls and not isinstance(val, cls):
                 return []
             if not last:
                 return find_objects(val, '/'.join(parts[1:]))
             else:
                 return [val]
+        # If it's a list of objects
         elif isinstance(val, list):
             results = []
             for v in val:
+                if not isinstance(v, BioPaxObject):
+                    continue
                 if cls and not isinstance(v, cls):
                     continue
                 if not last:
@@ -64,6 +90,19 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
                 else:
                     results.append([v])
             return list(itertools.chain(*results))
+        # Otherwise it's a value other than a BioPaxObject which we don't
+        # consider here
+        else:
+            return []
+
+
+def _get_object_list(val):
+    if isinstance(val, BioPaxObject):
+        return [val]
+    elif isinstance(val, list):
+        return [v for v in val if isinstance(v, BioPaxObject)]
+    else:
+        return []
 
 
 def _make_biopax_cls_map():

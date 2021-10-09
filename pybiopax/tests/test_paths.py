@@ -56,3 +56,21 @@ def test__with_invalid_class():
 
     with pytest.raises(BiopaxClassConstraintError):
         find_objects(xr1, 'xref_of:XXX')
+
+
+def test_recursive():
+    p1 = Protein(uid='1')
+    c1 = Complex(uid='2', member_physical_entity=[p1])
+    c2 = Complex(uid='3', member_physical_entity=[c1])
+
+    objects = find_objects(c2, 'member_physical_entity')
+    assert len(objects) == 1
+    assert objects[0] == c1
+
+    objects = find_objects(c2, 'member_physical_entity/member_physical_entity')
+    assert len(objects) == 1
+    assert objects[0] == p1
+
+    objects = find_objects(c2, 'member_physical_entity*')
+    assert len(objects) == 2, objects
+    assert set(objects) == {p1, c1}
