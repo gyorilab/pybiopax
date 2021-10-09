@@ -24,6 +24,8 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
         separated by /. Each part is the name of an object attribute, and
         can optionally contain a class name as well, separated by : to
         constrain the class of the target of the attribute to consider.
+        Optionally, each attribute can also have a * suffix to make the
+        search recursive.
 
     Returns
     -------
