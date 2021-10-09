@@ -1,3 +1,4 @@
+import pytest
 from pybiopax.biopax import *
 from pybiopax.paths import find_objects, BiopaxClassConstraintError
 
@@ -45,3 +46,13 @@ def test_find_objects_constraints():
     objects = find_objects(protref, 'xref:UnificationXref/xref_of')
     assert len(objects) == 1
     assert objects[0] == protref, objects
+
+    objects = find_objects(protref, 'xref:UnificationXref/xref_of:RnaReference')
+    assert not objects
+
+
+def test__with_invalid_class():
+    xr1 = UnificationXref(uid='1')
+
+    with pytest.raises(BiopaxClassConstraintError):
+        find_objects(xr1, 'xref_of:XXX')
