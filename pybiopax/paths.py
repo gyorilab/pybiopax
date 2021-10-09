@@ -20,4 +20,8 @@ def find_objects(start_obj: BioPaxObject, path_str: str):
         elif isinstance(val, list):
             results = []
             for v in val:
-                results.append(find_objects(v, '/'.join(parts[1:])))
+                if not last:
+                    results.append(find_objects(v, '/'.join(parts[1:])))
+                else:
+                    results.append(v)
+            return results
