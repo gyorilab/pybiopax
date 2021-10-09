@@ -1,6 +1,7 @@
 __all__ = ['find_objects', 'BiopaxClassConstraintError']
 
 import logging
+import itertools
 from .biopax import *
 
 
@@ -40,8 +41,8 @@ def find_objects(start_obj: BioPaxObject, path_str: str):
                 if not last:
                     results.append(find_objects(v, '/'.join(parts[1:])))
                 else:
-                    results.append(v)
-            return results
+                    results.append([v])
+            return list(itertools.chain(*results))
 
 
 def _make_biopax_cls_map():
