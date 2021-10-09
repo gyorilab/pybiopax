@@ -52,6 +52,7 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
 
         # Get the attribute we are looking for
         attr_val = getattr(start_obj, attribute, None)
+        # We turn the value into a flat list of BioPaxObjects
         val = _get_object_list(attr_val)
 
         # If this is a recursive part, we run a BFS to get all the downstream
@@ -69,31 +70,18 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
                         queue.append(child)
             val = visited
 
-        # If it's a single object
-        if isinstance(val, BioPaxObject):
-            if cls and not isinstance(val, cls):
-                return []
+        # At this point, val is guaranteed to be a list of BioPaxObjects
+        results = []
+        for v in val:
+            if not isinstance(v, BioPaxObject):
+                continue
+            if cls and not isinstance(v, cls):
+                continue
             if not last:
-                return find_objects(val, '/'.join(parts[1:]))
+                results.append(find_objects(v, '/'.join(parts[1:])))
             else:
-                return [val]
-        # If it's a list of objects
-        elif isinstance(val, list):
-            results = []
-            for v in val:
-                if not isinstance(v, BioPaxObject):
-                    continue
-                if cls and not isinstance(v, cls):
-                    continue
-                if not last:
-                    results.append(find_objects(v, '/'.join(parts[1:])))
-                else:
-                    results.append([v])
-            return list(itertools.chain(*results))
-        # Otherwise it's a value other than a BioPaxObject which we don't
-        # consider here
-        else:
-            return []
+                results.append([v])
+        return list(itertools.chain(*results))
 
 
 def _get_object_list(val):
