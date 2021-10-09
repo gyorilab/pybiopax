@@ -75,8 +75,6 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
         # At this point, val is guaranteed to be a list of BioPaxObjects
         results = []
         for v in val:
-            if not isinstance(v, BioPaxObject):
-                continue
             if cls and not isinstance(v, cls):
                 continue
             if not last:
