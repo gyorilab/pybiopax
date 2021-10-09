@@ -39,10 +39,10 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
             attribute, class_constraint_str = part.split(':', maxsplit=1)
             try:
                 cls = biopax_cls_map[class_constraint_str]
-            except KeyError as e:
+            except KeyError:
                 raise BiopaxClassConstraintError(f'{class_constraint_str} '
                                                  f'is not a valid BioPax class '
-                                                 f'name.')
+                                                 f'name.') from None
         else:
             attribute, cls = part, None
 
@@ -103,5 +103,5 @@ def _make_biopax_cls_map():
 biopax_cls_map = _make_biopax_cls_map()
 
 
-class BiopaxClassConstraintError(Exception):
+class BiopaxClassConstraintError(KeyError):
     pass
