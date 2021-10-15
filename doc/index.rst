@@ -12,6 +12,7 @@ PyBioPAX documentation
    modules/api
    modules/biopax
    modules/pc_client
+   modules/paths
    modules/xml_util
 
 
