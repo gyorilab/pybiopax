@@ -9,37 +9,48 @@ import pathlib
 
 import requests
 from lxml import etree
-from typing import Any, Mapping, Union
+from typing import Any, Mapping, Optional, Union
 from .biopax.model import BioPaxModel
 from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
 
 
-def model_from_owl_str(owl_str):
+def model_from_owl_str(
+    owl_str: str,
+    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
+):
     """Return a BioPAX Model from an OWL string.
 
     Parameters
     ----------
-    owl_str : str
+    owl_str :
         A OWL string of BioPAX content.
+    tqdm_kwargs :
+        Arguments to pass to tqdm while parsing the XML
 
     Returns
     -------
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL string.
     """
-    return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')))
+    return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')), tqdm_kwargs=tqdm_kwargs)
 
 
-def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike], encoding=None):
+def model_from_owl_file(
+    fname: Union[str, pathlib.Path, os.PathLike],
+    encoding: Optional[str] = None,
+    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
+):
     """Return a BioPAX Model from an OWL string.
 
     Parameters
     ----------
     fname :
         A OWL file of BioPAX content.
-    encoding : Optional[str]
+    encoding :
         The encoding type to be passed to :func:`open`.
+    tqdm_kwargs :
+        Arguments to pass to tqdm while parsing the XML
 
     Returns
     -------
@@ -48,16 +59,22 @@ def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike], encoding=N
     """
     with open(fname, 'r', encoding=encoding) as fh:
         owl_str = fh.read()
-        return model_from_owl_str(owl_str)
+        return model_from_owl_str(owl_str, tqdm_kwargs=tqdm_kwargs)
 
 
-def model_from_owl_url(url, **kwargs: Mapping[str, Any]):
+def model_from_owl_url(
+    url: str,
+    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
+    **kwargs: Mapping[str, Any],
+):
     """Return a BioPAX Model from an URL pointing to an OWL file.
 
     Parameters
     ----------
-    url : str
+    url :
         A OWL URL with BioPAX content.
+    tqdm_kwargs :
+        Arguments to pass to tqdm while parsing the XML
     kwargs :
         Additional keyword arguments to pass to :func:`requests.get`
 
@@ -68,7 +85,7 @@ def model_from_owl_url(url, **kwargs: Mapping[str, Any]):
     """
     res = requests.get(url, **kwargs)
     res.raise_for_status()
-    return model_from_owl_str(res.text)
+    return model_from_owl_str(res.text, tqdm_kwargs=tqdm_kwargs)
 
 
 def model_from_pc_query(kind, source, target=None, **query_params):
@@ -125,7 +142,10 @@ def model_from_netpath(identifier: str) -> BioPaxModel:
     return model_from_owl_url(url)
 
 
-def model_from_reactome(identifier: str) -> BioPaxModel:
+def model_from_reactome(
+    identifier: str,
+    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
+) -> BioPaxModel:
     """Return a BioPAX model from a Reactome entry (pathway, event, etc.).
 
     Parameters
@@ -137,6 +157,8 @@ def model_from_reactome(identifier: str) -> BioPaxModel:
         EGF <https://reactome.org/content/detail/R-HSA-177946>`_). For human pathways,
         the identifier for the BioPAX download is the same as the part that comes
         after ``R-HSA-``. For non-human pathways, this is not so clear.
+    tqdm_kwargs :
+        Arguments to pass to tqdm while parsing the XML
 
     Returns
     -------
@@ -147,7 +169,7 @@ def model_from_reactome(identifier: str) -> BioPaxModel:
         # If you give something like R-XXX-YYYYY, just get the YYYYY part back for download.
         identifier = identifier[len("R-HSA-"):]
     url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/Level3/{identifier}"
-    return model_from_owl_url(url)
+    return model_from_owl_url(url, tqdm_kwargs=tqdm_kwargs)
 
 
 def model_from_humancyc(identifier: str) -> BioPaxModel:
@@ -264,7 +286,11 @@ def model_to_owl_str(model):
     return xml_to_str(model.to_xml())
 
 
-def model_to_owl_file(model, fname: Union[str, pathlib.Path, os.PathLike]):
+def model_to_owl_file(
+    model,
+    fname: Union[str, pathlib.Path, os.PathLike],
+    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
+):
     """Write an OWL string serialized from a BioPaxModel object into a file.
 
     Parameters
@@ -273,5 +299,7 @@ def model_to_owl_file(model, fname: Union[str, pathlib.Path, os.PathLike]):
         The BioPaxModel to serialize into an OWL file.
     fname :
         The path to the target OWL file.
+    tqdm_kwargs :
+        Arguments to pass to tqdm while parsing the XML
     """
-    xml_to_file(model.to_xml(), fname)
+    xml_to_file(model.to_xml(tqdm_kwargs=tqdm_kwargs), fname)

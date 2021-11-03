@@ -33,8 +33,21 @@ class BioPaxModel:
         self.add_reverse_links()
 
     @classmethod
-    def from_xml(cls, tree, tqdm_kwargs: Optional[Mapping[str, Any]] = None):
-        """Return a BioPAX Model from an OWL/XML element tree."""
+    def from_xml(cls, tree, tqdm_kwargs: Optional[Mapping[str, Any]] = None) -> "BioPaxModel":
+        """Return a BioPAX Model from an OWL/XML element tree.
+
+        Parameters
+        ----------
+        tree :
+            An element tree from which the model is extracted
+        tqdm_kwargs :
+            Arguments to pass to tqdm while parsing the XML
+
+        Returns
+        -------
+        :
+            A BioPAX Model deserialized from the OWL XML tree.
+        """
         objects = {}
 
         _tqdm_kwargs = {'desc': 'Processing OWL elements'}
@@ -65,11 +78,14 @@ class BioPaxModel:
 
         return cls(objects, tree.base)
 
-    def to_xml(self):
+    def to_xml(self, tqdm_kwargs: Optional[Mapping[str, Any]] = None) -> str:
         """Return an OWL string from the content of the model."""
+        _tqdm_kwargs = {'desc': 'Serializing OWL elements'}
+        if tqdm_kwargs:
+            _tqdm_kwargs.update(tqdm_kwargs)
         elements = [obj.to_xml() for obj in
                     tqdm(self.objects.values(),
-                         desc='Serializing OWL elements')]
+                         **_tqdm_kwargs)]
         return wrap_xml_elements(elements, self.xml_base)
 
     def get_objects_by_type(self, obj_type):
