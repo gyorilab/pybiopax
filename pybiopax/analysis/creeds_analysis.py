@@ -175,13 +175,14 @@ def _main():
         dfs.append(df)
 
     path = CREEDS_MODULE.join(name="analysis.tsv")
-    full_df = pd.concat(dfs)
-    full_df.to_csv(path, sep="\t", index=False)
+    df = pd.concat(dfs)
+    df.to_csv(path, sep="\t", index=False)
     print("output to", path)
 
-    df_square = full_df.pivot(index="pathway", columns="perturbation")["mlq"]
+    # TODO: cut off genes that don't have anything good going on
+    square_df = df.pivot(index="pathway", columns="perturbation")["mlq"]
     img_path = CREEDS_MODULE.join(name="analysis.tsv")
-    g = seaborn.clustermap(df_square)
+    g = seaborn.clustermap(square_df)
     g.savefig(img_path)
 
 
