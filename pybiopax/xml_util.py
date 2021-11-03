@@ -1,4 +1,8 @@
+import os
+import pathlib
 import re
+from typing import Union
+
 from lxml import etree
 from lxml.builder import ElementMaker
 
@@ -48,7 +52,7 @@ def xml_to_str(xml):
     return xmls
 
 
-def xml_to_file(xml, fname):
+def xml_to_file(xml, fname: Union[str, pathlib.Path, os.PathLike]):
     """Write an XML element tree to a given file."""
     with open(fname, 'w') as fh:
         fh.write(xml_to_str(xml))

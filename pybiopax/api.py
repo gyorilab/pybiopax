@@ -4,9 +4,12 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_from_biocyc', 'model_from_humancyc', 'model_from_netpath',
            ]
 
+import os
+import pathlib
+
 import requests
 from lxml import etree
-from typing import Any, Mapping
+from typing import Any, Mapping, Union
 from .biopax.model import BioPaxModel
 from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
@@ -28,12 +31,12 @@ def model_from_owl_str(owl_str):
     return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')))
 
 
-def model_from_owl_file(fname, encoding=None):
+def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike], encoding=None):
     """Return a BioPAX Model from an OWL string.
 
     Parameters
     ----------
-    fname : str
+    fname :
         A OWL file of BioPAX content.
     encoding : Optional[str]
         The encoding type to be passed to :func:`open`.
@@ -261,14 +264,14 @@ def model_to_owl_str(model):
     return xml_to_str(model.to_xml())
 
 
-def model_to_owl_file(model, fname):
+def model_to_owl_file(model, fname: Union[str, pathlib.Path, os.PathLike]):
     """Write an OWL string serialized from a BioPaxModel object into a file.
 
     Parameters
     ----------
     model : pybiopax.biopax.BioPaxModel
         The BioPaxModel to serialize into an OWL file.
-    fname : str
+    fname :
         The path to the target OWL file.
     """
     xml_to_file(model.to_xml(), fname)
