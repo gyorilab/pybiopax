@@ -1,29 +1,26 @@
 # -*- coding: utf-8 -*-
 
+"""CREEDS Analysis."""
+
 import pickle
 from collections import defaultdict
 from typing import Optional, Type
 
+import bioregistry
 import bioversions
 import numpy as np
 import pandas as pd
+import protmapper.uniprot_client
+import pyobo
+import pystow
 import seaborn
+from indra.sources import creeds
+from indra.statements import Agent, RegulateAmount, Statement, stmts_to_json_file
 from scipy.stats import fisher_exact
 from statsmodels.stats.multitest import multipletests
 from tqdm import tqdm
 
-import bioregistry
-import protmapper.uniprot_client
 import pybiopax
-import pyobo
-import pystow
-from indra.sources import creeds
-from indra.statements import (
-    Agent,
-    RegulateAmount,
-    Statement,
-    stmts_to_json_file,
-)
 from pybiopax.biopax import Protein
 
 REACTOME_MODULE = pystow.module("bio", "reactome", bioversions.get_version("reactome"))
@@ -57,18 +54,16 @@ def get_protein_hgnc(protein: Protein) -> Optional[str]:
     return None
 
 
-def ensure_reactome(reactome_id: str, force: bool = False):
+def ensure_reactome(reactome_id: str, force: bool = False) -> BioPaxModel:
     path = REACTOME_MODULE.join(name=f"{reactome_id}.xml")
     if path.is_file() and not force:
-        return pybiopax.model_from_owl_file(
-            path, tqdm_kwargs=dict(leave=False, desc=f"Parsing {reactome_id} OWL")
-        )
+        with path.open("rb") as file:
+            return pickle.load(file)
     model = pybiopax.model_from_reactome(
         reactome_id, tqdm_kwargs=dict(leave=False, desc=f"Getting {reactome_id}")
     )
-    pybiopax.model_to_owl_file(
-        model, path, tqdm_kwargs=dict(leave=False, desc=f"Serializing {reactome_id} OWL")
-    )
+    with path.open("wb") as file:
+        pickle.dump(model, file)
     return model
 
 
@@ -123,6 +118,38 @@ def get_regulates(
     return dict(rv)
 
 
+def get_disease_groups(
+    stmts: list[Statement],
+    stmt_cls: Type[RegulateAmount] = RegulateAmount,
+) -> dict[str, set[str]]:
+    rv = defaultdict(set)
+    for stmt in stmts:
+        if not isinstance(stmt, stmt_cls):
+            continue
+        subj_doid = stmt.subj.db_refs.get("DOID")
+        obj_hgnc_id = get_hgnc_id(stmt.obj)
+        if subj_doid is None or obj_hgnc_id is None:
+            continue
+        rv[subj_doid].add(obj_hgnc_id)
+    return dict(rv)
+
+
+def get_chemical_groups(
+    stmts: list[Statement],
+    stmt_cls: Type[RegulateAmount] = RegulateAmount,
+) -> dict[str, set[str]]:
+    rv = defaultdict(set)
+    for stmt in stmts:
+        if not isinstance(stmt, stmt_cls):
+            continue
+        subj_pubchem = stmt.subj.db_refs.get("PUBCHEM")
+        obj_hgnc_id = get_hgnc_id(stmt.obj)
+        if subj_pubchem is None or obj_hgnc_id is None:
+            continue
+        rv[subj_pubchem].add(obj_hgnc_id)
+    return dict(rv)
+
+
 def _prepare_hypergeometric_test(
     query_gene_set: set[str],
     pathway_gene_set: set[str],
@@ -157,33 +184,40 @@ def _main():
     ]
 
     universe_size = len(pyobo.get_ids("hgnc"))
-    creeds_drug_stmts = get_creeds_statements("gene")
-    creeds_drug_hgncs = get_regulates(creeds_drug_stmts)
+    groups = [
+        ("hgnc", "gene", get_regulates),
+        ("pubchem.compound", "chemical", get_chemical_groups),
+        ("doid", "disease", get_disease_groups),
+    ]
 
-    dfs = []
-    for pert_id, pert_genes in tqdm(creeds_drug_hgncs.items()):
-        rows = []
-        for reactome_id, reactome_genes in tqdm(reactome_it, leave=False):
-            table = _prepare_hypergeometric_test(pert_genes, reactome_genes, universe_size)
-            _, p_value = fisher_exact(table, alternative="greater")
-            rows.append((f"hgnc:{pert_id}", f"reactome:{reactome_id}", p_value))
-        df = pd.DataFrame(rows, columns=["perturbation", "pathway", "p"])
-        correction_test = multipletests(df["p"], method="fdr_bh")
-        df["q"] = correction_test[1]
-        df["mlq"] = -np.log10(df["q"])  # minus log q
-        df.sort_values("q", inplace=True)
-        dfs.append(df)
+    for prefix, entity_type, f in groups:
+        tqdm.write(f"generating CREEDS types {entity_type}")
+        stmts = get_creeds_statements(entity_type)
+        perts = f(stmts)
+        dfs = []
+        for pert_id, pert_genes in tqdm(perts.items()):
+            rows = []
+            for reactome_id, reactome_genes in tqdm(reactome_it, leave=False):
+                table = _prepare_hypergeometric_test(pert_genes, reactome_genes, universe_size)
+                _, p_value = fisher_exact(table, alternative="greater")
+                rows.append((f"{prefix}:{pert_id}", f"reactome:{reactome_id}", p_value))
+            df = pd.DataFrame(rows, columns=["perturbation", "pathway", "p"])
+            correction_test = multipletests(df["p"], method="fdr_bh")
+            df["q"] = correction_test[1]
+            df["mlq"] = -np.log10(df["q"])  # minus log q
+            df.sort_values("q", inplace=True)
+            dfs.append(df)
 
-    path = CREEDS_MODULE.join(name="analysis.tsv")
-    df = pd.concat(dfs)
-    df.to_csv(path, sep="\t", index=False)
-    print("output to", path)
+        path = CREEDS_MODULE.join(name=f"{entity_type}.tsv")
+        df = pd.concat(dfs)
+        df.to_csv(path, sep="\t", index=False)
+        print("output to", path)
 
-    # TODO: cut off genes that don't have anything good going on
-    square_df = df.pivot(index="pathway", columns="perturbation")["mlq"]
-    img_path = CREEDS_MODULE.join(name="analysis.tsv")
-    g = seaborn.clustermap(square_df)
-    g.savefig(img_path)
+        # TODO: cut off genes that don't have anything good going on
+        square_df = df.pivot(columns="pathway", index="perturbation")["mlq"]
+        img_path = CREEDS_MODULE.join(name=f"{entity_type}.png")
+        g = seaborn.clustermap(square_df)
+        g.savefig(img_path)
 
 
 if __name__ == "__main__":
