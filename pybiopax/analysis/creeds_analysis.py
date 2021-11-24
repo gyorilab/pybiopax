@@ -35,6 +35,7 @@ def get_reactome_human_ids() -> set[str]:
 
 
 def get_protein_hgnc(protein: Protein) -> Optional[str]:
+    # only useful for reactome
     if protein.entity_reference is None:
         return None
     rv = {bioregistry.normalize_prefix(xref.db): xref.id for xref in protein.entity_reference.xref}
@@ -70,9 +71,7 @@ def ensure_reactome(reactome_id: str, force: bool = False) -> BioPaxModel:
 def get_reactome_genes(reactome_id: str) -> set[str]:
     model = ensure_reactome(reactome_id)
     rv = set()
-    for protein in model.objects.values():
-        if not isinstance(protein, Protein):
-            continue
+    for protein in model.get_objects_by_type(Protein):
         if (hgnc_id := get_protein_hgnc(protein)) is not None:
             rv.add(hgnc_id)
     return rv
