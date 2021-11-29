@@ -57,6 +57,7 @@ class SimplePhysicalEntity(PhysicalEntity):
 
 class Protein(SimplePhysicalEntity):
     """BioPAX Protein."""
+    pass
 
 
 class SmallMolecule(SimplePhysicalEntity):
