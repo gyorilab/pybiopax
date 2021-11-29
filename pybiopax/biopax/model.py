@@ -37,10 +37,10 @@ class BioPaxModel:
         """Return a BioPAX Model from an OWL/XML element tree."""
         objects = {}
 
-        _tqdm_kwargs = {'desc': 'Processing OWL elements'}
+        _tqdm_kwargs = {'desc': 'Processing OWL elements', "unit_scale": True}
         if tqdm_kwargs:
             _tqdm_kwargs.update(tqdm_kwargs)
-        for element in tqdm(tree.getchildren(), **_tqdm_kwargs):
+        for element in tqdm(tree, **_tqdm_kwargs):
             if not has_ns(element, 'bp'):
                 continue
             id = get_id_or_about(element)
