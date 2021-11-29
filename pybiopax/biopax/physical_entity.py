@@ -2,7 +2,10 @@ __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
            'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
            'RnaRegion']
 
+from typing import Optional
+
 from .base import Entity, Controller
+from .util import EntityReference
 
 
 class PhysicalEntity(Entity, Controller):
@@ -43,16 +46,17 @@ class PhysicalEntity(Entity, Controller):
 
 class SimplePhysicalEntity(PhysicalEntity):
     """BioPAX SimplePhysicalEntity."""
-    def __init__(self,
-                 entity_reference=None,
-                 **kwargs):
+    def __init__(
+        self,
+        entity_reference: Optional[EntityReference] = None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)
         self.entity_reference = entity_reference
 
 
 class Protein(SimplePhysicalEntity):
     """BioPAX Protein."""
-    pass
 
 
 class SmallMolecule(SimplePhysicalEntity):
