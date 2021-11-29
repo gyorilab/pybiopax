@@ -2,8 +2,10 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
            'model_from_reactome', 'model_from_ecocyc', 'model_from_metacyc',
            'model_from_biocyc', 'model_from_humancyc', 'model_from_netpath',
+           'model_from_owl_gz',
            ]
 
+import gzip
 import os
 import pathlib
 
@@ -32,12 +34,12 @@ def model_from_owl_str(owl_str):
 
 
 def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike], encoding=None):
-    """Return a BioPAX Model from an OWL string.
+    """Return a BioPAX Model from an OWL file.
 
     Parameters
     ----------
     fname :
-        A OWL file of BioPAX content.
+        A path to an OWL file of BioPAX content.
     encoding : Optional[str]
         The encoding type to be passed to :func:`open`.
 
@@ -49,6 +51,23 @@ def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike], encoding=N
     with open(fname, 'r', encoding=encoding) as fh:
         owl_str = fh.read()
         return model_from_owl_str(owl_str)
+
+
+def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) -> BioPaxModel:
+    """Return a BioPAX Model from an OWL file (gzipped).
+
+    Parameters
+    ----------
+    path :
+        A path to a gzipped OWL file of BioPAX content.
+
+    Returns
+    -------
+    :
+        A BioPAX Model deserialized from the OWL file.
+    """
+    with gzip.open(path, 'rt') as fh:
+        return BioPaxModel.from_xml(etree.parse(fh).getroot())
 
 
 def model_from_owl_url(url, **kwargs: Mapping[str, Any]):
