@@ -2,10 +2,10 @@ __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
            'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
            'RnaRegion']
 
-from typing import Optional
+from typing import List, Optional
 
 from .base import Entity, Controller
-from .util import EntityReference
+from .util import EntityFeature, EntityReference
 
 
 class PhysicalEntity(Entity, Controller):
@@ -14,7 +14,7 @@ class PhysicalEntity(Entity, Controller):
         ['feature', 'not_feature', 'member_physical_entity']
 
     def __init__(self,
-                 feature=None,
+                 feature: Optional[List[EntityFeature]] = None,
                  not_feature=None,
                  member_physical_entity=None,
                  cellular_location=None,
