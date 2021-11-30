@@ -76,8 +76,8 @@ class Complex(PhysicalEntity):
         ['component', 'component_stoichiometry']
 
     def __init__(self,
-                 component=None,
-                 component_stoichiometry=None,
+                 component: Optional[List[PhysicalEntity]] = None,
+                 component_stoichiometry: Optional[List] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.component = component
