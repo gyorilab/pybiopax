@@ -43,8 +43,6 @@ def is_modification_reaction(obj: Any) -> bool:
         return False
     left_xrefs = get_simple_physical_entity_xrefs(left)
     right_xrefs = get_simple_physical_entity_xrefs(right)
-    print(left_xrefs)
-    print(right_xrefs)
     return 0 < len(left_xrefs.intersection(right_xrefs))
 
 
