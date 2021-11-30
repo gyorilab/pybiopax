@@ -65,14 +65,16 @@ def iter_cofactored_catalyses(model: BioPaxModel) -> Iterable[Catalysis]:
         yield obj
 
 
-def iter_modifications(entity: PhysicalEntity, s: str) -> Iterable[ModificationFeature]:
-    """Iterate over modification features in a protein that"""
+def iter_modifications(entity: PhysicalEntity, query: str) -> Iterable[ModificationFeature]:
+    """Iterate over modification features in a protein that
+     have the query string as a substring.
+     """
     for feature in entity.feature or []:
         # If this is a modification feature which has a known type
         # and that type includes "phospho", i.e., is a phosphorylation
         if (
             isinstance(feature, ModificationFeature)
             and feature.modification_type
-            and any(s in mod for mod in feature.modification_type.term)
+            and any(query in mod for mod in feature.modification_type.term)
         ):
             yield feature
