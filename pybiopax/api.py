@@ -35,7 +35,10 @@ def model_from_owl_str(
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL string.
     """
-    return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')), tqdm_kwargs=tqdm_kwargs)
+    return BioPaxModel.from_xml(
+        etree.fromstring(owl_str.encode('utf-8')),
+        tqdm_kwargs=tqdm_kwargs,
+    )
 
 
 def model_from_owl_file(
@@ -64,7 +67,9 @@ def model_from_owl_file(
         return model_from_owl_str(owl_str, tqdm_kwargs=tqdm_kwargs)
 
 
-def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) -> BioPaxModel:
+def model_from_owl_gz(
+    path: Union[str, pathlib.Path, os.PathLike],
+) -> BioPaxModel:
     """Return a BioPAX Model from an OWL file (gzipped).
 
     Parameters
@@ -85,7 +90,7 @@ def model_from_owl_url(
     url: str,
     tqdm_kwargs: Optional[Mapping[str, Any]] = None,
     **kwargs: Mapping[str, Any],
-):
+) -> BioPaxModel:
     """Return a BioPAX Model from an URL pointing to an OWL file.
 
     Parameters
