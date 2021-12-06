@@ -67,9 +67,7 @@ def model_from_owl_file(
         return model_from_owl_str(owl_str, tqdm_kwargs=tqdm_kwargs)
 
 
-def model_from_owl_gz(
-    path: Union[str, pathlib.Path, os.PathLike],
-) -> BioPaxModel:
+def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) -> BioPaxModel:
     """Return a BioPAX Model from an OWL file (gzipped).
 
     Parameters
@@ -163,6 +161,8 @@ def model_from_netpath(identifier: str) -> BioPaxModel:
         A BioPAX model obtained from the NetPath resource.
     """
     url = f"http://netpath.org/data/biopax/NetPath_{identifier}.owl"
+    import logging
+    logging.info("url: %s", url)
     return model_from_owl_url(url)
 
 
