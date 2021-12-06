@@ -161,8 +161,6 @@ def model_from_netpath(identifier: str) -> BioPaxModel:
         A BioPAX model obtained from the NetPath resource.
     """
     url = f"http://netpath.org/data/biopax/NetPath_{identifier}.owl"
-    import logging
-    logging.info("url: %s", url)
     return model_from_owl_url(url)
 
 
