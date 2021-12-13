@@ -85,5 +85,6 @@ submit an [issue](https://github.com/indralab/pybiopax/issues).
 
 Funding
 -------
-The development of PyBioPAX is funded under the DARPA Communicating with
-Computers program (ARO grant W911NF-15-1-0544).
+Development of this software was supported by the Defense Advanced Research
+Projects Agency under award W911NF-15-1-0544 and the National Cancer Institute
+under award U54-CA225088.
