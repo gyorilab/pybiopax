@@ -17,35 +17,25 @@ from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
 
 
-def model_from_owl_str(
-    owl_str: str,
-    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
-):
+def model_from_owl_str(owl_str: str) -> BioPaxModel:
     """Return a BioPAX Model from an OWL string.
 
     Parameters
     ----------
     owl_str :
         A OWL string of BioPAX content.
-    tqdm_kwargs :
-        Arguments to pass to tqdm while parsing the XML
 
     Returns
     -------
     pybiopax.biopax.BioPaxModel
         A BioPAX Model deserialized from the OWL string.
     """
-    return BioPaxModel.from_xml(
-        etree.fromstring(owl_str.encode('utf-8')),
-        tqdm_kwargs=tqdm_kwargs,
-    )
+    return BioPaxModel.from_xml(etree.fromstring(owl_str.encode('utf-8')))
 
 
-def model_from_owl_file(
-    fname: Union[str, pathlib.Path, os.PathLike],
-    encoding: Optional[str] = None,
-    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
-):
+def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike],
+                        encoding: Optional[str] = None) \
+        -> BioPaxModel:
     """Return a BioPAX Model from an OWL string.
 
     Parameters
@@ -54,20 +44,19 @@ def model_from_owl_file(
         A path to an OWL file of BioPAX content.
     encoding :
         The encoding type to be passed to :func:`open`.
-    tqdm_kwargs :
-        Arguments to pass to tqdm while parsing the XML
 
     Returns
     -------
-    pybiopax.biopax.BioPaxModel
+    :
         A BioPAX Model deserialized from the OWL file.
     """
     with open(fname, 'r', encoding=encoding) as fh:
         owl_str = fh.read()
-        return model_from_owl_str(owl_str, tqdm_kwargs=tqdm_kwargs)
+        return model_from_owl_str(owl_str)
 
 
-def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) -> BioPaxModel:
+def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) \
+        -> BioPaxModel:
     """Return a BioPAX Model from an OWL file (gzipped).
 
     Parameters
@@ -84,30 +73,27 @@ def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) -> BioPaxMode
         return BioPaxModel.from_xml(etree.parse(fh).getroot())
 
 
-def model_from_owl_url(
-    url: str,
-    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
-    **kwargs: Mapping[str, Any],
-) -> BioPaxModel:
+def model_from_owl_url(url: str,
+                       request_params: Optional[Mapping[str, Any]] = None) \
+        -> BioPaxModel:
     """Return a BioPAX Model from an URL pointing to an OWL file.
 
     Parameters
     ----------
     url :
         A OWL URL with BioPAX content.
-    tqdm_kwargs :
-        Arguments to pass to tqdm while parsing the XML
-    kwargs :
+    request_params :
         Additional keyword arguments to pass to :func:`requests.get`
 
     Returns
     -------
-    pybiopax.biopax.BioPaxModel
+    :
         A BioPAX Model deserialized from the OWL file.
     """
-    res = requests.get(url, **kwargs)
+    request_params = {} if not request_params else request_params
+    res = requests.get(url, **request_params)
     res.raise_for_status()
-    return model_from_owl_str(res.text, tqdm_kwargs=tqdm_kwargs)
+    return model_from_owl_str(res.text)
 
 
 def model_from_pc_query(kind, source, target=None, **query_params):
@@ -164,23 +150,19 @@ def model_from_netpath(identifier: str) -> BioPaxModel:
     return model_from_owl_url(url)
 
 
-def model_from_reactome(
-    identifier: str,
-    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
-) -> BioPaxModel:
+def model_from_reactome(identifier: str) -> BioPaxModel:
     """Return a BioPAX model from a Reactome entry (pathway, event, etc.).
 
     Parameters
     ----------
     identifier :
-        The Reactome identifier for a pathway (e.g., ``177929`` for `Signaling by
-        EGFR <https://reactome.org/content/detail/R-HSA-177929>`_)
+        The Reactome identifier for a pathway (e.g., ``177929`` for `Signaling
+        by EGFR <https://reactome.org/content/detail/R-HSA-177929>`_)
         or reaction (e.g., ``177946`` for `Pro-EGF is cleaved to form mature
-        EGF <https://reactome.org/content/detail/R-HSA-177946>`_). For human pathways,
-        the identifier for the BioPAX download is the same as the part that comes
-        after ``R-HSA-``. For non-human pathways, this is not so clear.
-    tqdm_kwargs :
-        Arguments to pass to tqdm while parsing the XML
+        EGF <https://reactome.org/content/detail/R-HSA-177946>`_). For human
+        pathways, the identifier for the BioPAX download is the same as the part
+        that comes after ``R-HSA-``. For non-human pathways, this is not so
+        clear.
 
     Returns
     -------
@@ -188,10 +170,12 @@ def model_from_reactome(
         A BioPAX model obtained from the Reactome resource.
     """
     if identifier.startswith("R-HSA-"):
-        # If you give something like R-XXX-YYYYY, just get the YYYYY part back for download.
+        # If you give something like R-XXX-YYYYY, just get the YYYYY part back
+        # for download.
         identifier = identifier[len("R-HSA-"):]
-    url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/Level3/{identifier}"
-    return model_from_owl_url(url, tqdm_kwargs=tqdm_kwargs)
+    url = f"https://reactome.org/ReactomeRESTfulAPI/RESTfulWS/biopaxExporter/" \
+          f"Level3/{identifier}"
+    return model_from_owl_url(url)
 
 
 def model_from_humancyc(identifier: str) -> BioPaxModel:
@@ -200,7 +184,8 @@ def model_from_humancyc(identifier: str) -> BioPaxModel:
     Parameters
     ----------
     identifier :
-        The HumanCyc identifier for a pathway (e.g., ``PWY66-398`` for `TCA cycle
+        The HumanCyc identifier for a pathway (e.g., ``PWY66-398`` for
+        `TCA cycle
         <https://humancyc.org/HUMAN/NEW-IMAGE?type=PATHWAY&object=PWY66-398>`_)
 
     Returns
@@ -208,7 +193,8 @@ def model_from_humancyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the HumanCyc pathway.
     """
-    return _model_from_xcyc("http://humancyc.org/HUMAN/pathway-biopax", identifier)
+    return _model_from_xcyc("https://humancyc.org/HUMAN/pathway-biopax",
+                            identifier)
 
 
 def model_from_biocyc(identifier: str) -> BioPaxModel:
@@ -219,15 +205,18 @@ def model_from_biocyc(identifier: str) -> BioPaxModel:
     Parameters
     ----------
     identifier :
-        The BioCyc identifier for a pathway (e.g., ``P105-PWY`` for `TCA cycle IV
-        (2-oxoglutarate decarboxylase) <https://biocyc.org/META/NEW-IMAGE?type=PATHWAY&object=P105-PWY>`_)
+        The BioCyc identifier for a pathway (e.g., ``P105-PWY`` for
+        `TCA cycle IV
+        (2-oxoglutarate decarboxylase) <https://biocyc.org/META/NEW-IMAGE?
+        type=PATHWAY&object=P105-PWY>`_)
 
     Returns
     -------
     :
         A BioPAX model obtained from the BioCyc pathway.
     """
-    return _model_from_xcyc("http://biocyc.org/META/pathway-biopax", identifier)
+    return _model_from_xcyc("https://biocyc.org/META/pathway-biopax",
+                            identifier)
 
 
 def model_from_metacyc(identifier: str) -> BioPaxModel:
@@ -246,7 +235,8 @@ def model_from_metacyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the MetaCyc pathway.
     """
-    return _model_from_xcyc("http://ecocyc.org/ECOLI/pathway-biopax", identifier)
+    return _model_from_xcyc("https://metacyc.org/META/pathway-biopax",
+                            identifier)
 
 
 def model_from_ecocyc(identifier: str) -> BioPaxModel:
@@ -265,17 +255,18 @@ def model_from_ecocyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the EcoCyc pathway.
     """
-    return _model_from_xcyc("http://metacyc.org/META/pathway-biopax", identifier)
+    return _model_from_xcyc("https://ecocyc.org/ECOLI/pathway-biopax",
+                            identifier)
 
 
 def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
-    """Return a BioPAX model from a XXXCyc entry.
+    """Return a BioPAX model from one of the Cyc databases entry.
 
     Parameters
     ----------
     url :
-        The base url for the XXXCyc BioPAX download endpoint. All of them have the form
-        ``https://....../META/pathway-biopax``.
+        The base url for the XXXCyc BioPAX download endpoint. All of them have
+        the form ``https://....../META/pathway-biopax``.
     identifier :
         The site-specific identifier for a pathway
 
@@ -284,44 +275,37 @@ def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the pathway.
     """
-    params = {
-        "type": "3",
-        "object": identifier
-    }
+    # Extend URL with arguments
+    url = url + f'?type=3&object={identifier}'
     # Not sure if the SSL issue is temporary. Remove verify=False later
-    return model_from_owl_url(url, params=params, verify=False)
+    return model_from_owl_url(url, request_params={'verify': False})
 
 
-def model_to_owl_str(model):
+def model_to_owl_str(model: BioPaxModel) -> str:
     """Return an OWL string serialized from a BioPaxModel object.
 
     Parameters
     ----------
-    model : pybiopax.biopax.BioPaxModel
+    model :
         The BioPaxModel to serialize into an OWL string.
 
     Returns
     -------
-    str
+    :
         The OWL string for the model.
     """
     return xml_to_str(model.to_xml())
 
 
-def model_to_owl_file(
-    model,
-    fname: Union[str, pathlib.Path, os.PathLike],
-    tqdm_kwargs: Optional[Mapping[str, Any]] = None,
-):
+def model_to_owl_file(model: BioPaxModel,
+                      fname: Union[str, pathlib.Path, os.PathLike]):
     """Write an OWL string serialized from a BioPaxModel object into a file.
 
     Parameters
     ----------
-    model : pybiopax.biopax.BioPaxModel
+    model :
         The BioPaxModel to serialize into an OWL file.
     fname :
         The path to the target OWL file.
-    tqdm_kwargs :
-        Arguments to pass to tqdm while parsing the XML
     """
-    xml_to_file(model.to_xml(tqdm_kwargs=tqdm_kwargs), fname)
+    xml_to_file(model.to_xml(), fname)
