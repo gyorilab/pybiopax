@@ -37,6 +37,6 @@ setup(name='pybiopax',
       ],
       packages=find_packages(),
       install_requires=['lxml', 'requests', 'tqdm'],
-      extras_require={'test': ['tox']},
+      tests_require=['pytest', 'tox'],
       keywords=['biology', 'pathway']
       )
