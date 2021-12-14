@@ -277,7 +277,7 @@ def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
         A BioPAX model obtained from the pathway.
     """
     # Extend URL with arguments
-    url = url + f'?type=3&identifier={identifier}'
+    url = url + f'?type=3&object={identifier}'
     # Not sure if the SSL issue is temporary. Remove verify=False later
     return model_from_owl_url(url, request_params={'verify': False})
 
