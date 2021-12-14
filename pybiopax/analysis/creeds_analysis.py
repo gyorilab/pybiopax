@@ -3,6 +3,7 @@
 """CREEDS Analysis."""
 
 import pickle
+import logging
 from collections import defaultdict
 from typing import Optional, Type
 
@@ -22,6 +23,8 @@ from tqdm import tqdm
 
 import pybiopax
 from pybiopax.biopax import Protein
+
+logger = logging.getLogger(__name__)
 
 REACTOME_MODULE = pystow.module("bio", "reactome", bioversions.get_version("reactome"))
 CREEDS_MODULE = pystow.module("bio", "creeds")
@@ -60,9 +63,8 @@ def ensure_reactome(reactome_id: str, force: bool = False) -> BioPaxModel:
     if path.is_file() and not force:
         with path.open("rb") as file:
             return pickle.load(file)
-    model = pybiopax.model_from_reactome(
-        reactome_id, tqdm_kwargs=dict(leave=False, desc=f"Getting {reactome_id}")
-    )
+    logger.info(f'Getting {reactome_id}')
+    model = pybiopax.model_from_reactome(reactome_id)
     with path.open("wb") as file:
         pickle.dump(model, file)
     return model
