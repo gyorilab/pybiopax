@@ -185,7 +185,7 @@ def model_from_humancyc(identifier: str) -> BioPaxModel:
     ----------
     identifier :
         The HumanCyc identifier for a pathway (e.g., ``PWY66-398`` for
-        TCA cycle
+        `TCA cycle
         <https://humancyc.org/HUMAN/NEW-IMAGE?type=PATHWAY&object=PWY66-398>`_)
 
     Returns
@@ -193,7 +193,7 @@ def model_from_humancyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the HumanCyc pathway.
     """
-    return _model_from_xcyc("http://humancyc.org/HUMAN/pathway-biopax",
+    return _model_from_xcyc("https://humancyc.org/HUMAN/pathway-biopax",
                             identifier)
 
 
@@ -215,7 +215,8 @@ def model_from_biocyc(identifier: str) -> BioPaxModel:
     :
         A BioPAX model obtained from the BioCyc pathway.
     """
-    return _model_from_xcyc("http://biocyc.org/META/pathway-biopax", identifier)
+    return _model_from_xcyc("https://biocyc.org/META/pathway-biopax",
+                            identifier)
 
 
 def model_from_metacyc(identifier: str) -> BioPaxModel:
@@ -227,15 +228,14 @@ def model_from_metacyc(identifier: str) -> BioPaxModel:
     ----------
     identifier :
         The MetaCyc identifier for a pathway (e.g., ``TCA`` for
-        `TCA cycle I (prokaryotic) <https://metacyc.org/META/NEW-IMAGE?
-        type=PATHWAY&object=TCA>`_)
+        `TCA cycle I (prokaryotic) <https://metacyc.org/META/NEW-IMAGE?type=PATHWAY&object=TCA>`_)
 
     Returns
     -------
     :
         A BioPAX model obtained from the MetaCyc pathway.
     """
-    return _model_from_xcyc("http://ecocyc.org/ECOLI/pathway-biopax",
+    return _model_from_xcyc("https://metacyc.org/META/pathway-biopax",
                             identifier)
 
 
@@ -248,20 +248,19 @@ def model_from_ecocyc(identifier: str) -> BioPaxModel:
     ----------
     identifier :
         The EcoCyc identifier for a pathway (e.g., ``TCA`` for
-        `TCA cycle I (prokaryotic) <https://ecocyc.org/ECOLI/NEW-IMAGE?
-        type=PATHWAY&object=TCA>`_)
+        `TCA cycle I (prokaryotic) <https://ecocyc.org/ECOLI/NEW-IMAGE?type=PATHWAY&object=TCA>`_)
 
     Returns
     -------
     :
         A BioPAX model obtained from the EcoCyc pathway.
     """
-    return _model_from_xcyc("http://metacyc.org/META/pathway-biopax",
+    return _model_from_xcyc("https://ecocyc.org/ECOLI/pathway-biopax",
                             identifier)
 
 
 def _model_from_xcyc(url: str, identifier: str) -> BioPaxModel:
-    """Return a BioPAX model from a XXXCyc entry.
+    """Return a BioPAX model from one of the Cyc databases entry.
 
     Parameters
     ----------
