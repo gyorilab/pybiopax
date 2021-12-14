@@ -97,9 +97,8 @@ intended.
 
 Testing
 -------
-PyBioPAX is tested using the `nosetests` package.
-See the [nose documentation](http://nose.readthedocs.io/en/latest/) for more
-details.
+PyBioPAX is tested using the `pytests` package and we recommend running tests
+locally with `tox` as `tox -e py`.
 
 All new functionalities added should also be tested. Similarly, fixed bugs
 should have regression tests added. Normally, any test file with `test` in its
