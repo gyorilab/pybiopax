@@ -33,7 +33,8 @@ class BioPaxModel:
         self.add_reverse_links()
 
     @classmethod
-    def from_xml(cls, tree, tqdm_kwargs: Optional[Mapping[str, Any]] = None) -> "BioPaxModel":
+    def from_xml(cls, tree, tqdm_kwargs: Optional[Mapping[str, Any]] = None) \
+            -> "BioPaxModel":
         """Return a BioPAX Model from an OWL/XML element tree.
 
         Parameters
