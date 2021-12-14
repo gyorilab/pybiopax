@@ -1,5 +1,6 @@
 import pytest
 from pybiopax.biopax import *
+from pybiopax import model_from_pc_query
 from pybiopax.paths import find_objects, BiopaxClassConstraintError
 
 
@@ -74,3 +75,12 @@ def test_recursive():
     objects = find_objects(c2, 'member_physical_entity*')
     assert len(objects) == 2, objects
     assert set(objects) == {p1, c1}
+
+
+def test_multi_step():
+    model = model_from_pc_query('pathsfromto', ['MAP2K1'], ['MAPK1'])
+    bcr = model.objects['BiochemicalReaction_4f689747397d98089c551022a3ae2d88']
+    assert len(find_objects(bcr, 'left')) == 1
+    assert len(find_objects(bcr, 'left/entity_reference')) == 1
+    objs = find_objects(bcr, 'left/entity_reference/entity_reference_of')
+    assert len(objs) == 10
