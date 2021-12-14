@@ -1,7 +1,12 @@
 __all__ = ['BioPaxObject','Controller', 'Entity', 'Pathway', 'Gene',
            'Unresolved']
 
+from typing import List, Optional, TYPE_CHECKING
+
 from ..xml_util import *
+
+if TYPE_CHECKING:
+    from .util import Xref
 
 
 class Unresolved:
@@ -107,7 +112,7 @@ class XReferrable:
     """A mixin class to add xrefs to a BioPaxObject."""
     list_types = ['xref']
 
-    def __init__(self, xref=None, **kwargs):
+    def __init__(self, xref: Optional[List["Xref"]] = None, **kwargs):
         # Pass on for cooperative inheritance
         super().__init__(**kwargs)
         self.xref = xref

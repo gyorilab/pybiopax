@@ -17,6 +17,8 @@ __all__ = ['UtilityClass', 'Evidence', 'Provenance',
            'SequenceRegionVocabulary', 'TissueVocabulary', 'CellVocabulary',
            'Score']
 
+from typing import List, Optional
+
 from .base import BioPaxObject, Named, Observable, XReferrable
 
 
@@ -88,9 +90,12 @@ class EntityFeature(UtilityClass, Observable):
 
 class ModificationFeature(EntityFeature):
     """BioPAX ModificationFeature."""
-    def __init__(self,
-                 modification_type=None,
-                 **kwargs):
+
+    def __init__(
+        self,
+        modification_type: Optional["ControlledVocabulary"] = None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)
         self.modification_type = modification_type
 
@@ -466,7 +471,7 @@ class ControlledVocabulary(UtilityClass, XReferrable):
     """BioPAX ControlledVocabulary."""
     list_types = UtilityClass.list_types + XReferrable.list_types + ['term']
 
-    def __init__(self, term=None, **kwargs):
+    def __init__(self, term: List[str] = None, **kwargs):
         super().__init__(**kwargs)
         self.term = term
 

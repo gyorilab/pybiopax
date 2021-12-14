@@ -2,7 +2,10 @@ __all__ = ['PhysicalEntity', 'SimplePhysicalEntity', 'Protein',
            'SmallMolecule', 'Rna', 'Complex', 'Dna', 'DnaRegion',
            'RnaRegion']
 
+from typing import List, Optional
+
 from .base import Entity, Controller
+from .util import EntityFeature, EntityReference
 
 
 class PhysicalEntity(Entity, Controller):
@@ -11,7 +14,7 @@ class PhysicalEntity(Entity, Controller):
         ['feature', 'not_feature', 'member_physical_entity']
 
     def __init__(self,
-                 feature=None,
+                 feature: Optional[List[EntityFeature]] = None,
                  not_feature=None,
                  member_physical_entity=None,
                  cellular_location=None,
@@ -43,9 +46,11 @@ class PhysicalEntity(Entity, Controller):
 
 class SimplePhysicalEntity(PhysicalEntity):
     """BioPAX SimplePhysicalEntity."""
-    def __init__(self,
-                 entity_reference=None,
-                 **kwargs):
+    def __init__(
+        self,
+        entity_reference: Optional[EntityReference] = None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)
         self.entity_reference = entity_reference
 
@@ -71,8 +76,8 @@ class Complex(PhysicalEntity):
         ['component', 'component_stoichiometry']
 
     def __init__(self,
-                 component=None,
-                 component_stoichiometry=None,
+                 component: Optional[List[PhysicalEntity]] = None,
+                 component_stoichiometry: Optional[List] = None,
                  **kwargs):
         super().__init__(**kwargs)
         self.component = component
