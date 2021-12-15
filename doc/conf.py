@@ -19,7 +19,7 @@ from pybiopax import __version__ as pybiopax_version
 # -- Project information -----------------------------------------------------
 
 project = 'pybiopax'
-copyright = '2020, Benjamin M. Gyori'
+copyright = '2021, Benjamin M. Gyori'
 author = 'Benjamin M. Gyori'
 
 # The short X.Y version
