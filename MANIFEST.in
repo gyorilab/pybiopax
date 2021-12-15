@@ -2,4 +2,4 @@ include LICENSE
 include README.md
 graft doc
 include pybiopax/tests/phosphorylation_test.owl
-include pybiopax/tests/biopax_test.owl
+include pybiopax/tests/biopax_test.owl.gz
