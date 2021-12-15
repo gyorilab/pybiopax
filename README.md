@@ -7,8 +7,7 @@ PyBioPAX: A python implementation of the BioPAX object model
 [![PyPI version](https://badge.fury.io/py/pybiopax.svg)](https://badge.fury.io/py/pybiopax)
 [![Python 3](https://img.shields.io/pypi/pyversions/pybiopax.svg)](https://www.python.org/downloads/release/python-357/)
 
-PyBioPAX implements the BioPAX level 3 object model (
-http://www.biopax.org/release/biopax-level3-documentation.pdf) as a set of
+PyBioPAX implements the BioPAX level 3 object model (http://www.biopax.org/release/biopax-level3-documentation.pdf) as a set of
 Python classes. It exposes API functions to read OWL files into this
 object model, and to dump OWL files from this object model.
 This allows for the processing and creation of BioPAX models natively in
