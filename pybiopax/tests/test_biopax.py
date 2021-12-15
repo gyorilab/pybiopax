@@ -47,6 +47,11 @@ def test_process_molecular_interactions():
     model = model_from_owl_file('test_output.owl')
     assert len(model.objects) == 62
 
+    # Test serialization into string
+    owl_str = pybiopax.model_to_owl_str(model)
+    model = pybiopax.model_from_owl_str(owl_str)
+    assert len(model.objects) == 62
+
 
 def test_get_netpath():
     m = pybiopax.model_from_netpath("22")
