@@ -87,7 +87,7 @@ def find_objects(start_obj: BioPaxObject, path_str: str) -> List[BioPaxObject]:
 def _get_object_list(val):
     if isinstance(val, BioPaxObject):
         return [val]
-    elif isinstance(val, list):
+    elif isinstance(val, (list, set)):
         return [v for v in val if isinstance(v, BioPaxObject)]
     else:
         return []

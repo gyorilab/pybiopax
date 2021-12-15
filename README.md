@@ -73,8 +73,18 @@ assert isinstance(right, pybiopax.biopax.Protein)
 assert right.display_name == 'ERK1-2-active'
 ```
 
-Each BioPaxObject has attributes that are consistent with the
-BioPAX level 3 specification.
+We can also use the `pybiopax.paths` module to construct iterators over
+objects based on a string specification from a given starting point.
+Continuing from the block of code above, we take the BiochemicalReaction
+`bcr` and link to reactants on its left hand side, then linking to their
+entity references, and finally linking back to all the physical entities
+that those are references of.
+
+```python
+from pybiopax.paths import find_objects
+
+erks = find_objects(bcr, 'left/entity_reference/entity_reference_of')
+```
 
 Contribution and support
 ------------------------

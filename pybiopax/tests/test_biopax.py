@@ -1,14 +1,13 @@
 import os
 import pybiopax
 from pybiopax.biopax import *
-from pybiopax import model_from_owl_file, model_to_owl_file
 
 here = os.path.dirname(os.path.abspath(__file__))
 
 
 def test_process_owl():
-    test_file = os.path.join(here, 'biopax_test.owl')
-    model = model_from_owl_file(test_file)
+    test_file = os.path.join(here, 'biopax_test.owl.gz')
+    model = pybiopax.model_from_owl_gz(test_file)
     assert len(model.objects) == 58027, len(model.objects)
     assert 'BiochemicalReaction_a75d6aaebf5be718d981d95355ced14a' in \
         model.objects
@@ -30,7 +29,7 @@ def test_process_owl():
 
 def test_process_molecular_interactions():
     test_file = os.path.join(here, 'molecular_interactions_test.owl')
-    model = model_from_owl_file(test_file)
+    model = pybiopax.model_from_owl_file(test_file)
     assert len(model.objects) == 62
     mol_int = \
         model.objects['MolecularInteraction_1e82d9951c7d71c02ee6e7bdc7cb8e47']
@@ -43,8 +42,13 @@ def test_process_molecular_interactions():
                      'ALG8, CDG1H, MGC2840'}, names
 
     # Smoke test serialization
-    model_to_owl_file(model, 'test_output.owl')
-    model = model_from_owl_file('test_output.owl')
+    pybiopax.model_to_owl_file(model, 'test_output.owl')
+    model = pybiopax.model_from_owl_file('test_output.owl')
+    assert len(model.objects) == 62
+
+    # Test serialization into string
+    owl_str = pybiopax.model_to_owl_str(model)
+    model = pybiopax.model_from_owl_str(owl_str)
     assert len(model.objects) == 62
 
 
