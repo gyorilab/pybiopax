@@ -1,4 +1,5 @@
 import os
+import re
 import pybiopax
 from pybiopax.biopax import *
 
@@ -61,7 +62,7 @@ def test_get_netpath():
 def test_get_reactome():
     m = pybiopax.model_from_reactome("177929")
     assert isinstance(m, BioPaxModel)
-    assert m.xml_base == "http://www.reactome.org/biopax/78/177929#"
+    assert re.match("http://www.reactome.org/biopax/\d+/177929#", m.xml_base)
     assert 0 < len(m.objects)
 
 
