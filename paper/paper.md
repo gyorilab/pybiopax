@@ -97,7 +97,7 @@ corresponding to the following questions:
    of a given protein?
 
 Our implementations of these queries in the
-corresponding [Jupyter notebook](https://nbviewer.org/github/indralab/pybiopax/blob/master/notebooks/Explore%20Pathway%20Commons.ipynb)
+corresponding [Jupyter notebook](https://nbviewer.org/github/indralab/pybiopax/blob/0.1.0/notebooks/Explore%20Pathway%20Commons.ipynb)
 identified nearly 4M objects in PC12, 83 controllers that need co-factors, 1,283
 controllers that are in a phosphorylated state, 15,332 simple phosphorylation
 reactions, 13,338 proteins bound to a single small molecule, and 184 proteins
@@ -136,7 +136,7 @@ example, this highlighted a strong relationship between estradiol and GPER1,
 suggesting GPER1 activation as a mechanism of action for estradiol.
 
 The corresponding Jupyter notebook can be
-found [here](https://nbviewer.org/github/indralab/pybiopax/blob/master/notebooks/Pathway%20Anticorrelation%20Analysis.ipynb).
+found [here](https://nbviewer.org/github/indralab/pybiopax/blob/0.1.0/notebooks/Pathway%20Anticorrelation%20Analysis.ipynb).
 
 # Availability and usage
 
