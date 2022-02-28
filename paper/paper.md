@@ -43,6 +43,19 @@ for BioPAX to facilitate integration with widely used systems biology tools
 (e.g., PySB [@lopez2013pysb], Tellurium [@medley2018tellurium], PyBEL
 [@hoyt2017pybel]), and pathway analysis workflows more generally.
 
+## State of the field
+
+Support for the BioPAX language is implemented in the Paxtools Java package
+[@demir2013using] and a wrapper extension around it called PaxtoolsR enabling
+its usage from an R environment [@luna2016paxtoolsr]. A graphical tool for the
+visualization of BioPAX called ChiBE [babur2010chibe] is also available as a
+Java package. There also exist dedicated analysis packages for pathway
+enrichment such as the BioPAX-Parser Java package [agapito2020biopax] and
+several tools solving the conversion of BioPAX representations into modeling
+formalisms such as the BioASF Java package [@haydarlou2016bioasf]. Overall,
+however, there is no Python library implementing the BioPAX object model, and
+enabling the manipulation and analysis of BioPAX models.
+
 # Summary
 
 We present PyBioPAX, a Python software package to process and manipulate BioPAX
