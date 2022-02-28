@@ -35,8 +35,8 @@ tools. BioPAX [@demir2010biopax] is a widely used pathway exchange format that
 is formally defined in the [BioPAX Language Specification](http://www.biopax.org/release/biopax-level3-documentation.pdf).
 BioPAX is serialized into the Web Ontology Language (OWL)
 format, typically as RDF/XML. Software support for parsing, serializing, and
-finding patterns in BioPAX models is implemented in the PaxTools Java package
-[@demir2013using]. However, interacting with PaxTools is difficult from Python,
+finding patterns in BioPAX models is implemented in the Paxtools Java package
+[@demir2013using]. However, interacting with Paxtools is difficult from Python,
 and requires running a Java Virtual Machine via cross-language frameworks such
 as pyjnius [@pyjnius]. Therefore, there is a need for native Python software support
 for BioPAX to facilitate integration with widely used systems biology tools
