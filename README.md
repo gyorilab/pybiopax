@@ -13,7 +13,7 @@ object model, and to dump OWL files from this object model.
 This allows for the processing and creation of BioPAX models natively in
 Python.
 
-Gyori BM, Hoyt CT (2022). PyBioPAX: biological pathway exchange in Python. Journal of Open Source Software, 7(71), 4136, (https://doi.org/10.21105/joss.04136)[https://doi.org/10.21105/joss.04136]
+Gyori BM, Hoyt CT (2022). PyBioPAX: biological pathway exchange in Python. Journal of Open Source Software, 7(71), 4136, [https://doi.org/10.21105/joss.04136](https://doi.org/10.21105/joss.04136)
 
 Installation
 ------------
