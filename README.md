@@ -1,7 +1,7 @@
 PyBioPAX: A python implementation of the BioPAX object model
 ------------------------------------------------------------
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
-[![DOI](https://zenodo.org/badge/261255657.svg)](https://zenodo.org/badge/latestdoi/261255657)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04136/status.svg)](https://doi.org/10.21105/joss.04136)
 [![Build](https://github.com/indralab/pybiopax/workflows/Tests/badge.svg)](https://github.com/indralab/pybiopax/actions)
 [![Documentation](https://readthedocs.org/projects/pybiopax/badge/?version=latest)](https://pybiopax.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/pybiopax.svg)](https://badge.fury.io/py/pybiopax)
@@ -12,6 +12,8 @@ Python classes. It exposes API functions to read OWL files into this
 object model, and to dump OWL files from this object model.
 This allows for the processing and creation of BioPAX models natively in
 Python.
+
+Gyori BM, Hoyt CT (2022). PyBioPAX: biological pathway exchange in Python. Journal of Open Source Software, 7(71), 4136, (https://doi.org/10.21105/joss.04136)[https://doi.org/10.21105/joss.04136]
 
 Installation
 ------------
