@@ -13,6 +13,7 @@ PyBioPAX documentation
    modules/biopax
    modules/pc_client
    modules/paths
+   modules/references
    modules/xml_util
 
 
