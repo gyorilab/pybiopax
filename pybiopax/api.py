@@ -73,6 +73,22 @@ def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) \
         return BioPaxModel.from_xml(etree.parse(fh).getroot())
 
 
+def model_from_owl_gz_str(owl_gz_str: bytes) -> BioPaxModel:
+    """Return a BioPAX Model from an OWL string.
+
+    Parameters
+    ----------
+    owl_gz_str :
+        A OWL string of BioPAX content.
+
+    Returns
+    -------
+    pybiopax.biopax.BioPaxModel
+        A BioPAX Model deserialized from the OWL string.
+    """
+    return model_from_owl_str(gzip.decompress(owl_gz_str).decode('utf-8'))
+
+
 def model_from_owl_url(url: str,
                        request_params: Optional[Mapping[str, Any]] = None) \
         -> BioPaxModel:
@@ -93,7 +109,10 @@ def model_from_owl_url(url: str,
     request_params = {} if not request_params else request_params
     res = requests.get(url, **request_params)
     res.raise_for_status()
-    return model_from_owl_str(res.text)
+    if url.endswith('gz'):
+        return model_from_owl_gz_str(res.content)
+    else:
+        return model_from_owl_str(res.text)
 
 
 def model_from_pc_query(kind, source, target=None, **query_params):
