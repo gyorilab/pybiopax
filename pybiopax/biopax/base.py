@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 
 class Unresolved:
+    """A placeholder class used while deserializing BioPAX models."""
     def __init__(self, obj_id):
         self.obj_id = obj_id
 
@@ -119,7 +120,14 @@ class XReferrable:
 
 
 class Named(XReferrable):
-    """A mixin class to add names to a BioPaxObject."""
+    """A mixin class to add names to a BioPaxObject.
+
+    Attributes
+    ----------
+    display_name : str
+    standard_name : str
+    name : str
+    """
     list_types = XReferrable.list_types + ['name']
 
     def __init__(self, display_name=None, standard_name=None, name=None,
@@ -131,6 +139,8 @@ class Named(XReferrable):
 
     @property
     def name(self):
+        """All names associated with the object including the standard and
+        display name, if available."""
         std_name = [self.standard_name] if self.standard_name else []
         disp_name = [self.display_name] if self.display_name else []
         return std_name + disp_name + self._name
@@ -140,7 +150,12 @@ class Named(XReferrable):
 
 
 class Observable:
-    """A mixin class to add evidence to a BioPaxObject."""
+    """A mixin class to add evidence to a BioPaxObject.
+
+    Attributes
+    ----------
+    evidence : List[Evidence]
+    """
     list_types = ['evidence']
 
     def __init__(self, evidence=None, **kwargs):
@@ -150,7 +165,13 @@ class Observable:
 
 
 class Entity(BioPaxObject, Observable, Named):
-    """BioPAX Entity."""
+    """BioPAX Entity.
+
+    Attributes
+    ----------
+    availability : str
+    data_source : List[Provenance]
+    """
     list_types = BioPaxObject.list_types + Observable.list_types + \
         Named.list_types + ['data_source']
 
@@ -169,7 +190,12 @@ class Entity(BioPaxObject, Observable, Named):
 
 
 class Gene(Entity):
-    """BioPAX Gene"""
+    """BioPAX Gene
+
+    Attributes
+    ----------
+    organism: BioSource
+    """
     def __init__(self, organism, **kwargs):
         super().__init__(**kwargs)
         self.organism = organism
