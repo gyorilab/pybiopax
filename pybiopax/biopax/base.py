@@ -1,4 +1,4 @@
-__all__ = ['BioPaxObject','Controller', 'Entity', 'Pathway', 'Gene',
+__all__ = ['BioPaxObject', 'Controller', 'Entity', 'Pathway', 'Gene',
            'Unresolved']
 
 from typing import List, Optional, TYPE_CHECKING
@@ -24,7 +24,7 @@ class BioPaxObject:
         # Pass on for cooperative inheritance
         super().__init__(**kwargs)
         self.uid = uid
-        self.comment = comment
+        self.comment = comment if comment else []
 
     @classmethod
     def from_xml(cls, element):
@@ -115,7 +115,7 @@ class XReferrable:
     def __init__(self, xref: Optional[List["Xref"]] = None, **kwargs):
         # Pass on for cooperative inheritance
         super().__init__(**kwargs)
-        self.xref = xref
+        self.xref = xref if xref else []
 
 
 class Named(XReferrable):
@@ -127,7 +127,7 @@ class Named(XReferrable):
         super().__init__(**kwargs)
         self.display_name = display_name
         self.standard_name = standard_name
-        self._name = name
+        self._name = name if name else []
 
     @property
     def name(self):
@@ -146,7 +146,7 @@ class Observable:
     def __init__(self, evidence=None, **kwargs):
         # Pass on for cooperative inheritance
         super().__init__(**kwargs)
-        self.evidence = evidence
+        self.evidence = evidence if evidence else []
 
 
 class Entity(BioPaxObject, Observable, Named):
@@ -160,7 +160,7 @@ class Entity(BioPaxObject, Observable, Named):
                  **kwargs):
         super().__init__(**kwargs)
         self.availability = availability
-        self.data_source = data_source
+        self.data_source = data_source if data_source else []
         self._participant_of = set()
 
     @property
@@ -196,7 +196,7 @@ class Pathway(Entity, Controller):
                  organism=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.pathway_component = pathway_component
+        self.pathway_component = pathway_component if pathway_component else []
         self.pathway_order = pathway_order
         self.organism = organism
 

@@ -360,9 +360,10 @@ class EntityReference(UtilityClass, Named, Observable):
                  owner_entity_reference=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.entity_feature = entity_feature
+        self.entity_feature = entity_feature if entity_feature else []
         self.entity_reference_type = entity_reference_type
-        self.member_entity_reference = member_entity_reference
+        self.member_entity_reference = member_entity_reference if \
+            member_entity_reference else []
         self.owner_entity_reference = owner_entity_reference
         self._entity_reference_of = set()
         self._member_entity_reference_of = set()
@@ -473,7 +474,7 @@ class ControlledVocabulary(UtilityClass, XReferrable):
 
     def __init__(self, term: List[str] = None, **kwargs):
         super().__init__(**kwargs)
-        self.term = term
+        self.term = term if term else []
 
     def __str__(self):
         if self.term:
