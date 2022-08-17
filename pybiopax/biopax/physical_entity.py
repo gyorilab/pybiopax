@@ -20,9 +20,10 @@ class PhysicalEntity(Entity, Controller):
                  cellular_location=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.feature = feature
-        self.not_feature = not_feature
-        self.member_physical_entity = member_physical_entity
+        self.feature = feature if feature else []
+        self.not_feature = not_feature if not_feature else []
+        self.member_physical_entity = member_physical_entity if \
+            member_physical_entity else []
         self.cellular_location = cellular_location
         self._component_of = set()
         self._member_physical_entity_of = set()
@@ -80,8 +81,9 @@ class Complex(PhysicalEntity):
                  component_stoichiometry: Optional[List] = None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.component = component
-        self.component_stoichiometry = component_stoichiometry
+        self.component = component if component else []
+        self.component_stoichiometry = component_stoichiometry if \
+            component_stoichiometry else []
 
 
 class Dna(SimplePhysicalEntity):

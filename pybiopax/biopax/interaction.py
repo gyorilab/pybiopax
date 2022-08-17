@@ -39,7 +39,7 @@ class Interaction(Process):
                  interaction_type=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.participant = participant
+        self.participant = participant if participant else []
         self.interaction_type = interaction_type
 
 
@@ -64,7 +64,7 @@ class TemplateReaction(Interaction):
                  **kwargs):
         super().__init__(**kwargs)
         self.template = template
-        self.product = product
+        self.product = product if product else []
         self.template_direction = template_direction
 
 
@@ -79,7 +79,7 @@ class Control(Interaction):
                  **kwargs):
         super().__init__(**kwargs)
         self.control_type = control_type
-        self.controller = controller
+        self.controller = controller if controller else []
         self.controlled = controlled
 
 
@@ -96,10 +96,11 @@ class Conversion(Interaction):
                  spontaneous=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.left = left
-        self.right = right
+        self.left = left if left else []
+        self.right = right if right else []
         self.conversion_direction = conversion_direction
-        self.participant_stoichiometry = participant_stoichiometry
+        self.participant_stoichiometry = participant_stoichiometry  if \
+            participant_stoichiometry else []
         self.spontaneous = spontaneous
 
 
