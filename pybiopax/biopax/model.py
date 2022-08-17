@@ -13,8 +13,10 @@ class BioPaxModel:
 
     Parameters
     ----------
-    objects : dict
-        A dict of BioPaxObject instances keyed by their URI string.
+    objects : dict or list
+        A dict of BioPaxObject instances keyed by their URI string or a list
+        of BioPaxObject instances, which will get converted into a dict keyed
+        their URI strings
     xml_base : str
         The XML base namespace for the content being represented.
 
@@ -28,7 +30,10 @@ class BioPaxModel:
     """
 
     def __init__(self, objects, xml_base):
-        self.objects = objects
+        if isinstance(objects, list):
+            self.objects = {o.uid: o for o in objects}
+        else:
+            self.objects = objects
         self.xml_base = xml_base
         self.add_reverse_links()
 
