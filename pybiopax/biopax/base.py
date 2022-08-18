@@ -110,7 +110,12 @@ class BioPaxObject:
 
 
 class XReferrable:
-    """A mixin class to add xrefs to a BioPaxObject."""
+    """A mixin class to add xrefs to a BioPaxObject.
+
+    Attributes
+    ----------
+    xref : List[Xref]
+    """
     list_types = ['xref']
 
     def __init__(self, xref: Optional[List["Xref"]] = None, **kwargs):
