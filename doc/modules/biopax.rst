@@ -4,10 +4,12 @@ BioPAX object model
 .. automodule:: pybiopax.biopax
     :members:
     :show-inheritance:
+    :inherited-members:
 
 .. automodule:: pybiopax.biopax.model
     :members:
     :show-inheritance:
+    :inherited-members:
 
 Base classes
 ~~~~~~~~~~~~
@@ -15,6 +17,7 @@ Base classes
 .. automodule:: pybiopax.biopax.base
     :members:
     :show-inheritance:
+    :inherited-members:
 
 Interactions
 ~~~~~~~~~~~~
@@ -22,6 +25,7 @@ Interactions
 .. automodule:: pybiopax.biopax.interaction
     :members:
     :show-inheritance:
+    :inherited-members:
 
 Physical entities
 ~~~~~~~~~~~~~~~~~
@@ -29,6 +33,7 @@ Physical entities
 .. automodule:: pybiopax.biopax.physical_entity
     :members:
     :show-inheritance:
+    :inherited-members:
 
 Utility classes
 ~~~~~~~~~~~~~~~
@@ -36,3 +41,4 @@ Utility classes
 .. automodule:: pybiopax.biopax.util
     :members:
     :show-inheritance:
+    :inherited-members:
