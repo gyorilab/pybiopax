@@ -24,7 +24,7 @@ def test_process_owl():
                         'phosphosite_owl_recid_11958410']
     assert len(pub.comment) == 1
     assert pub.comment[0].startswith('REPLACED')
-    assert pub.url.startswith('http://www.phosphosite')
+    assert pub.url[0].startswith('http://www.phosphosite')
     assert pub.year == '2010', pub.year
 
 
