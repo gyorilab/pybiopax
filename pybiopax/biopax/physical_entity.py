@@ -9,7 +9,15 @@ from .util import EntityFeature, EntityReference
 
 
 class PhysicalEntity(Entity, Controller):
-    """BioPAX PhysicalEntity."""
+    """BioPAX PhysicalEntity.
+
+    Attributes
+    ----------
+    feature : List[EntityFeature]
+    not_feature : List[EntityFeature]
+    member_physical_entity : List[PhysicalEntity]
+    cellular_location : CellularLocationVocabulary
+    """
     list_types = Entity.list_types + \
         ['feature', 'not_feature', 'member_physical_entity']
 
@@ -46,7 +54,12 @@ class PhysicalEntity(Entity, Controller):
 
 
 class SimplePhysicalEntity(PhysicalEntity):
-    """BioPAX SimplePhysicalEntity."""
+    """BioPAX SimplePhysicalEntity.
+
+    Attributes
+    ----------
+    entity_reference : EntityReference
+    """
     def __init__(
         self,
         entity_reference: Optional[EntityReference] = None,
@@ -72,7 +85,13 @@ class Rna(SimplePhysicalEntity):
 
 
 class Complex(PhysicalEntity):
-    """BioPAX Complex."""
+    """BioPAX Complex.
+
+    Attributes
+    ----------
+    component : List[PhysicalEntity]
+    component_stoichiometry : List[Stoichiometry]
+    """
     list_types = PhysicalEntity.list_types + \
         ['component', 'component_stoichiometry']
 

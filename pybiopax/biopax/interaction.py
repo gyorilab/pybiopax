@@ -31,8 +31,14 @@ class Process(Entity):
 
 
 class Interaction(Process):
-    """BioPAX Interaction."""
-    list_types = Process.list_types + ['participant']
+    """BioPAX Interaction.
+
+    Attributes
+    ----------
+    participant : List[Entity]
+    interaction_type : List[str]
+    """
+    list_types = Process.list_types + ['participant', 'interaction_type']
 
     def __init__(self,
                  participant=None,
@@ -40,7 +46,7 @@ class Interaction(Process):
                  **kwargs):
         super().__init__(**kwargs)
         self.participant = participant if participant else []
-        self.interaction_type = interaction_type
+        self.interaction_type = interaction_type if interaction_type else []
 
 
 class GeneticInteraction(Interaction):
@@ -54,7 +60,14 @@ class MolecularInteraction(Interaction):
 
 
 class TemplateReaction(Interaction):
-    """BioPAX TemplateReaction."""
+    """BioPAX TemplateReaction.
+
+    Attributes
+    ----------
+    template : NucleicAcid
+    product : List[PhysicalEntity]
+    template_direction : str
+    """
     list_types = Interaction.list_types + ['product']
 
     def __init__(self,
@@ -69,7 +82,14 @@ class TemplateReaction(Interaction):
 
 
 class Control(Interaction):
-    """BioPAX Control."""
+    """BioPAX Control.
+
+    Attributes
+    ----------
+    control_type : str
+    controller : List[Process]
+    controlled : Process
+    """
     list_types = Interaction.list_types + ['controller']
 
     def __init__(self,
@@ -84,7 +104,16 @@ class Control(Interaction):
 
 
 class Conversion(Interaction):
-    """BioPAX Conversion."""
+    """BioPAX Conversion.
+
+    Attributes
+    ----------
+    left : List[PhysicalEntity]
+    right : List[PhysicalEntity]
+    conversion_direction : str
+    participant_stoichiometry : List[Stoichiometry]
+    spontaneous : bool
+    """
     list_types = Interaction.list_types + \
         ['left', 'right', 'participant_stoichiometry']
 
@@ -105,14 +134,22 @@ class Conversion(Interaction):
 
 
 class Catalysis(Control):
-    """BioPAX Catalysis."""
+    """BioPAX Catalysis.
+
+    Attributes
+    ----------
+    catalysis_direction : str
+    cofactor : List[PhysicalEntity]
+    """
+    list_types = Control.list_types + ['cofactor']
+
     def __init__(self,
                  catalysis_direction=None,
                  cofactor=None,
                  **kwargs):
         super().__init__(**kwargs)
         self.catalysis_direction = catalysis_direction
-        self.cofactor = cofactor
+        self.cofactor = cofactor if cofactor else []
 
 
 class TemplateReactionRegulation(Control):
@@ -131,7 +168,19 @@ class ComplexAssembly(Conversion):
 
 
 class BiochemicalReaction(Conversion):
-    """BioPAX BiochemicalReaction."""
+    """BioPAX BiochemicalReaction.
+
+    Attributes
+    ----------
+    delta_s : List[float]
+    delta_h : List[float]
+    delta_g : List[DeltaG]
+    k_e_q : List[KPrime]
+    e_c_number : List[str]
+    """
+    list_types = Conversion.list_types + ['delta_s', 'delta_h', 'delta_g',
+                                          'k_e_q', 'e_c_number']
+
     def __init__(self,
                  delta_s=None,
                  delta_h=None,
@@ -140,11 +189,11 @@ class BiochemicalReaction(Conversion):
                  e_c_number=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.delta_s = delta_s
-        self.delta_h = delta_h
-        self.delta_g = delta_g
-        self.k_e_q = k_e_q
-        self.e_c_number = e_c_number
+        self.delta_s = delta_s if delta_s else []
+        self.delta_h = delta_h if delta_h else []
+        self.delta_g = delta_g if delta_g else []
+        self.k_e_q = k_e_q if k_e_q else []
+        self.e_c_number = e_c_number if e_c_number else []
 
 
 class Degradation(Conversion):
