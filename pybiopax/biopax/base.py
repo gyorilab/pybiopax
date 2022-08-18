@@ -1,5 +1,5 @@
 __all__ = ['BioPaxObject', 'Controller', 'Entity', 'Pathway', 'Gene',
-           'Unresolved']
+           'Unresolved', 'Observable', 'Named', 'XReferrable']
 
 from typing import List, Optional, TYPE_CHECKING
 
