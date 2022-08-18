@@ -212,7 +212,7 @@ class KPrime(ChemicalConstant):
 
 class ChemicalStructure(UtilityClass):
     """BioPAX ChemicalStructure.
-    
+
     Attributes
     ----------
     structure_format : str
@@ -334,7 +334,13 @@ class SequenceSite(SequenceLocation):
 
 
 class PathwayStep(UtilityClass, Observable):
-    """BioPAX PathwayStep."""
+    """BioPAX PathwayStep.
+
+    Attributes
+    ----------
+    step_process : List[Process]
+    next_step : List[Process]
+    """
     list_types = UtilityClass.list_types + Observable.list_types
 
     def __init__(self,
@@ -357,7 +363,13 @@ class PathwayStep(UtilityClass, Observable):
 
 
 class BiochemicalPathwayStep(PathwayStep):
-    """BioPAX BiochemicalPathwayStep."""
+    """BioPAX BiochemicalPathwayStep.
+
+    Attributes
+    ----------
+    step_conversion : Conversion
+    step_direction : str
+    """
     def __init__(self,
                  step_conversion=None,
                  step_direction=None,
@@ -368,7 +380,15 @@ class BiochemicalPathwayStep(PathwayStep):
 
 
 class Xref(UtilityClass):
-    """BioPAX Xref."""
+    """BioPAX Xref.
+
+    Attributes
+    ----------
+    db : str
+    id : str
+    db_version : str
+    id_version : str
+    """
     def __init__(self,
                  db=None,
                  id=None,
@@ -388,7 +408,17 @@ class Xref(UtilityClass):
 
 
 class PublicationXref(Xref):
-    """BioPAX PublicationXref."""
+    """BioPAX PublicationXref.
+
+    Attributes
+    ----------
+    title : str
+    url : List[str]
+    source : List[str]
+    author : List[str]
+    year : int
+    """
+    list_types = Xref.list_types + ['url', 'source', 'author']
     xml_types = {'year': 'int'}
 
     def __init__(self,
@@ -400,9 +430,9 @@ class PublicationXref(Xref):
                  **kwargs):
         super().__init__(**kwargs)
         self.title = title
-        self.url = url
-        self.source = source
-        self.author = author
+        self.url = url if url else []
+        self.source = source if source else []
+        self.author = author if author else []
         self.year = year
 
 
@@ -412,7 +442,12 @@ class UnificationXref(Xref):
 
 
 class RelationshipXref(Xref):
-    """BioPAX RelationshipXref."""
+    """BioPAX RelationshipXref.
+
+    Attributes
+    ----------
+    relationship_type : RelationshipTypeVocabulary
+    """
     def __init__(self,
                  relationship_type=None,
                  **kwargs):
@@ -421,9 +456,15 @@ class RelationshipXref(Xref):
 
 
 class Score(UtilityClass, XReferrable):
+    """BioPAX Score.
+
+    Attributes
+    ----------
+    score_source : Provenance
+    value : str
+    """
     list_types = XReferrable.list_types
 
-    """BioPAX Score."""
     def __init__(self,
                  score_source=None,
                  value=None,
@@ -434,9 +475,18 @@ class Score(UtilityClass, XReferrable):
 
 
 class EntityReference(UtilityClass, Named, Observable):
-    """BioPAX EntityReference."""
+    """BioPAX EntityReference.
+
+    Attributes
+    ----------
+    entity_feature : List[EntityFeature]
+    entity_reference_type : List[EntityReferenceTypeVocabulary]
+    member_entity_reference : List[EntityReference]
+    owner_entity_reference : List[EntityReference]
+    """
     list_types = UtilityClass.list_types + Named.list_types + \
-        Observable.list_types + ['entity_feature', 'member_entity_reference']
+        Observable.list_types + ['entity_feature', 'member_entity_reference',
+                                 'owner_entity_reference']
 
     def __init__(self,
                  entity_feature=None,
@@ -449,7 +499,8 @@ class EntityReference(UtilityClass, Named, Observable):
         self.entity_reference_type = entity_reference_type
         self.member_entity_reference = member_entity_reference if \
             member_entity_reference else []
-        self.owner_entity_reference = owner_entity_reference
+        self.owner_entity_reference = owner_entity_reference if \
+            owner_entity_reference else []
         self._entity_reference_of = set()
         self._member_entity_reference_of = set()
 
@@ -463,7 +514,13 @@ class EntityReference(UtilityClass, Named, Observable):
 
 
 class SequenceEntityReference(EntityReference):
-    """BioPAX SequenceEntityReference."""
+    """BioPAX SequenceEntityReference.
+
+    Attributes
+    ----------
+    organism : BioSource
+    sequence : str
+    """
     def __init__(self,
                  organism=None,
                  sequence=None,
@@ -505,7 +562,14 @@ class ProteinReference(SequenceEntityReference):
 
 
 class SmallMoleculeReference(EntityReference):
-    """BioPAX SmallMoleculeReference."""
+    """BioPAX SmallMoleculeReference.
+
+    Attributes
+    ----------
+    structure : ChemicalStructure
+    chemical_formula : str
+    molecular_weight : float
+    """
     xml_types = {'molecular_weight': 'float'}
 
     def __init__(self,
@@ -529,19 +593,14 @@ class DnaRegionReference(NucleicAcidRegionReference):
     pass
 
 
-class ChemicalStructure(UtilityClass):
-    """BioPAX ChemicalStructure."""
-    def __init__(self,
-                 structure_format=None,
-                 structure_data=None,
-                 **kwargs):
-        super().__init__(**kwargs)
-        self.structure_format = structure_format
-        self.structure_data = structure_data
-
-
 class Stoichiometry(UtilityClass):
-    """BioPAX Stoichiometry."""
+    """BioPAX Stoichiometry.
+
+    Attributes
+    ----------
+    stoichiometric_coefficient : float
+    physical_entity : PhysicalEntity
+    """
     xml_types = {'stoichiometric_coefficient': 'float'}
 
     def __init__(self,
@@ -554,7 +613,12 @@ class Stoichiometry(UtilityClass):
 
 
 class ControlledVocabulary(UtilityClass, XReferrable):
-    """BioPAX ControlledVocabulary."""
+    """BioPAX ControlledVocabulary.
+
+    Attributes
+    ----------
+    term : List[str]
+    """
     list_types = UtilityClass.list_types + XReferrable.list_types + ['term']
 
     def __init__(self, term: List[str] = None, **kwargs):
