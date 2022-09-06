@@ -7,6 +7,8 @@ from tqdm.auto import tqdm
 from . import *
 from ..xml_util import get_id_or_about, get_tag, has_ns, wrap_xml_elements
 
+default_xml_base = 'http://www.biopax.org/release/biopax-level3.owl#'
+
 
 class BioPaxModel:
     """BioPAX Model.
@@ -25,11 +27,12 @@ class BioPaxModel:
     objects : dict
         A dict of BioPaxObject instances keyed by their URI string
         that are part of the model.
-    xml_base : str
-        The XML base namespace for the content being represented.
+    xml_base : Optional[str]
+        The XML base namespace for the content being represented. If not
+        provided, the default BioPAX Level 3 base namespace is used.
     """
 
-    def __init__(self, objects, xml_base):
+    def __init__(self, objects, xml_base=default_xml_base):
         if isinstance(objects, list):
             self.objects = {o.uid: o for o in objects}
         else:
