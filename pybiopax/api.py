@@ -2,7 +2,7 @@ __all__ = ['model_from_owl_str', 'model_from_owl_file', 'model_to_owl_str',
            'model_to_owl_file', 'model_from_owl_url', 'model_from_pc_query',
            'model_from_reactome', 'model_from_ecocyc', 'model_from_metacyc',
            'model_from_biocyc', 'model_from_humancyc', 'model_from_netpath',
-           'model_from_owl_gz',
+           'model_from_owl_gz', 'PYBIOPAX_TQDM_CONFIG'
            ]
 
 import gzip
@@ -12,7 +12,7 @@ import pathlib
 import requests
 from lxml import etree
 from typing import Any, Mapping, Optional, Union
-from .biopax.model import BioPaxModel
+from .biopax.model import BioPaxModel, PYBIOPAX_TQDM_CONFIG
 from .xml_util import xml_to_str, xml_to_file
 from .pc_client import graph_query
 
