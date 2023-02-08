@@ -10,6 +10,9 @@ from ..xml_util import get_id_or_about, get_tag, has_ns, wrap_xml_elements
 default_xml_base = 'http://www.biopax.org/release/biopax-level3.owl#'
 
 PYBIOPAX_TQDM_CONFIG = {"unit_scale": True}
+"""Default configuration for tqdm progress bars in pybiopax. To modify
+the tqdm configuration, modify this module-level variable. For example,
+to disable the progress bars, set the ``disable`` key to ``True``."""
 
 
 class BioPaxModel:
