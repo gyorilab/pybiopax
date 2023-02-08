@@ -1,4 +1,4 @@
-__all__ = ['BioPaxModel']
+__all__ = ['BioPaxModel', 'PYBIOPAX_TQDM_CONFIG']
 
 from typing import Any, Mapping, Optional
 
@@ -8,6 +8,11 @@ from . import *
 from ..xml_util import get_id_or_about, get_tag, has_ns, wrap_xml_elements
 
 default_xml_base = 'http://www.biopax.org/release/biopax-level3.owl#'
+
+PYBIOPAX_TQDM_CONFIG = {"unit_scale": True}
+"""Default configuration for tqdm progress bars in pybiopax. To modify
+the tqdm configuration, modify this module-level variable. For example,
+to disable the progress bars, set the ``disable`` key to ``True``."""
 
 
 class BioPaxModel:
@@ -55,8 +60,8 @@ class BioPaxModel:
             A BioPAX Model deserialized from the OWL XML tree.
         """
         objects = {}
-
-        tqdm_kwargs = {'desc': 'Processing OWL elements', "unit_scale": True}
+        tqdm_kwargs = {'desc': 'Processing OWL elements'}
+        tqdm_kwargs.update(PYBIOPAX_TQDM_CONFIG)
         for element in tqdm(tree, **tqdm_kwargs):
             if not has_ns(element, 'bp'):
                 continue
@@ -85,6 +90,7 @@ class BioPaxModel:
     def to_xml(self) -> str:
         """Return an OWL string from the content of the model."""
         tqdm_kwargs = {'desc': 'Serializing OWL elements'}
+        tqdm_kwargs.update(PYBIOPAX_TQDM_CONFIG)
         elements = [obj.to_xml() for obj in tqdm(self.objects.values(),
                                                  **tqdm_kwargs)]
         return wrap_xml_elements(elements, self.xml_base)
