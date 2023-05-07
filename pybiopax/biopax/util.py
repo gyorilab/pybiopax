@@ -529,19 +529,43 @@ class SequenceEntityReference(EntityReference):
 
 
 class NucleicAcidReference(SequenceEntityReference):
-    """BioPAX NucleicAcidReference"""
-    pass
+    """BioPAX NucleicAcidReference
+
+    Attributes
+    ----------
+    sub_region : List[NucleicAcidRegionReference]
+    """
+    list_types = SequenceEntityReference.list_types + ['sub_region']
+
+    def __init__(self,
+                 sub_region=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self.sub_region = sub_region if sub_region else []
 
 
 class NucleicAcidRegionReference(NucleicAcidReference):
-    """BioPAX NucleicAcidRegionReference"""
-    def __init__(self, **kwargs):
+    """BioPAX NucleicAcidRegionReference
+
+    Attributes
+    ----------
+    absolute_region : SequenceLocation
+    region_type : List[SequenceRegionVocabulary]
+    """
+    list_types = NucleicAcidReference.list_types + ['region_type']
+
+    def __init__(self,
+                 absolute_region=None,
+                 region_type=None,
+                 **kwargs):
         super().__init__(**kwargs)
-        self._subregion_of = set()
+        self.absolute_region = absolute_region
+        self.region_type = region_type if region_type else []
+        self._sub_region_of = set()
 
     @property
-    def subregion_of(self):
-        return self._subregion_of
+    def sub_region_of(self):
+        return self._sub_region_of
 
 
 class RnaReference(NucleicAcidReference):
