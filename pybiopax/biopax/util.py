@@ -534,9 +534,22 @@ class NucleicAcidReference(SequenceEntityReference):
 
 
 class NucleicAcidRegionReference(NucleicAcidReference):
-    """BioPAX NucleicAcidRegionReference"""
-    def __init__(self, **kwargs):
+    """BioPAX NucleicAcidRegionReference
+
+    Attributes
+    ----------
+    absolute_region : SequenceLocation
+    region_type : List[SequenceRegionVocabulary]
+    """
+    list_types = NucleicAcidReference.list_types + ['region_type']
+
+    def __init__(self,
+                 absolute_region=None,
+                 region_type=None,
+                 **kwargs):
         super().__init__(**kwargs)
+        self.absolute_region = absolute_region
+        self.region_type = region_type if region_type else []
         self._subregion_of = set()
 
     @property
