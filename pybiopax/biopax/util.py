@@ -339,15 +339,15 @@ class PathwayStep(UtilityClass, Observable):
     step_process : List[Process]
     next_step : List[Process]
     """
-    list_types = UtilityClass.list_types + Observable.list_types
+    list_types = UtilityClass.list_types + Observable.list_types + ['step_process', 'next_step']
 
     def __init__(self,
                  step_process=None,
                  next_step=None,
                  **kwargs):
         super().__init__(**kwargs)
-        self.step_process = step_process
-        self.next_step = next_step
+        self.step_process = step_process  if step_process else []
+        self.next_step = next_step  if next_step else []
         self._next_step_of = set()
         self._pathway_order_of = set()
 

@@ -219,7 +219,7 @@ class Controller:
 
 class Pathway(Entity, Controller):
     """BioPAX Pathway."""
-    list_types = Entity.list_types + ['pathway_component']
+    list_types = Entity.list_types + ['pathway_component', 'pathway_order']
 
     def __init__(self,
                  pathway_component=None,
@@ -228,7 +228,7 @@ class Pathway(Entity, Controller):
                  **kwargs):
         super().__init__(**kwargs)
         self.pathway_component = pathway_component if pathway_component else []
-        self.pathway_order = pathway_order
+        self.pathway_order = pathway_order if pathway_order else []
         self.organism = organism
 
 
