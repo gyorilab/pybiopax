@@ -55,21 +55,27 @@ def model_from_owl_file(fname: Union[str, pathlib.Path, os.PathLike],
         return model_from_owl_str(owl_str)
 
 
-def model_from_owl_gz(path: Union[str, pathlib.Path, os.PathLike]) \
-        -> BioPaxModel:
+def model_from_owl_gz(
+    path: Union[str, pathlib.Path, os.PathLike],
+    encoding: Optional[str] = None,
+) -> BioPaxModel:
     """Return a BioPAX Model from an OWL file (gzipped).
 
     Parameters
     ----------
     path :
         A path to a gzipped OWL file of BioPAX content.
+    encoding :
+        The encoding to read the file with. Defaults to the
+        system default. Sometimes, windows users will need to
+        explicitly set this to utf-8.
 
     Returns
     -------
     :
         A BioPAX Model deserialized from the OWL file.
     """
-    with gzip.open(path, 'rt') as fh:
+    with gzip.open(path, 'rt', encoding=encoding) as fh:
         return BioPaxModel.from_xml(etree.parse(fh).getroot())
 
 
