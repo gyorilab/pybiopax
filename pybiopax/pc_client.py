@@ -6,7 +6,7 @@ import logging
 import requests
 
 logger = logging.getLogger(__name__)
-pc2_url = 'http://www.pathwaycommons.org/pc2/'
+pc2_url = 'https://www.pathwaycommons.org/pc2/'
 
 
 def graph_query(kind, source, target=None, **query_params):
