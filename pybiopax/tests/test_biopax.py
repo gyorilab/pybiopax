@@ -1,5 +1,6 @@
 import os
 import re
+import pytest
 import pybiopax
 from pybiopax.biopax import *
 
@@ -53,6 +54,7 @@ def test_process_molecular_interactions():
     assert len(model.objects) == 62
 
 
+@pytest.mark.skip(reason="NetPath is no longer accessible")
 def test_get_netpath():
     m = pybiopax.model_from_netpath("22")
     assert isinstance(m, BioPaxModel)
